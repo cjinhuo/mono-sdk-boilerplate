@@ -5,6 +5,11 @@
 * typescript-eslint
 * prettier
 
+### git&changelog
+git cz:https://github.com/commitizen/cz-cli#making-your-repo-commitizen-friendly
+
+conventional-changelog:https://github.com/conventional-changelog/conventional-changelog
+conventional-changelog -p angular -i CHANGELOG.md -s
 
 ### rollup
 rollup-plugin-cleanup
@@ -16,9 +21,9 @@ rollup-plugin-visualizer
 @rollup/plugin-alias 
 @rollup/plugin-commonjs 
 @rollup/plugin-html
- @rollup/plugin-json 
- @rollup/plugin-node-resolve 
- @rollup/plugin-strip
+@rollup/plugin-json 
+@rollup/plugin-node-resolve 
+@rollup/plugin-strip
 
 ### command
 * clipanion:https://github.com/arcanis/clipanion

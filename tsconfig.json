@@ -49,7 +49,6 @@
   },
   "include": [
     "packages",
-    "mito",
-    "test",
+    "script"
   ],
 }
