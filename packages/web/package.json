@@ -1,0 +1,16 @@
+{
+  "name": "@boilerplate/web",
+  "version": "0.0.1",
+  "description": "@boilerplate/web",
+  "author": "cjinhuo",
+  "license": "MIT",
+  "main": "dist/web.js",
+  "module": "dist/web.esm.js",
+  "types": "dist/web.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@boilerplate/core": "0.0.1"
+  }
+}

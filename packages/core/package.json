@@ -1,0 +1,16 @@
+{
+  "name": "@boilerplate/core",
+  "version": "0.0.1",
+  "description": "@boilerplate/core",
+  "author": "cjinhuo",
+  "license": "MIT",
+  "main": "dist/core.js",
+  "module": "dist/core.esm.js",
+  "types": "dist/core.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@boilerplate/core": "0.0.1"
+  }
+}
