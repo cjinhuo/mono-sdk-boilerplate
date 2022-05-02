@@ -48,7 +48,9 @@
     ]
   },
   "include": [
+    // is required to include .eslintrc.js
+    ".eslintrc.js",
     "packages",
-    "script"
+    "scripts"
   ],
 }

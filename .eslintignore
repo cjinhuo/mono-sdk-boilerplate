@@ -1,0 +1,10 @@
+/node_modules
+/dist
+/doc
+**/dist
+**/build
+**/esm
+**/node_modules
+tsconfig.json
+/script
+# rollup.config.js
