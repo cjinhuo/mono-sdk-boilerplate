@@ -32,7 +32,7 @@
       "node",
       "jest",
     ],
-    "target": "ES5",
+    "target": "es2015",
     "module": "CommonJS",
     // "outDir": "./dist/", 
     // "declaration": true, 
