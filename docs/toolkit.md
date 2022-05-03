@@ -4,6 +4,8 @@
 ### code style
 * typescript-eslint
 * prettier
+* eslint-plugin-import
+* eslint-plugin-sonarjs
 
 ### git&changelog
 git cz:https://github.com/commitizen/cz-cli#making-your-repo-commitizen-friendly
@@ -29,6 +31,7 @@ rollup-plugin-visualizer
 * clipanion:https://github.com/arcanis/clipanion
 * inquirer:https://github.com/SBoudrias/Inquirer.js
 * debug:https://github.com/debug-js/debug
+* ts-node:https://typestrong.org/ts-node/
 
 ### test
 #### unit test
