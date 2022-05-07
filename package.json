@@ -5,7 +5,8 @@
   "scripts": {
     "commit": "git add . && git cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package pssssackages"
+    "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package pssssackages",
+    "postinstall": "husky install"
   },
   "author": "cjinhuo",
   "devDependencies": {
