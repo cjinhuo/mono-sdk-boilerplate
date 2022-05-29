@@ -5,8 +5,10 @@
   "scripts": {
     "commit": "git add . && git cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package pssssackages",
-    "postinstall": "husky install"
+    "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package packages",
+    "postinstall": "husky install",
+    "tsnode": "ts-node ./packages/core/src/index.ts",
+    "tsnode:sub": "ts-node ./packages/core/subscription.ts"
   },
   "author": "cjinhuo",
   "devDependencies": {
@@ -47,5 +49,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "rxjs": "^7.5.5"
   }
 }

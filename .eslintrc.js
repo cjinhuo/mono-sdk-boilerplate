@@ -14,7 +14,8 @@ const config = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
-    'plugin:sonarjs/recommended'
+    'plugin:sonarjs/recommended',
+    'plugin:prettier/recommended'
   ],
   env: {
     browser: true,
