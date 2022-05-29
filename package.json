@@ -8,7 +8,8 @@
     "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package packages",
     "postinstall": "husky install",
     "tsnode": "ts-node ./packages/core/src/index.ts",
-    "tsnode:sub": "ts-node ./packages/core/subscription.ts"
+    "tsnode:sub": "ts-node ./packages/core/src/subscription.ts",
+    "tsnode:ob": "ts-node ./packages/core/src/observable.ts"
   },
   "author": "cjinhuo",
   "devDependencies": {

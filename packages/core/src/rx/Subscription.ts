@@ -5,8 +5,21 @@ const execFinalizer = (finalizer: UnSubscribable | (() => void)) => {
   if (isFunction(finalizer)) {
     finalizer()
   } else {
-    finalizer.unsubscribe()
+    finalizer && finalizer.unsubscribe()
   }
+}
+
+export const isSubscription = (value: any): value is Subscription => {
+  return (
+    value instanceof Subscription
+    // is that necessary?
+    // ||
+    // (value &&
+    //   'closed' in value &&
+    //   isFunction(value.remove) &&
+    //   isFunction(value.add) &&
+    //   isFunction(value.unsubscribe))
+  )
 }
 
 export class Subscription implements SubscriptionLike {
@@ -24,7 +37,7 @@ export class Subscription implements SubscriptionLike {
   private _parentageSet: Set<Subscription> | null = null
 
   // may be waste a tiny of memory，but set initial value can effectively reduce the following code judgment statements
-  private _finalizerSet: Set<TeardownLogic> | null = null
+  private _finalizerSet: Set<Exclude<TeardownLogic, void>> | null = null
 
   constructor(private initialTeardown?: () => void) {}
 
@@ -54,7 +67,7 @@ export class Subscription implements SubscriptionLike {
     }
   }
 
-  remove(teardown: TeardownLogic): void {
+  remove(teardown: Exclude<TeardownLogic, void>): void {
     this._finalizerSet?.delete(teardown)
 
     if (teardown instanceof Subscription) {
