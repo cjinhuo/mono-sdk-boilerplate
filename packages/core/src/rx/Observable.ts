@@ -6,16 +6,19 @@ import { Observer, Subscribable, TeardownLogic } from './types'
 
 // Observable 可观察
 export class Observable<T> implements Subscribable<T> {
-  constructor(
-    private _subscribe?: (this: Observable<T>, subscriber: Subscriber<T>) => TeardownLogic
-  ) {}
+  constructor(_subscribe?: (this: Observable<T>, subscriber: Subscriber<T>) => TeardownLogic) {}
 
   subscribe(observerOrNext?: Partial<Observer<T>> | ((value: T) => void) | null): Subscription {
     const subscriber = isSubscriber(observerOrNext)
       ? observerOrNext
       : new Subscriber(observerOrNext)
 
-    this._subscribe?.(subscriber)
+    this._subscribe(subscriber)
     return subscriber
   }
+  /**
+   * @internal
+   * will be rewrite by subject
+   *  */
+  protected _subscribe(subscriber: Subscriber<any>): TeardownLogic {}
 }
