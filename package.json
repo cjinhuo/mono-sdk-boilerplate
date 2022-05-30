@@ -9,7 +9,8 @@
     "postinstall": "husky install",
     "tsnode": "ts-node ./packages/core/src/index.ts",
     "tsnode:sub": "ts-node ./packages/core/src/subscription.ts",
-    "tsnode:ob": "ts-node ./packages/core/src/observable.ts"
+    "tsnode:ob": "ts-node ./packages/core/src/observable.ts",
+    "tsnode:subject": "ts-node ./packages/core/src/subject.ts"
   },
   "author": "cjinhuo",
   "devDependencies": {
