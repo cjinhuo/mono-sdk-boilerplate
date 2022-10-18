@@ -4,13 +4,18 @@
   "description": "@boilerplate/core",
   "author": "cjinhuo",
   "license": "MIT",
-  "main": "dist/core.js",
-  "module": "dist/core.esm.js",
-  "types": "dist/core.d.ts",
+  "main": "src/index.ts",
+  "publishConfig": {
+    "main": "dist/index.js"
+  },
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@boilerplate/core": "0.0.1"
+  "scripts": {
+    "print": "echo core",
+    "dev": "ts-node ./src/run.ts"
+  },
+  "devDependencies": {
+    "rxjs": "^7.5.7"
   }
 }

@@ -1,4 +1,9 @@
-import { map, Observable, Subject, Subscriber, zip } from 'rxjs'
+import { map, Observable, Subject, Subscriber, zip, interval } from 'rxjs'
+
+export * from './rx'
+export const add = () => {}
+
+export { interval }
 
 // export function add(a: number, b: number): number {
 //   return a + b
@@ -34,19 +39,18 @@ import { map, Observable, Subject, Subscriber, zip } from 'rxjs'
 //   sub1.unsubscribe()
 // }, 3000)
 
-const subject = new Subject()
-debugger
-const subject_1 = subject.subscribe((e) => console.log('subject_1', e))
-const subject_2 = subject.subscribe((e) => console.log('subject_2', e))
+// const subject = new Subject()
+// const subject_1 = subject.subscribe((e) => console.log('subject_1', e))
+// const subject_2 = subject.subscribe((e) => console.log('subject_2', e))
 
-subject.next(1)
-setInterval(() => {
-  subject.next(1)
-}, 2000)
-setTimeout(() => {
-  debugger
-  subject.unsubscribe()
-}, 3000)
+// subject.next(1)
+// setInterval(() => {
+//   subject.next(1)
+// }, 2000)
+// setTimeout(() => {
+//   debugger
+//   subject.unsubscribe()
+// }, 3000)
 
 // zip(observable_1, observable_2)
 //   .pipe(map(([one, two]) => ({ one, two })))

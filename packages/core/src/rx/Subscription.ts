@@ -1,74 +1,57 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { SubscriptionLike, TeardownLogic, UnSubscribable } from './types'
-import { isFunction } from './utils'
+import { arrRemove, isFunction } from './utils'
 
 const execFinalizer = (finalizer: UnSubscribable | (() => void)) => {
   if (isFunction(finalizer)) {
     finalizer()
   } else {
-    finalizer && finalizer.unsubscribe()
+    finalizer?.unsubscribe()
   }
 }
 
 export const isSubscription = (value: any): value is Subscription => {
   return (
-    value instanceof Subscription
-    // is that necessary?
-    // ||
-    // (value &&
-    //   'closed' in value &&
-    //   isFunction(value.remove) &&
-    //   isFunction(value.add) &&
-    //   isFunction(value.unsubscribe))
+    value instanceof Subscription ||
+    (value && 'closed' in value && isFunction(value.remove) && isFunction(value.add) && isFunction(value.unsubscribe))
   )
 }
 
 export class Subscription implements SubscriptionLike {
-  // @remove
-  // public static EMPTY = (() => {
-  //   const empty = new Subscription()
-  //   empty.closed = true
-  //   return empty
-  // })()
   /**
    * A flag to indicate whether this Subscription has already been unsubscribed.
    */
-  public closed = false
+  closed = false
 
-  private _parentageSet: Set<Subscription> | null = null
+  private _parentage: Subscription[] | null = null
 
   // may be waste a tiny of memory，but set initial value can effectively reduce the following code judgment statements
-  private _finalizerSet: Set<Exclude<TeardownLogic, void>> | null = null
+  private _finalizers: Exclude<TeardownLogic, void>[] | null = null
 
-  constructor(private initialTeardown?: () => void) {}
+  constructor(private readonly initialTeardown?: () => void) {}
 
   unsubscribe(): void {
-    // @tiny
-    // let errors: any[] | undefined
     if (!this.closed) {
       this.closed = true
-      const { _parentageSet, _finalizerSet, initialTeardown } = this
-      if (_parentageSet) {
-        this._parentageSet = null
-        for (const parent of _parentageSet) {
-          parent.remove(this)
-        }
+      const { _parentage, _finalizers, initialTeardown } = this
+      if (_parentage) {
+        this._parentage = null
+        _parentage.forEach((parent) => parent.remove(this))
       }
 
       if (isFunction(initialTeardown)) {
         initialTeardown()
       }
 
-      if (_finalizerSet) {
-        this._finalizerSet = null
-        for (const finalizer of _finalizerSet) {
-          execFinalizer(finalizer)
-        }
+      if (_finalizers) {
+        this._finalizers = null
+        _finalizers.forEach(execFinalizer)
       }
     }
   }
 
   remove(teardown: Exclude<TeardownLogic, void>): void {
-    this._finalizerSet?.delete(teardown)
+    this._finalizers && arrRemove(this._finalizers, teardown)
 
     if (teardown instanceof Subscription) {
       teardown._removeParent(this)
@@ -87,16 +70,18 @@ export class Subscription implements SubscriptionLike {
       if (teardown.closed || teardown._hasParent(this)) return
       teardown._addParent(this)
     }
-    ;(this._finalizerSet = this._finalizerSet ?? new Set()).add(teardown)
+    const { _finalizers } = this
+    this._finalizers = _finalizers ? (_finalizers.push(teardown), _finalizers) : [teardown]
   }
 
   _addParent(parent: Subscription) {
-    ;(this._parentageSet = this._parentageSet ?? new Set()).add(parent)
+    const { _parentage } = this
+    this._parentage = _parentage ? (_parentage.push(parent), _parentage) : [parent]
   }
   _hasParent(parent: Subscription) {
-    return this._parentageSet && this._parentageSet.has(parent)
+    return this._parentage && ~this._parentage.indexOf(parent)
   }
   _removeParent(parent: Subscription) {
-    this._parentageSet && this._parentageSet.has(parent)
+    this._parentage && arrRemove(this._parentage, parent)
   }
 }

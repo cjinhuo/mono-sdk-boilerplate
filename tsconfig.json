@@ -21,9 +21,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports.
     "paths": { // like alias. associated with baseUrl
-      "@boilerplate/*": [
-        "packages/*/src"
-      ],
+      // "@boilerplate/*": [
+      //   "packages/*/src"
+      // ],
       "@/test/*": [
         "test/*"
       ]

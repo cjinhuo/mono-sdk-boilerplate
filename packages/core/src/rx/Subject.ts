@@ -2,21 +2,29 @@ import { Observable } from './Observable'
 import { Subscriber } from './Subscriber'
 import { Subscription } from './Subscription'
 import { Observer, SubscriptionLike } from './types'
+import { arrRemove } from './utils'
+
+export const isSubject = (value: any): value is Subject<any> => {
+  return value instanceof Subject
+}
 
 export class Subject<T> extends Observable<T> implements SubscriptionLike {
-  public static EMPTY = (() => {
+  static EMPTY = (() => {
     const empty = new Subscription()
     empty.closed = true
     return empty
   })()
   closed = false
 
-  // private currentObservers: Observer<T>[] | null = null
-
-  /** @deprecated Internal implementation detail, do not use directly. Will be made internal in v8. */
-  observers: Set<Observer<T>> = new Set()
-  /** @deprecated Internal implementation detail, do not use directly. Will be made internal in v8. */
+  /** @deprecated  */
+  observers: Observer<T>[] = []
+  /** @deprecated  */
   isStopped = false
+
+  /** @deprecated  */
+  hasError = false
+  /** @deprecated  */
+  thrownError: any = null
 
   constructor() {
     super()
@@ -25,15 +33,14 @@ export class Subject<T> extends Observable<T> implements SubscriptionLike {
   next(value: T) {
     this._throwIfClosed()
     if (!this.isStopped) {
-      for (const observer of this.observers) {
-        observer.next(value)
-      }
+      this.observers.forEach((observer) => observer.next(value))
     }
   }
 
   commonJudgement(cb: () => void) {
     this._throwIfClosed()
     if (!this.isStopped) {
+      this.isStopped = true
       cb()
     }
   }
@@ -41,19 +48,23 @@ export class Subject<T> extends Observable<T> implements SubscriptionLike {
   error(err: any) {
     this.commonJudgement(() => {
       const { observers } = this
-      for (const observer of observers) {
-        observer.error(err)
-        observers.delete(observer)
+      this.hasError = true
+      this.thrownError = err
+      while (observers.length) {
+        observers.shift()!.error(err)
       }
     })
+  }
+
+  get observed() {
+    return this.observers && this.observers.length > 0
   }
 
   complete() {
     this.commonJudgement(() => {
       const { observers } = this
-      for (const observer of observers) {
-        observer.complete()
-        observers.delete(observer)
+      while (observers.length) {
+        observers.shift()!.complete()
       }
     })
   }
@@ -61,7 +72,6 @@ export class Subject<T> extends Observable<T> implements SubscriptionLike {
   unsubscribe() {
     this.isStopped = this.closed = true
     this.observers = null!
-    // this.observers = this.currentObservers = null!
   }
 
   /** @internal */
@@ -74,8 +84,20 @@ export class Subject<T> extends Observable<T> implements SubscriptionLike {
   /** @internal */
   protected _subscribe(subscriber: Subscriber<T>): Subscription {
     this._throwIfClosed()
-    // this._checkFinalizedStatuses(subscriber)
+    this._checkFinalizedStatuses(subscriber)
     return this._innerSubscribe(subscriber)
+  }
+
+  /**
+   * @internal may be this.stopped was already true .And if that we need to run complete or error for subscriber
+   */
+  protected _checkFinalizedStatuses(subscriber: Subscriber<any>) {
+    const { hasError, thrownError, isStopped } = this
+    if (hasError) {
+      subscriber.error(thrownError)
+    } else if (isStopped) {
+      subscriber.complete()
+    }
   }
 
   /** @internal */
@@ -84,11 +106,9 @@ export class Subject<T> extends Observable<T> implements SubscriptionLike {
     if (isStopped) {
       return Subject.EMPTY
     }
-    // this.currentObservers = null
-    observers.add(subscriber)
+    observers.push(subscriber)
     return new Subscription(() => {
-      // this.currentObservers = null
-      observers.delete(subscriber)
+      arrRemove(observers, subscriber)
     })
   }
 }

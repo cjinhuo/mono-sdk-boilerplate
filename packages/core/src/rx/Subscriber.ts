@@ -1,10 +1,9 @@
-import { create } from 'domain'
 import { isSubscription, Subscription } from './Subscription'
 import { Observer } from './types'
-import { isFunction, nextTick } from './utils'
+import { isFunction } from './utils'
 
 export class Subscriber<T> extends Subscription implements Observer<T> {
-  protected isStopped: boolean = false
+  protected isStopped = false
 
   protected destination: Subscriber<T> | Observer<T>
 
@@ -14,18 +13,13 @@ export class Subscriber<T> extends Subscription implements Observer<T> {
   }
 
   next(value?: T): void {
-    if (this.isStopped) {
-      //  execute in next setTimeout if isStopped
-      // nextTick(() => this.next(value))
-    } else {
+    if (!this.isStopped) {
       this.destination.next(value!)
     }
   }
 
-  error(err: any): void {
-    if (this.isStopped) {
-      // nextTick(() => this.error(err))
-    } else {
+  error(err?: any): void {
+    if (!this.isStopped) {
       this.isStopped = true
       try {
         this.destination.error(err)
@@ -35,11 +29,17 @@ export class Subscriber<T> extends Subscription implements Observer<T> {
     }
   }
   complete(): void {
-    if (this.isStopped) {
-      // nextTick(this.complete)
-    } else {
+    if (!this.isStopped) {
       this.isStopped = true
       this._complete()
+    }
+  }
+  unsubscribe(): void {
+    // here used subscription's field
+    if (!this.closed) {
+      this.isStopped = true
+      super.unsubscribe()
+      this.destination = null!
     }
   }
   protected _complete(): void {
@@ -49,50 +49,49 @@ export class Subscriber<T> extends Subscription implements Observer<T> {
       this.unsubscribe()
     }
   }
-  unsubscribe(): void {
-    if (!this.isStopped) {
-      this.isStopped = true
-      super.unsubscribe()
-      this.destination = null!
-    }
-  }
 }
 
 class ConsumerObserver<T> implements Observer<T> {
-  constructor(private partialObserver: Partial<Observer<T>>) {}
+  constructor(private readonly partialObserver: Partial<Observer<T>>) {}
 
   next(value: T): void {
     const { partialObserver } = this
     if (partialObserver.next) {
-      // catch error
-      partialObserver.next(value)
+      try {
+        partialObserver.next(value)
+      } catch (error) {
+        // catch subject/observable errors
+        console.error('ConsumerObserver.next error', error)
+      }
     }
   }
 
   error(err: any): void {
     const { partialObserver } = this
     if (partialObserver.error) {
-      // catch error
-      partialObserver.error(err)
+      try {
+        partialObserver.error(err)
+      } catch (error) {
+        console.error('ConsumerObserver.error error', error)
+      }
     }
   }
 
   complete(): void {
     const { partialObserver } = this
     if (partialObserver.complete) {
-      // catch error
-      partialObserver.complete()
+      try {
+        partialObserver.complete()
+      } catch (error) {
+        console.error('ConsumerObserver.complete error', error)
+      }
     }
   }
 }
 
-function createSafeObserver<T>(
-  observerOrNext?: Partial<Observer<T>> | ((value: T) => void) | null
-): Observer<T> {
+function createSafeObserver<T>(observerOrNext?: Partial<Observer<T>> | ((value: T) => void) | null): Observer<T> {
   return new ConsumerObserver(
-    !observerOrNext || isFunction(observerOrNext)
-      ? { next: observerOrNext ?? undefined }
-      : observerOrNext
+    !observerOrNext || isFunction(observerOrNext) ? { next: observerOrNext ?? undefined } : observerOrNext,
   )
 }
 

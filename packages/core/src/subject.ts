@@ -1,14 +1,8 @@
-import { Subject } from './rx/Subject'
+import { skip, Subject, take } from './rx'
 
 const subject = new Subject()
-debugger
-const subject_1 = subject.subscribe((e) => console.log('subject_1', e))
-const subject_2 = subject.subscribe((e) => console.log('subject_2', e))
-
+const subject_1 = subject.pipe(skip(1),take(1))
+const subscription = subject_1.subscribe((e) => console.log('subject_1', e))
 subject.next(1)
-setInterval(() => {
-  subject.next(1)
-}, 2000)
-setTimeout(() => {
-  subject.unsubscribe()
-}, 3000)
+subject.next(2)
+subscription.unsubscribe()

@@ -1,17 +1,21 @@
 {
   "name": "mono-sdk-boilerplate",
   "version": "0.0.1",
+  "private": true,
   "description": "",
   "scripts": {
     "commit": "git add . && git cz",
+    "dev": "pnpm --parallel dev",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package packages",
     "postinstall": "husky install",
     "tsnode": "ts-node ./packages/core/src/index.ts",
     "tsnode:sub": "ts-node ./packages/core/src/subscription.ts",
     "tsnode:ob": "ts-node ./packages/core/src/observable.ts",
-    "tsnode:subject": "ts-node ./packages/core/src/subject.ts"
+    "tsnode:subject": "ts-node ./packages/core/src/subject.ts",
+    "preinstall": "npx only-allow pnpm"
   },
+  "packageManager": "pnpm@7.13.5",
   "author": "cjinhuo",
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.9",
@@ -25,7 +29,7 @@
     "@types/node": "^17.0.31",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "chalk": "^5.0.1",
+    "chalk": "^5.1.2",
     "clipanion": "^3.2.0-rc.11",
     "conventional-changelog-cli": "^2.2.2",
     "cz-conventional-changelog": "^3.3.0",
@@ -34,13 +38,15 @@
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-sonarjs": "^0.13.0",
+    "husky": "^8.0.1",
     "jest": "^28.0.3",
     "prettier": "^2.6.2",
+    "rollup": "^3.2.3",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-sizes": "^1.0.4",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.31.2",
+    "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-visualizer": "^5.6.0",
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^3.14.1",
@@ -52,7 +58,11 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "rxjs": "^7.5.5"
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "rollup": "^3"
+      }
+    }
   }
 }

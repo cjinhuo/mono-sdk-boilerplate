@@ -4,22 +4,22 @@ const config = {
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 'latest',
-    project: ['tsconfig.json']
+    project: ['tsconfig.json'],
   },
   env: {
     browser: true,
-    node: true
+    node: true,
   },
   plugins: ['@typescript-eslint', 'html', 'sonarjs', 'import'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
     'plugin:sonarjs/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
   env: {
     browser: true,
-    node: true
+    node: true,
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 0,
@@ -28,7 +28,7 @@ const config = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'no-unused-vars': [
       2,
-      { varsIgnorePattern: '^_', argsIgnorePattern: '^_', ignoreRestSiblings: true }
+      { varsIgnorePattern: '^_', argsIgnorePattern: '^_', ignoreRestSiblings: true },
     ],
     eqeqeq: [2, 'always', { null: 'ignore' }],
     'import/no-unresolved': [0, { commonjs: true, amd: true }],
@@ -40,16 +40,16 @@ const config = {
           {
             pattern: 'react',
             group: 'external',
-            position: 'before'
-          }
+            position: 'before',
+          },
         ],
         pathGroupsExcludedImportTypes: ['react'],
         'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
-          caseInsensitive: true
-        }
-      }
+          caseInsensitive: true,
+        },
+      },
     ],
     '@typescript-eslint/no-misused-promises': 2,
     '@typescript-eslint/ban-ts-comment': [
@@ -58,8 +58,8 @@ const config = {
         'ts-expect-error': false,
         'ts-ignore': true,
         'ts-nocheck': true,
-        'ts-check': false
-      }
+        'ts-check': false,
+      },
     ],
     '@typescript-eslint/explicit-module-boundary-types': 0,
     // don't use for in operator
@@ -76,8 +76,8 @@ const config = {
     // 不允许在范型和返回值之外的地方使用 void 类型
     '@typescript-eslint/no-invalid-void-type': 2,
     // 不可变的私有属性标记成 readonly
-    '@typescript-eslint/prefer-readonly': ['error', { onlyInlineLambdas: true }]
-  }
+    '@typescript-eslint/prefer-readonly': ['error', { onlyInlineLambdas: true }],
+  },
 }
 
 module.exports = config

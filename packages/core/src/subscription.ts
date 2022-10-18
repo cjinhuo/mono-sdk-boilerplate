@@ -1,5 +1,5 @@
-import { Subscription } from './rx/Subscription'
-import { Subscriber } from './rx/Subscriber'
+import { Subscription,Subscriber } from './rx'
+
 
 const main = new Subscription()
 

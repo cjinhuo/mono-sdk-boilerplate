@@ -10,7 +10,11 @@
   "files": [
     "dist"
   ],
+  "scripts": {
+    "print": "echo web",
+    "dev": "ts-node ./src/run.ts"
+  },
   "dependencies": {
-    "@boilerplate/core": "0.0.1"
+    "@boilerplate/core": "workspace:0.0.1"
   }
 }
