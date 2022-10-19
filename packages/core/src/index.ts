@@ -1,9 +1,8 @@
-import { map, Observable, Subject, Subscriber, zip, interval } from 'rxjs'
+import { map, Observable, Subject, Subscriber, zip, interval, take } from 'rxjs'
 
-export * from './rx'
 export const add = (a: number, b: number) => a + b
 
-export { interval }
+export { interval, take }
 
 // export function add(a: number, b: number): number {
 //   return a + b
