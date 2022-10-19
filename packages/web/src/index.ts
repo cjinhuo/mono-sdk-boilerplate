@@ -1,5 +1,7 @@
 import { add, Subject, interval } from '@boilerplate/core'
+export const multiply = (a: number, b: number) => {
+  const sum = add(a, b)
+  return sum * sum
+}
 
-interval(500).subscribe((res) => {
-  console.log('web', res)
-})
+export { interval }

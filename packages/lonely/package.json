@@ -1,5 +1,5 @@
 {
-  "name": "@boilerplate/core",
+  "name": "@boilerplate/lonely",
   "version": "0.0.1",
   "description": "@boilerplate/core",
   "author": "cjinhuo",
@@ -12,6 +12,7 @@
     "dist"
   ],
   "scripts": {
+    "print": "echo core",
     "dev": "ts-node ./src/run.ts"
   },
   "devDependencies": {

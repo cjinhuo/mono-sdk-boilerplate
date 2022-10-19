@@ -1,5 +1,6 @@
 import { add, Subject, interval } from '@boilerplate/core'
 
-interval(500).subscribe((res) => {
+console.log('web start')
+interval(2000).subscribe((res) => {
   console.log('web', res)
 })

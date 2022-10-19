@@ -1,6 +1,6 @@
 import { interval } from 'rxjs'
 
-console.log('core start')
+console.log('lonely start')
 interval(2000).subscribe((res) => {
-  console.log('core', res)
+  console.log('lonely', res)
 })

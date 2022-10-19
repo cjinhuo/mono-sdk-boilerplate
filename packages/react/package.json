@@ -1,13 +1,12 @@
 {
-  "name": "@boilerplate/web",
+  "name": "@boilerplate/react",
   "version": "0.0.1",
-  "description": "@boilerplate/web",
+  "description": "@boilerplate/react",
   "author": "cjinhuo",
   "license": "MIT",
-  "main": "src/index.ts",
-  "publishConfig": {
-    "main": "dist/index.js"
-  },
+  "main": "dist/web.js",
+  "module": "dist/web.esm.js",
+  "types": "dist/web.d.ts",
   "files": [
     "dist"
   ],
@@ -16,6 +15,6 @@
     "dev": "ts-node ./src/run.ts"
   },
   "dependencies": {
-    "@boilerplate/core": "workspace:0.0.1"
+    "@boilerplate/web": "workspace:^0.0.1"
   }
 }

@@ -26,6 +26,7 @@ importers:
       eslint-plugin-sonarjs: ^0.13.0
       husky: ^8.0.1
       jest: ^28.0.3
+      pkgs-graph: ^8.0.0
       prettier: ^2.6.2
       rollup: ^3.2.3
       rollup-plugin-cleanup: ^3.2.1
@@ -61,6 +62,7 @@ importers:
       eslint-plugin-sonarjs: 0.13.0_eslint@8.14.0
       husky: 8.0.1
       jest: 28.0.3_6llz3imlg24hiqj7rrwntziuoi
+      pkgs-graph: 8.0.0
       prettier: 2.6.2
       rollup: 3.2.3
       rollup-plugin-cleanup: 3.2.1_rollup@3.2.3
@@ -82,6 +84,18 @@ importers:
       '@boilerplate/core': 'link:'
     devDependencies:
       rxjs: 7.5.7
+
+  packages/first:
+    specifiers:
+      rxjs: ^7.5.7
+    devDependencies:
+      rxjs: 7.5.7
+
+  packages/third:
+    specifiers:
+      '@boilerplate/web': workspace:^0.0.1
+    dependencies:
+      '@boilerplate/web': link:../web
 
   packages/web:
     specifiers:
@@ -801,6 +815,26 @@ packages:
       fastq: 1.13.0
     dev: true
 
+  /@pnpm/npm-package-arg/1.0.0:
+    resolution: {integrity: sha512-oQYP08exi6mOPdAZZWcNIGS+KKPsnNwUBzSuAEGWuCcqwMAt3k/WVCqVIXzBxhO5sP2b43og69VHmPj6IroKqw==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      hosted-git-info: 4.1.0
+      semver: 7.3.7
+      validate-npm-package-name: 4.0.0
+    dev: true
+
+  /@pnpm/ramda/0.28.1:
+    resolution: {integrity: sha512-zcAG+lvU0fMziNeGXpPyCyCJYp5ZVrPElEE4t14jAmViaihohocZ+dDkcRIyAomox8pQsuZnv1EyHR+pOhmUWw==}
+    dev: true
+
+  /@pnpm/resolve-workspace-range/4.0.0:
+    resolution: {integrity: sha512-MrXdfTe7CA76zvivatQHJz7Ui02nziKz7Fpht+npsKfOvAyVUcERks2mxPi1IlSFhKDeDLfe/K0v5qqMFcb54A==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      semver: 7.3.8
+    dev: true
+
   /@rollup/plugin-alias/3.1.9_rollup@3.2.3:
     resolution: {integrity: sha512-QI5fsEvm9bDzt32k39wpOwZhVzRcL5ydcffUHMyLVaVaLeC70I8TJZ17F1z1eMoLu4E/UOcH9BWVkKpIKdrfiw==}
     engines: {node: '>=8.0.0'}
@@ -1432,6 +1466,12 @@ packages:
   /builtin-modules/3.2.0:
     resolution: {integrity: sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==}
     engines: {node: '>=6'}
+    dev: true
+
+  /builtins/5.0.1:
+    resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
+    dependencies:
+      semver: 7.3.8
     dev: true
 
   /cachedir/2.2.0:
@@ -4119,6 +4159,15 @@ packages:
       find-up: 4.1.0
     dev: true
 
+  /pkgs-graph/8.0.0:
+    resolution: {integrity: sha512-ezW/9X8Cy04gecWQor4881oF700glYXhwimpf1z5aCMD+AEWqYGSF+q+KIh0WPl0tT0HZf0XHW4cInNUgNW0Iw==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@pnpm/npm-package-arg': 1.0.0
+      '@pnpm/resolve-workspace-range': 4.0.0
+      ramda: /@pnpm/ramda/0.28.1
+    dev: true
+
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -4473,6 +4522,14 @@ packages:
 
   /semver/7.3.7:
     resolution: {integrity: sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
+  /semver/7.3.8:
+    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -5016,6 +5073,13 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /validate-npm-package-name/4.0.0:
+    resolution: {integrity: sha512-mzR0L8ZDktZjpX4OB46KT+56MAhl4EIazWP/+G/HPGuvfdaqg4YsCdtOm6U9+LOFyYDoh4dpnpxZRB9MQQns5Q==}
+    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    dependencies:
+      builtins: 5.0.1
     dev: true
 
   /walker/1.0.8:

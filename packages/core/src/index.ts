@@ -1,7 +1,7 @@
 import { map, Observable, Subject, Subscriber, zip, interval } from 'rxjs'
 
 export * from './rx'
-export const add = () => {}
+export const add = (a: number, b: number) => a + b
 
 export { interval }
 
