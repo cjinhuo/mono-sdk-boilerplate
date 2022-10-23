@@ -15,6 +15,6 @@
     "dev": "ts-node ./src/run.ts"
   },
   "dependencies": {
-    "@boilerplate/web": "workspace:^0.0.1"
+    "@boilerplate/web": "workspace:*"
   }
 }
