@@ -12,7 +12,7 @@
     "dist"
   ],
   "scripts": {
-    "print": "echo web",
+    "compile": "echo web compile",
     "dev": "ts-node ./src/run.ts"
   },
   "dependencies": {

@@ -13,7 +13,8 @@
     "tsnode:sub": "ts-node ./packages/core/src/subscription.ts",
     "tsnode:ob": "ts-node ./packages/core/src/observable.ts",
     "tsnode:subject": "ts-node ./packages/core/src/subject.ts",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "graph": "nx graph"
   },
   "packageManager": "pnpm@7.13.5",
   "author": "cjinhuo",
@@ -40,6 +41,7 @@
     "eslint-plugin-sonarjs": "^0.13.0",
     "husky": "^8.0.1",
     "jest": "^28.0.3",
+    "nx": "^15.0.1",
     "pkgs-graph": "^8.0.0",
     "prettier": "^2.6.2",
     "rollup": "^3.2.3",

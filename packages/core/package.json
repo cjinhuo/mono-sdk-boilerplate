@@ -12,7 +12,8 @@
     "dist"
   ],
   "scripts": {
-    "dev": "ts-node ./src/run.ts"
+    "dev": "ts-node ./src/run.ts",
+    "compile": "echo core compile"
   },
   "devDependencies": {
     "rxjs": "^7.5.7"

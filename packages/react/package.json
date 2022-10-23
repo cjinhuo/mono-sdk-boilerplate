@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "print": "echo web",
-    "dev": "ts-node ./src/run.ts"
+    "dev": "ts-node ./src/run.ts",
+    "compile": "echo 'react compile'"
   },
   "dependencies": {
     "@boilerplate/web": "workspace:*"
