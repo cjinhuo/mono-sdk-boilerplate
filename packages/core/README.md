@@ -1,6 +1,6 @@
-# @boilerplate/core
+# @mono/core
 
-给`@boilerplate`提供一系列的核心类与函数
+给`@mono`提供一系列的核心类与函数
 
 ### Breadcrumb
 收集用户行为

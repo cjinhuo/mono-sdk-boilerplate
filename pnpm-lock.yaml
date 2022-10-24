@@ -78,30 +78,36 @@ importers:
 
   packages/core:
     specifiers:
-      '@boilerplate/core': 0.0.1
-      rxjs: ^7.5.7
+      '@mono/tsconfig': workspace:*
     dependencies:
-      '@boilerplate/core': 'link:'
-    devDependencies:
-      rxjs: 7.5.7
+      '@mono/tsconfig': link:../../privatePackages/tsconfig
 
-  packages/first:
+  packages/react:
     specifiers:
-      rxjs: ^7.5.7
-    devDependencies:
-      rxjs: 7.5.7
-
-  packages/third:
-    specifiers:
-      '@boilerplate/web': workspace:^0.0.1
+      '@mono/tsconfig': workspace:*
+      '@mono/web': workspace:*
     dependencies:
-      '@boilerplate/web': link:../web
+      '@mono/tsconfig': link:../../privatePackages/tsconfig
+      '@mono/web': link:../web
+
+  packages/shared:
+    specifiers:
+      '@mono/tsconfig': workspace:*
+      '@mono/web': workspace:*
+    dependencies:
+      '@mono/tsconfig': link:../../privatePackages/tsconfig
+      '@mono/web': link:../web
 
   packages/web:
     specifiers:
-      '@boilerplate/core': workspace:0.0.1
+      '@mono/core': workspace:^0.0.1
+      '@mono/tsconfig': workspace:*
     dependencies:
-      '@boilerplate/core': link:../core
+      '@mono/core': link:../core
+      '@mono/tsconfig': link:../../privatePackages/tsconfig
+
+  privatePackages/tsconfig:
+    specifiers: {}
 
 packages:
 
@@ -4490,12 +4496,6 @@ packages:
     engines: {npm: '>=2.0.0'}
     dependencies:
       tslib: 1.14.1
-    dev: true
-
-  /rxjs/7.5.7:
-    resolution: {integrity: sha512-z9MzKh/UcOqB3i20H6rtrlaE/CgjLOvheWK/9ILrbhROGTweAi1BaFsTT9FbwZi5Trr1qNRs+MXkhmR06awzQA==}
-    dependencies:
-      tslib: 2.4.0
     dev: true
 
   /safe-buffer/5.1.2:

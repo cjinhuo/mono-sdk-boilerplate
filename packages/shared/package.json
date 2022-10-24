@@ -1,12 +1,12 @@
 {
-  "name": "@mono/react",
+  "name": "@mono/shared",
   "version": "0.0.1",
-  "description": "@mono/react",
+  "description": "@mono/shared",
   "author": "cjinhuo",
   "license": "MIT",
-  "main": "dist/web.js",
-  "module": "dist/web.esm.js",
-  "types": "dist/web.d.ts",
+  "main": "src/index.ts",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],

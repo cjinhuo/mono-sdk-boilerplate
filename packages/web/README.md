@@ -1,1 +1,1 @@
-# @boilerplate/core
+# @mono/core

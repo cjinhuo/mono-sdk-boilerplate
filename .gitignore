@@ -8,9 +8,22 @@ coverage
 # api-extractor
 temp
 dist
-
+lib
 # analyzer
 analyzer.html
 
 packages/*/dist
 packages/*/node_modules
+
+
+# Coverage directory used by tools like istanbul
+coverage
+
+.tmp
+_docpress
+
+
+tsconfig.tsbuildinfo
+
+# Visual Studio Code configs
+.vscode/

@@ -1,7 +1,7 @@
 {
-  "name": "@boilerplate/core",
+  "name": "@mono/core",
   "version": "0.0.1",
-  "description": "@boilerplate/core",
+  "description": "@mono/core",
   "author": "cjinhuo",
   "license": "MIT",
   "main": "src/index.ts",
@@ -12,9 +12,10 @@
     "dist"
   ],
   "scripts": {
-    "dev": "ts-node ./src/run.ts"
+    "dev": "ts-node ./src/run.ts",
+    "esm": "tsc -b ./tsconfig.json"
   },
-  "devDependencies": {
-    "rxjs": "^7.5.7"
+  "dependencies": {
+    "@mono/tsconfig": "workspace:*"
   }
 }

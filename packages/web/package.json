@@ -1,7 +1,7 @@
 {
-  "name": "@boilerplate/web",
+  "name": "@mono/web",
   "version": "0.0.1",
-  "description": "@boilerplate/web",
+  "description": "@mono/web",
   "author": "cjinhuo",
   "license": "MIT",
   "main": "src/index.ts",
@@ -16,6 +16,7 @@
     "dev": "ts-node ./src/run.ts"
   },
   "dependencies": {
-    "@boilerplate/core": "workspace:0.0.1"
+    "@mono/tsconfig": "workspace:*",
+    "@mono/core": "workspace:^0.0.1"
   }
 }

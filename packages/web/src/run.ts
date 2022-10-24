@@ -1,4 +1,4 @@
-import { add, interval, take } from '@boilerplate/core'
+import { add, interval, take } from '@mono/core'
 
 console.log('web start')
 interval(2000)
