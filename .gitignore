@@ -5,10 +5,11 @@ node_modules
 coverage
 .idea
 
-# api-extractor
+# output dir
 temp
 dist
 lib
+esm
 # analyzer
 analyzer.html
 

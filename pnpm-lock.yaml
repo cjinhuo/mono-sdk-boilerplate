@@ -4,12 +4,13 @@ importers:
 
   .:
     specifiers:
-      '@rollup/plugin-alias': ^3.1.9
+      '@rollup/plugin-alias': ^4.0.2
       '@rollup/plugin-commonjs': ^22.0.0
       '@rollup/plugin-html': ^0.2.4
       '@rollup/plugin-json': ^4.1.0
       '@rollup/plugin-node-resolve': ^13.2.1
       '@rollup/plugin-strip': ^2.1.0
+      '@rollup/plugin-typescript': ^9.0.2
       '@types/debug': ^4.1.7
       '@types/jest': ^27.4.1
       '@types/node': ^17.0.31
@@ -40,12 +41,13 @@ importers:
       tslib: ^2.4.0
       typescript: ^4.6.4
     devDependencies:
-      '@rollup/plugin-alias': 3.1.9_rollup@3.2.3
+      '@rollup/plugin-alias': 4.0.2_rollup@3.2.3
       '@rollup/plugin-commonjs': 22.0.0_rollup@3.2.3
       '@rollup/plugin-html': 0.2.4_rollup@3.2.3
       '@rollup/plugin-json': 4.1.0_rollup@3.2.3
       '@rollup/plugin-node-resolve': 13.2.1_rollup@3.2.3
       '@rollup/plugin-strip': 2.1.0_rollup@3.2.3
+      '@rollup/plugin-typescript': 9.0.2_hpj6ac2w2wubuhu2vpqucymlsi
       '@types/debug': 4.1.7
       '@types/jest': 27.4.1
       '@types/node': 17.0.31
@@ -78,26 +80,13 @@ importers:
 
   packages/core:
     specifiers:
+      '@mono/rollup': workspace:^0.0.1
+      '@mono/shared': workspace:^0.0.1
       '@mono/tsconfig': workspace:*
-      '@rollup/plugin-alias': ^3.1.9
-      '@rollup/plugin-commonjs': ^22.0.0
-      '@rollup/plugin-html': ^0.2.4
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^15.0.1
-      '@rollup/plugin-strip': ^2.1.0
-      '@rollup/plugin-typescript': ^9.0.2
-      rollup: ^3.2.3
     dependencies:
+      '@mono/rollup': link:../../privatePackages/rollup
+      '@mono/shared': link:../shared
       '@mono/tsconfig': link:../../privatePackages/tsconfig
-    devDependencies:
-      '@rollup/plugin-alias': 3.1.9_rollup@3.2.3
-      '@rollup/plugin-commonjs': 22.0.0_rollup@3.2.3
-      '@rollup/plugin-html': 0.2.4_rollup@3.2.3
-      '@rollup/plugin-json': 4.1.0_rollup@3.2.3
-      '@rollup/plugin-node-resolve': 15.0.1_rollup@3.2.3
-      '@rollup/plugin-strip': 2.1.0_rollup@3.2.3
-      '@rollup/plugin-typescript': 9.0.2_rollup@3.2.3
-      rollup: 3.2.3
 
   packages/react:
     specifiers:
@@ -110,18 +99,21 @@ importers:
   packages/shared:
     specifiers:
       '@mono/tsconfig': workspace:*
-      '@mono/web': workspace:*
     dependencies:
       '@mono/tsconfig': link:../../privatePackages/tsconfig
-      '@mono/web': link:../web
 
   packages/web:
     specifiers:
       '@mono/core': workspace:^0.0.1
+      '@mono/shared': workspace:^0.0.1
       '@mono/tsconfig': workspace:*
     dependencies:
       '@mono/core': link:../core
+      '@mono/shared': link:../shared
       '@mono/tsconfig': link:../../privatePackages/tsconfig
+
+  privatePackages/rollup:
+    specifiers: {}
 
   privatePackages/tsconfig:
     specifiers: {}
@@ -858,14 +850,17 @@ packages:
       semver: 7.3.8
     dev: true
 
-  /@rollup/plugin-alias/3.1.9_rollup@3.2.3:
-    resolution: {integrity: sha512-QI5fsEvm9bDzt32k39wpOwZhVzRcL5ydcffUHMyLVaVaLeC70I8TJZ17F1z1eMoLu4E/UOcH9BWVkKpIKdrfiw==}
-    engines: {node: '>=8.0.0'}
+  /@rollup/plugin-alias/4.0.2_rollup@3.2.3:
+    resolution: {integrity: sha512-1hv7dBOZZwo3SEupxn4UA2N0EDThqSSS+wI1St1TNTBtOZvUchyIClyHcnDcjjrReTPZ47Faedrhblv4n+T5UQ==}
+    engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: ^1.20.0 || ^2.0.0 || ^3
+      rollup: ^1.20.0 || ^2.0.0 || ^3.0.0 || ^3
+    peerDependenciesMeta:
+      rollup:
+        optional: true
     dependencies:
       rollup: 3.2.3
-      slash: 3.0.0
+      slash: 4.0.0
     dev: true
 
   /@rollup/plugin-commonjs/22.0.0_rollup@3.2.3:
@@ -917,24 +912,6 @@ packages:
       rollup: 3.2.3
     dev: true
 
-  /@rollup/plugin-node-resolve/15.0.1_rollup@3.2.3:
-    resolution: {integrity: sha512-ReY88T7JhJjeRVbfCyNj+NXAG3IIsVMsX9b5/9jC98dRP8/yxlZdz7mHZbHk5zHr24wZZICS5AcXsFZAXYUQEg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.78.0 || ^3.0.0 || ^3
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@3.2.3
-      '@types/resolve': 1.20.2
-      deepmerge: 4.2.2
-      is-builtin-module: 3.2.0
-      is-module: 1.0.0
-      resolve: 1.22.1
-      rollup: 3.2.3
-    dev: true
-
   /@rollup/plugin-strip/2.1.0_rollup@3.2.3:
     resolution: {integrity: sha512-OKlIlXMFlH4nVxq0beNSIKVw0LkpNUpVjjvfzH5OAOAR5dhLZgLZBzwYX4ifIAs18YDrreMcZH4xnKmW9fI2AQ==}
     peerDependencies:
@@ -946,7 +923,7 @@ packages:
       rollup: 3.2.3
     dev: true
 
-  /@rollup/plugin-typescript/9.0.2_rollup@3.2.3:
+  /@rollup/plugin-typescript/9.0.2_hpj6ac2w2wubuhu2vpqucymlsi:
     resolution: {integrity: sha512-/sS93vmHUMjzDUsl5scNQr1mUlNE1QjBBvOhmRwJCH8k2RRhDIm3c977B3wdu3t3Ap17W6dDeXP3hj1P1Un1bA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -962,6 +939,8 @@ packages:
       '@rollup/pluginutils': 5.0.2_rollup@3.2.3
       resolve: 1.22.1
       rollup: 3.2.3
+      tslib: 2.4.0
+      typescript: 4.6.4
     dev: true
 
   /@rollup/pluginutils/3.1.0_rollup@3.2.3:
@@ -1144,10 +1123,6 @@ packages:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
       '@types/node': 17.0.31
-    dev: true
-
-  /@types/resolve/1.20.2:
-    resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
     dev: true
 
   /@types/stack-utils/2.0.1:
@@ -1547,11 +1522,6 @@ packages:
 
   /builtin-modules/3.2.0:
     resolution: {integrity: sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==}
-    engines: {node: '>=6'}
-    dev: true
-
-  /builtin-modules/3.3.0:
-    resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
     dev: true
 
@@ -3033,13 +3003,6 @@ packages:
     dependencies:
       call-bind: 1.0.2
       has-tostringtag: 1.0.0
-    dev: true
-
-  /is-builtin-module/3.2.0:
-    resolution: {integrity: sha512-phDA4oSGt7vl1n5tJvTWooWWAsXLY+2xCnxNqvKhGEzujg+A43wPlPOyDg3C8XQHN+6k/JTQWJ/j0dQh/qr+Hw==}
-    engines: {node: '>=6'}
-    dependencies:
-      builtin-modules: 3.3.0
     dev: true
 
   /is-callable/1.2.4:
@@ -4675,6 +4638,11 @@ packages:
   /slash/3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
+    dev: true
+
+  /slash/4.0.0:
+    resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
+    engines: {node: '>=12'}
     dev: true
 
   /source-map-support/0.5.13:

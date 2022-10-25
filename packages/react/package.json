@@ -13,7 +13,8 @@
   "scripts": {
     "print": "echo web",
     "esm": "tsc -b ./tsconfig.json",
-    "dev": "ts-node ./src/run.ts"
+    "dev": "ts-node ./src/run.ts",
+    "build": "rollup -c rollup.config.js"
   },
   "dependencies": {
     "@mono/tsconfig": "workspace:*",

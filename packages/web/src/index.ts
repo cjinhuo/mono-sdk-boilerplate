@@ -1,5 +1,3 @@
-import { add } from '@mono/core'
-export const multiply = (a: number, b: number) => {
-  const sum = add(a, b)
-  return sum * sum
-}
+import { coreAdd } from '@mono/core'
+import {} from '@mono/shared'
+export const webAdd = (a: number, b: number) => coreAdd(a, b)

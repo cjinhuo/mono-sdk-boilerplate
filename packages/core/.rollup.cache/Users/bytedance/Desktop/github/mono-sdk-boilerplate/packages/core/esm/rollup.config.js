@@ -6,6 +6,8 @@ import clear from 'rollup-plugin-clear';
 import cleanup from 'rollup-plugin-cleanup';
 import size from 'rollup-plugin-sizes';
 import path from 'path';
+import { isString } from '@mono/shared';
+console.log('alias aliasaliasalias ', isString);
 const input = path.resolve(__dirname, 'esm/index.js');
 const packageDirDist = `${__dirname}/dist`;
 const { name, version } = require('./package.json');

@@ -1,3 +1,3 @@
-export const add = (a: number, b: number) => a + b
-
-export default {}
+import { isString } from '@mono/shared'
+export const coreAdd = (a: number, b: number) => a + b
+export const coreIsString = (p: unknown) => isString(p)

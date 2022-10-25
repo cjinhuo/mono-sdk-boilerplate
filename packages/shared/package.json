@@ -5,18 +5,13 @@
   "author": "cjinhuo",
   "license": "MIT",
   "main": "src/index.ts",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "print": "echo web",
-    "esm": "tsc -b ./tsconfig.json",
-    "dev": "ts-node ./src/run.ts"
+    "esm": "tsc -b ./tsconfig.json"
   },
   "dependencies": {
-    "@mono/tsconfig": "workspace:*",
-    "@mono/web": "workspace:*"
+    "@mono/tsconfig": "workspace:*"
   }
 }

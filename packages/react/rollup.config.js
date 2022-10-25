@@ -6,16 +6,11 @@ const clear = require('rollup-plugin-clear')
 const cleanup = require('rollup-plugin-cleanup')
 const size = require('rollup-plugin-sizes')
 const path = require('path')
-const alias = require('@rollup/plugin-alias')
 
 const input = path.resolve(__dirname, 'esm/index.js')
 const packageDirDist = `${__dirname}/dist`
 const { name, version } = require('./package.json')
 const annotation = `/* ${name} version:${version} */`
-
-const aliasPlugin = alias({
-  entries: [{ find: '@mono/shared', replacement: '../shared/esm/index.js' }],
-})
 function getCommon() {
   const common = {
     input,
@@ -27,7 +22,6 @@ function getCommon() {
     // 外部依赖，也是防止重复打包的配置
     external: [],
     plugins: [
-      aliasPlugin,
       nodeResolve(),
       size(),
       commonjs({

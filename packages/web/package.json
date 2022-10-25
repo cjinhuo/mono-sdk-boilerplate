@@ -16,7 +16,8 @@
     "dev": "ts-node ./src/run.ts"
   },
   "dependencies": {
-    "@mono/tsconfig": "workspace:*",
-    "@mono/core": "workspace:^0.0.1"
+    "@mono/core": "workspace:^0.0.1",
+    "@mono/shared": "workspace:^0.0.1",
+    "@mono/tsconfig": "workspace:*"
   }
 }
