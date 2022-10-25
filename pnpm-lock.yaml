@@ -80,11 +80,9 @@ importers:
 
   packages/core:
     specifiers:
-      '@mono/rollup': workspace:^0.0.1
       '@mono/shared': workspace:^0.0.1
       '@mono/tsconfig': workspace:*
     dependencies:
-      '@mono/rollup': link:../../privatePackages/rollup
       '@mono/shared': link:../shared
       '@mono/tsconfig': link:../../privatePackages/tsconfig
 

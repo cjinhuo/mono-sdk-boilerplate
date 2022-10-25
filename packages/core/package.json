@@ -18,8 +18,7 @@
     "build:js": "rollup -c rollup.config.js"
   },
   "dependencies": {
-    "@mono/rollup": "workspace:^0.0.1",
-    "@mono/shared": "workspace:^0.0.1",
+    "@mono/shared": "workspace:*",
     "@mono/tsconfig": "workspace:*"
   }
 }
