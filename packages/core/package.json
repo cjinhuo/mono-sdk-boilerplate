@@ -12,12 +12,16 @@
     "dist"
   ],
   "scripts": {
-    "dev": "ts-node ./src/run.ts",
+    "dev": "run-s esm:watch build:watch",
     "esm": "tsc -b ./tsconfig.json",
-    "build": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript",
-    "build:js": "rollup -c rollup.config.js"
+    "esm:watch": "tsc -b -w ./tsconfig.json",
+    "build": "rollup -c rollup.config.js",
+    "build:cjs": "rollup -c ./rollups/cjs.rollup.js",
+    "build:watch": "rollup -c  rollup.config.js --watch",
+    "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript"
   },
   "dependencies": {
+    "@mono/rollup": "workspace:*",
     "@mono/shared": "workspace:*",
     "@mono/tsconfig": "workspace:*"
   }
