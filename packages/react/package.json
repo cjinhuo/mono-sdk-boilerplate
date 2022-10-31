@@ -5,18 +5,21 @@
   "author": "cjinhuo",
   "license": "MIT",
   "main": "dist/web.js",
-  "module": "dist/web.esm.js",
-  "types": "dist/web.d.ts",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "print": "echo web",
     "esm": "tsc -b ./tsconfig.json",
-    "dev": "ts-node ./src/run.ts",
-    "build": "rollup -c rollup.config.js"
+    "esm:watch": "tsc -b -w ./tsconfig.json",
+    "rollup-run": "rollup-run -f ./rollups",
+    "build:cjs": "rollup -c ./rollups/iife.rollup.mjs",
+    "help": "rollup --help"
   },
   "dependencies": {
+    "@mono/rollup": "workspace:^",
     "@mono/tsconfig": "workspace:*",
     "@mono/web": "workspace:*"
   }

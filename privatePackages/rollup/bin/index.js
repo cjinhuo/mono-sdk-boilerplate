@@ -3,9 +3,9 @@ import { join } from 'path'
 import { execa } from 'execa'
 import os from 'node:os'
 import { minimist } from './common/minimist.js'
+import consola from 'consola'
 
 const argv = minimist(process.argv.slice(2))
-console.log('argv', argv)
 const folder = argv.f || argv.folder
 const parallelArgv = argv.p || argv.parallel
 const maxParallel = parallelArgv ? Number(parallelArgv) : os.cpus().length
@@ -17,9 +17,8 @@ const rollupRunRoot = join(process.env.PWD, folder)
 
 runParallel(
   maxParallel,
-  getAllRollupEntries(rollupRunRoot).map((url) => () => {
-    console.log('url', url)
-    build(url)
+  getAllRollupEntries(rollupRunRoot).map((url) => async () => {
+    await build(url)
   })
 )
 
@@ -28,7 +27,8 @@ function getAllRollupEntries(rootDir) {
 }
 
 async function build(rollupEntry) {
-  await execa(`rollup`, ['-c', rollupEntry])
+  consola.info('rollup -c', rollupEntry)
+  await execa(`rollup`, ['-c', rollupEntry], { stdio: 'inherit' })
 }
 
 async function runParallel(maxConcurrency, source) {

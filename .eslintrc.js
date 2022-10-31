@@ -9,6 +9,7 @@ const config = {
   env: {
     browser: true,
     node: true,
+    es6: true,
   },
   plugins: ['@typescript-eslint', 'html', 'sonarjs', 'import'],
   extends: [
@@ -17,10 +18,6 @@ const config = {
     'plugin:sonarjs/recommended',
     'plugin:prettier/recommended',
   ],
-  env: {
-    browser: true,
-    node: true,
-  },
   rules: {
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-empty-function': 0,

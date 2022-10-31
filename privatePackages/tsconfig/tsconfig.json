@@ -21,7 +21,7 @@
     "forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports.
     "paths": { // like alias. associated with baseUrl
       // "@mono/*": [
-      //   "packages/*/src"
+      //   "../../packages/*/src"
       // ],
       "@/test/*": [
         "test/*"

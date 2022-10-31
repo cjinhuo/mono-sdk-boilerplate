@@ -5,15 +5,19 @@
   "author": "cjinhuo",
   "license": "MIT",
   "main": "src/index.ts",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
   "publishConfig": {
-    "main": "dist/index.js"
+    "module": "esm/index.js",
+    "types": "esm/index.d.ts"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "print": "echo web",
-    "dev": "ts-node ./src/run.ts"
+    "dev": "ts-node ./src/run.ts",
+    "esm": "tsc -b ./tsconfig.json"
   },
   "dependencies": {
     "@mono/core": "workspace:^0.0.1",
