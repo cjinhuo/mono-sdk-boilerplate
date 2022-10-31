@@ -4,12 +4,6 @@ node_modules
 # test
 coverage
 .idea
-
-# output dir
-temp
-dist
-lib
-esm
 # analyzer
 analyzer.html
 
@@ -28,3 +22,9 @@ tsconfig.tsbuildinfo
 
 # Visual Studio Code configs
 .vscode/
+
+# output dir
+temp
+dist
+lib
+esm
