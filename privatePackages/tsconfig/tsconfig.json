@@ -31,11 +31,11 @@
       "node",
       "jest",
     ],
+    // "typeRoots": [
+    //   "node_modules/@types"
+    // ],
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "allowJs": false,
     "lib": [
       "es6",

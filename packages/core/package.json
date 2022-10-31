@@ -18,10 +18,10 @@
     "dev": "run-s esm:watch build:watch",
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
+    "test": "jest --config jest.config.cjs",
     "build": "rollup -c rollup.config.js",
     "build:cjs": "rollup -c ./rollups/iife.rollup.mjs",
     "build:watch": "rollup -c  ./rollups/cjs.rollup.mjs --watch",
-    "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript",
     "batch-rollup": "batch-rollup -f ./rollups",
     "help": "rollup -h"
   },
