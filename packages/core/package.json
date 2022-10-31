@@ -18,7 +18,9 @@
     "build": "rollup -c rollup.config.js",
     "build:cjs": "rollup -c ./rollups/iife.rollup.js",
     "build:watch": "rollup -c  rollup.config.js --watch",
-    "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript"
+    "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript",
+    "rollup-run": "rollup-run -f ./rollups",
+    "help": "rollup -h"
   },
   "dependencies": {
     "@mono/rollup": "workspace:*",

@@ -9,9 +9,16 @@
   },
   "license": "MIT",
   "main": "src/index.js",
+  "bin": {
+    "rollup-run": "bin/index.js"
+  },
   "homepage": "https://pnpm.io",
   "repository": "",
   "bugs": {
     "url": "https://github.com/pnpm/pnpm/issues"
+  },
+  "devDependencies": {
+    "fast-glob": "^3.2.12",
+    "rollup": "^3.2.3"
   }
 }

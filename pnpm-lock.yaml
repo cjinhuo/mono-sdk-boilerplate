@@ -80,7 +80,7 @@ importers:
 
   packages/core:
     specifiers:
-      '@mono/rollup': workspace:^
+      '@mono/rollup': workspace:*
       '@mono/shared': workspace:*
       '@mono/tsconfig': workspace:*
     dependencies:
@@ -113,7 +113,12 @@ importers:
       '@mono/tsconfig': link:../../privatePackages/tsconfig
 
   privatePackages/rollup:
-    specifiers: {}
+    specifiers:
+      fast-glob: ^3.2.12
+      rollup: ^3.2.3
+    devDependencies:
+      fast-glob: 3.2.12
+      rollup: 3.2.3
 
   privatePackages/tsconfig:
     specifiers: {}
@@ -2491,6 +2496,17 @@ packages:
       micromatch: 4.0.5
     dev: true
 
+  /fast-glob/3.2.12:
+    resolution: {integrity: sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==}
+    engines: {node: '>=8.6.0'}
+    dependencies:
+      '@nodelib/fs.stat': 2.0.5
+      '@nodelib/fs.walk': 1.2.8
+      glob-parent: 5.1.2
+      merge2: 1.4.1
+      micromatch: 4.0.5
+    dev: true
+
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
     dev: true
@@ -3030,7 +3046,7 @@ packages:
     dev: true
 
   /is-extglob/2.1.1:
-    resolution: {integrity: sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=}
+    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
     dev: true
 
