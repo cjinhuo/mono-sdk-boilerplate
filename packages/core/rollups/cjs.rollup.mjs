@@ -1,9 +1,12 @@
-const { getBasicPlugins, getBasicOutput } = require('@mono/rollup')
-const { join, resolve } = require('path')
-const currentPackageDir = join(__dirname, '..')
+import { getBasicPlugins, getBasicOutput } from '@mono/rollup'
+import { join, resolve } from 'path'
+const __dirname = resolve()
+const currentPackageDir = join(__dirname)
 const input = resolve(currentPackageDir, 'esm/index.js')
 const packageDirDist = `${currentPackageDir}/dist`
-const { name, version } = require('../package.json')
+import { createRequire } from 'node:module'
+const _require = createRequire(import.meta.url)
+const { name, version } = _require('../package.json')
 
 const config = {
   input,
@@ -18,4 +21,4 @@ const config = {
   plugins: getBasicPlugins(),
 }
 
-module.exports = config
+export default config

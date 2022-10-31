@@ -1,6 +1,2 @@
-const { getBasicPlugins } = require('./common')
-const { getBasicOutput } = require('./output')
-module.exports = {
-  getBasicPlugins,
-  getBasicOutput,
-}
+export * from './common.js'
+export * from './output.js'

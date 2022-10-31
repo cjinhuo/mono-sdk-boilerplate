@@ -8,6 +8,7 @@
   "publishConfig": {
     "main": "dist/index.js"
   },
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -16,8 +17,8 @@
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
     "build": "rollup -c rollup.config.js",
-    "build:cjs": "rollup -c ./rollups/iife.rollup.js",
-    "build:watch": "rollup -c  rollup.config.js --watch",
+    "build:cjs": "rollup -c ./rollups/cjs.rollup.mjs",
+    "build:watch": "rollup -c  ./rollups/cjs.rollup.mjs --watch",
     "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript",
     "rollup-run": "rollup-run -f ./rollups",
     "help": "rollup -h"
