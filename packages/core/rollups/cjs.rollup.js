@@ -5,7 +5,7 @@ const input = resolve(currentPackageDir, 'esm/index.js')
 const packageDirDist = `${currentPackageDir}/dist`
 const { name, version } = require('../package.json')
 
-const cjsPackage = {
+const config = {
   input,
   external: [],
   output: {
@@ -18,4 +18,4 @@ const cjsPackage = {
   plugins: getBasicPlugins(),
 }
 
-module.exports = cjsPackage
+module.exports = config

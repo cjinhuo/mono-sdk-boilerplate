@@ -16,7 +16,7 @@
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
     "build": "rollup -c rollup.config.js",
-    "build:cjs": "rollup -c ./rollups/cjs.rollup.js",
+    "build:cjs": "rollup -c ./rollups/iife.rollup.js",
     "build:watch": "rollup -c  rollup.config.js --watch",
     "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript"
   },
