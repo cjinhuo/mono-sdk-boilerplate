@@ -22,7 +22,7 @@
     "build:cjs": "rollup -c ./rollups/iife.rollup.mjs",
     "build:watch": "rollup -c  ./rollups/cjs.rollup.mjs --watch",
     "build:ts": "rollup -c rollup.config.ts --bundleConfigAsCjs --configPlugin typescript",
-    "rollup-run": "rollup-run -f ./rollups",
+    "batch-rollup": "batch-rollup -f ./rollups",
     "help": "rollup -h"
   },
   "dependencies": {

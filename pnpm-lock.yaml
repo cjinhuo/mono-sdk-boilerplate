@@ -92,9 +92,9 @@ importers:
 
   packages/react:
     specifiers:
-      '@mono/rollup': workspace:^
+      '@mono/rollup': workspace:*
       '@mono/tsconfig': workspace:*
-      '@mono/web': workspace:^
+      '@mono/web': workspace:*
     dependencies:
       '@mono/rollup': link:../../privatePackages/rollup
       '@mono/tsconfig': link:../../privatePackages/tsconfig
@@ -108,11 +108,13 @@ importers:
 
   packages/web:
     specifiers:
-      '@mono/core': workspace:^0.0.1
-      '@mono/shared': workspace:^0.0.1
+      '@mono/core': workspace:*
+      '@mono/rollup': workspace:*
+      '@mono/shared': workspace:*
       '@mono/tsconfig': workspace:*
     dependencies:
       '@mono/core': link:../core
+      '@mono/rollup': link:../../privatePackages/rollup
       '@mono/shared': link:../shared
       '@mono/tsconfig': link:../../privatePackages/tsconfig
 
@@ -121,12 +123,10 @@ importers:
       execa: ^6.1.0
       fast-glob: ^3.2.12
       minimist: ^1.2.7
-      rollup: ^2.79.1
     devDependencies:
       execa: 6.1.0
       fast-glob: 3.2.12
       minimist: 1.2.7
-      rollup: 2.79.1
 
   privatePackages/tsconfig:
     specifiers: {}

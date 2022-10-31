@@ -2,21 +2,21 @@
   "name": "mono",
   "version": "0.0.1",
   "private": true,
-  "description": "",
+  "description": "the best monorepo ",
   "scripts": {
     "commit": "git add . && git cz",
-    "dev": "pnpm --parallel dev",
     "esm": "pnpm --parallel esm",
+    "batch-rollup": "pnpm --parallel batch-rollup",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package packages",
     "postinstall": "husky install",
-    "tsnode": "ts-node ./packages/core/src/index.ts",
-    "tsnode:sub": "ts-node ./packages/core/src/subscription.ts",
-    "tsnode:ob": "ts-node ./packages/core/src/observable.ts",
-    "tsnode:subject": "ts-node ./packages/core/src/subject.ts",
     "preinstall": "npx only-allow pnpm"
   },
   "packageManager": "pnpm@7.13.5",
+  "engines": {
+    "node": ">=16.18.0",
+    "pnpm": ">=7"
+  },
   "author": "cjinhuo",
   "devDependencies": {
     "@rollup/plugin-alias": "^4.0.2",

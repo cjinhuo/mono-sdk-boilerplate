@@ -4,7 +4,7 @@
   "description": "@mono/react",
   "author": "cjinhuo",
   "license": "MIT",
-  "main": "dist/web.js",
+  "main": "src/index.ts",
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
   "type": "module",
@@ -14,12 +14,11 @@
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
-    "rollup-run": "rollup-run -f ./rollups",
-    "build:cjs": "rollup -c ./rollups/iife.rollup.mjs",
-    "help": "rollup --help"
+    "batch-rollup": "batch-rollup -f ./rollups",
+    "build:cjs": "rollup -c ./rollups/iife.rollup.mjs"
   },
   "dependencies": {
-    "@mono/rollup": "workspace:^",
+    "@mono/rollup": "workspace:*",
     "@mono/tsconfig": "workspace:*",
     "@mono/web": "workspace:*"
   }

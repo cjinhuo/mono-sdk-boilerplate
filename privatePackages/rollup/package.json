@@ -1,6 +1,6 @@
 {
   "name": "@mono/rollup",
-  "description": "pnpm's TypeScript configuration",
+  "description": "rollup scripts",
   "version": "0.0.1",
   "type": "module",
   "author": {
@@ -11,7 +11,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "bin": {
-    "rollup-run": "bin/index.js"
+    "batch-rollup": "bin/index.js"
   },
   "homepage": "https://pnpm.io",
   "repository": "",
@@ -21,7 +21,6 @@
   "devDependencies": {
     "execa": "^6.1.0",
     "fast-glob": "^3.2.12",
-    "minimist": "^1.2.7",
-    "rollup": "^2.79.1"
+    "minimist": "^1.2.7"
   }
 }
