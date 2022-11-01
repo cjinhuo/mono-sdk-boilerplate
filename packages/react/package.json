@@ -21,8 +21,5 @@
     "@mono/rollup": "workspace:*",
     "@mono/tsconfig": "workspace:*",
     "@mono/web": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/jest": "^29.2.0"
   }
 }

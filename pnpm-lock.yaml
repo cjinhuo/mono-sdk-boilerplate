@@ -95,22 +95,16 @@ importers:
       '@mono/rollup': workspace:*
       '@mono/tsconfig': workspace:*
       '@mono/web': workspace:*
-      '@types/jest': ^29.2.0
     dependencies:
       '@mono/rollup': link:../../privatePackages/rollup
       '@mono/tsconfig': link:../../privatePackages/tsconfig
       '@mono/web': link:../web
-    devDependencies:
-      '@types/jest': 29.2.0
 
   packages/shared:
     specifiers:
       '@mono/tsconfig': workspace:*
-      '@types/jest': ^29.2.0
     dependencies:
       '@mono/tsconfig': link:../../privatePackages/tsconfig
-    devDependencies:
-      '@types/jest': 29.2.0
 
   packages/web:
     specifiers:
@@ -118,14 +112,11 @@ importers:
       '@mono/rollup': workspace:*
       '@mono/shared': workspace:*
       '@mono/tsconfig': workspace:*
-      '@types/jest': ^29.2.0
     dependencies:
       '@mono/core': link:../core
       '@mono/rollup': link:../../privatePackages/rollup
       '@mono/shared': link:../shared
       '@mono/tsconfig': link:../../privatePackages/tsconfig
-    devDependencies:
-      '@types/jest': 29.2.0
 
   privatePackages/rollup:
     specifiers:

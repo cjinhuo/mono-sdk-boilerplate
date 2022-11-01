@@ -18,15 +18,13 @@
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
-    "batch-rollup": "batch-rollup -f ./rollups"
+    "batch-rollup": "batch-rollup -f ./rollups",
+    "test": "jest --config jest.config.cjs"
   },
   "dependencies": {
     "@mono/core": "workspace:*",
     "@mono/rollup": "workspace:*",
     "@mono/shared": "workspace:*",
     "@mono/tsconfig": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/jest": "^29.2.0"
   }
 }
