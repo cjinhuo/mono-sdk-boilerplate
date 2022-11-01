@@ -19,29 +19,22 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports.
-    "paths": { // like alias. associated with baseUrl
+    "paths": {
+      // like alias. associated with baseUrl
       // "@mono/*": [
       //   "../../packages/*/src"
       // ],
-      "@/test/*": [
-        "test/*"
-      ]
+      "@/test/*": ["test/*"]
     },
-    "types": [
-      "node",
-      "jest",
-    ],
+    "types": ["node", "jest"],
     // "typeRoots": [
     //   "node_modules/@types"
     // ],
     "target": "es2015",
     "module": "esnext",
     "allowJs": false,
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "sourceMap": false,
     "composite": true
-  },
+  }
 }
