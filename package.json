@@ -20,6 +20,7 @@
   },
   "author": "cjinhuo",
   "devDependencies": {
+    "@changesets/cli": "^2.25.2",
     "@mono/tsconfig": "workspace:^",
     "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-commonjs": "^22.0.0",
