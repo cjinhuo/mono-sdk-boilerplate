@@ -3,7 +3,8 @@
   "include": [
     // 可以移除？
     "**/src/**/*.ts",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "scripts/**.ts"
     // "**/__test__/**/*.ts",
   ]
 }

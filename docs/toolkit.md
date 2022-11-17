@@ -11,7 +11,6 @@
 git cz:https://github.com/commitizen/cz-cli#making-your-repo-commitizen-friendly
 
 conventional-changelog:https://github.com/conventional-changelog/conventional-changelog
-conventional-changelog -p angular -i CHANGELOG.md -s
 
 ### rollup
 rollup-plugin-cleanup

@@ -12,17 +12,19 @@ const config = {
   },
   plugins: ['@typescript-eslint', 'html', 'sonarjs', 'import'],
   extends: [
-    'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
     'plugin:sonarjs/recommended',
     'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   rules: {
+    '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-empty-function': 0,
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
-    'no-unused-vars': [
+    '@typescript-eslint/no-unused-vars': [
       2,
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_', ignoreRestSiblings: true },
     ],
