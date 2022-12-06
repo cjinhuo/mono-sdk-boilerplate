@@ -1,5 +1,4 @@
 ## Code Of Conduct
-### 
 We should be setting a good example and be welcoming to all. And should be listening to all feedback from every developer and respect their viewpoints and opinions.
 
 ### small, logical commits

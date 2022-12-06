@@ -9,6 +9,7 @@ class HelloCommand extends Command {
   // Positional option
   name = Option.String(`-p,--package`)
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   async execute() {
     log('Hello, world!')
     setTimeout(() => {
@@ -20,7 +21,7 @@ class HelloCommand extends Command {
 
 const cli = new Cli({
   binaryLabel: 'cjh',
-  enableColors: true
+  enableColors: true,
 })
 
 cli.register(HelloCommand)
