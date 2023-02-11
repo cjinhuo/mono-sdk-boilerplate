@@ -9,6 +9,7 @@
 tsconfig.json
 /script
 /utils/rollup
+**/rollups
 /utils/eslint-config
 commitlint.config.js
 # rollup.config.js

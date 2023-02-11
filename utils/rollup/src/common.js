@@ -11,10 +11,12 @@ const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const packagesRoot = resolve(__dirname, '../../../packages')
 const aliasConfig = alias({
-  entries: [{ find: /^@mono\/core$/, replacement: join(packagesRoot, 'core', 'esm') }],
-  entries: [{ find: /^@mono\/web$/, replacement: join(packagesRoot, 'web', 'esm') }],
-  entries: [{ find: /^@mono\/react$/, replacement: join(packagesRoot, 'react', 'esm') }],
-  entries: [{ find: /^@mono\/shared$/, replacement: join(packagesRoot, 'shared', 'esm') }],
+  entries: [
+    { find: /^@mono\/core$/, replacement: join(packagesRoot, 'core', 'esm') },
+    { find: /^@mono\/web$/, replacement: join(packagesRoot, 'web', 'esm') },
+    { find: /^@mono\/react$/, replacement: join(packagesRoot, 'react', 'esm') },
+    { find: /^@mono\/shared$/, replacement: join(packagesRoot, 'shared', 'esm') },
+  ],
 })
 
 export function getBasicPlugins(aliasPlguin = aliasConfig) {

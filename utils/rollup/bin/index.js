@@ -1,33 +1,48 @@
-import fg from 'fast-glob'
+#!/usr/bin/env node
+'use strict'
+
+import { cpus } from 'os'
 import { join } from 'path'
+
+import Consola from 'consola'
 import { execa } from 'execa'
-import os from 'node:os'
-import { minimist } from './common/minimist.js'
-import consola from 'consola'
+import fg from 'fast-glob'
+import minimist from 'minimist'
 
+import help from './common/help.js'
+import { getGlobFilter } from './common/index.js'
+const info = Consola.info
 const argv = minimist(process.argv.slice(2))
-const folder = argv.f || argv.folder
-const parallelArgv = argv.p || argv.parallel
-const maxParallel = parallelArgv ? Number(parallelArgv) : os.cpus().length
+const folder = argv.d || argv.dir
+const parallel = argv.p || argv.parallel
+const filter = argv.f || argv.filter
+const maxParallel = parallel ? Number(parallel) : cpus().length
 
-if (!folder) {
-  throw new Error('please pass correct folder')
+main()
+
+function main() {
+  if (!folder && !parallel && !filter) {
+    return help()
+  }
+  if (!folder) {
+    throw new Error('plz pass the correct dir')
+  }
+  const rollupRunRoot = join(process.cwd(), folder)
+
+  runParallel(
+    maxParallel,
+    getAllRollupEntries(rollupRunRoot).map((url) => async () => {
+      await build(url)
+    })
+  )
 }
-const rollupRunRoot = join(process.env.PWD, folder)
-
-runParallel(
-  maxParallel,
-  getAllRollupEntries(rollupRunRoot).map((url) => async () => {
-    await build(url)
-  })
-)
 
 function getAllRollupEntries(rootDir) {
-  return fg.sync(`${rootDir}/*rollup.mjs`, { onlyFiles: true })
+  return fg.sync(`${rootDir}/**/*${getGlobFilter(filter)}rollup.mjs`, { onlyFiles: true })
 }
 
 async function build(rollupEntry) {
-  consola.info('rollup -c', rollupEntry)
+  info('rollup -c', rollupEntry)
   await execa(`rollup`, ['-c', rollupEntry], { stdio: 'inherit' })
 }
 

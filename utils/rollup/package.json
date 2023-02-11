@@ -19,6 +19,7 @@
     "url": "https://github.com/pnpm/pnpm/issues"
   },
   "devDependencies": {
+    "cac": "^6.7.14",
     "execa": "^6.1.0",
     "fast-glob": "^3.2.12",
     "minimist": "^1.2.7"

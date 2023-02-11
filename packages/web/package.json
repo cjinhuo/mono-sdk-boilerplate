@@ -16,7 +16,7 @@
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
-    "batch-rollup": "batch-rollup -f ./rollups",
+    "batch-rollup": "batch-rollup -d ./rollups",
     "test": "jest --config jest.config.cjs"
   },
   "dependencies": {

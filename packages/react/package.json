@@ -8,13 +8,11 @@
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
-    "batch-rollup": "batch-rollup -f ./rollups",
+    "batch-rollup": "batch-rollup -d ./rollups",
     "build:cjs": "rollup -c ./rollups/iife.rollup.mjs"
   },
   "dependencies": {
