@@ -4,7 +4,7 @@ import './App.css'
 import { reactAdd } from '@mono/react'
 function App() {
   const [count, setCount] = useState(0)
-
+  console.log('1', 1)
   return (
     <div className='App'>
       <div>

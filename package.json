@@ -56,12 +56,6 @@
     "typescript": "^4.8.4",
     "@mono/eslint-config": "workspace:*"
   },
-  "lint-staged": {
-    "*packages.@(js|ts|tsx)": ["eslint --fix", "prettier --write"],
-    "*.@(yml|yaml)": ["prettier --parser yaml --write"],
-    "*.md": ["prettier --parser markdown --write"],
-    "*.json": ["prettier --parser json --write"]
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git"
