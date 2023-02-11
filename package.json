@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "the best monorepo",
-  "workspaces": ["packages/*", "utils/*"],
+  "workspaces": ["packages/*", "utils/*", "app/*"],
   "scripts": {
     "commit": "git add . && git cz",
     "esm": "pnpm --parallel esm",
@@ -57,7 +57,7 @@
     "@mono/eslint-config": "workspace:*"
   },
   "lint-staged": {
-    "*.@(js|ts|tsx)": ["eslint --fix", "prettier --write"],
+    "*packages.@(js|ts|tsx)": ["eslint --fix", "prettier --write"],
     "*.@(yml|yaml)": ["prettier --parser yaml --write"],
     "*.md": ["prettier --parser markdown --write"],
     "*.json": ["prettier --parser json --write"]
