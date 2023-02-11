@@ -9,7 +9,7 @@ analyzer.html
 
 packages/*/dist
 packages/*/node_modules
-packages/**/esm
+packages/*/esm
 
 # Coverage directory used by tools like istanbul
 coverage
