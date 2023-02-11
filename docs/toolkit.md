@@ -1,6 +1,5 @@
 
 ## toolkit
-
 ### code style
 * typescript-eslint
 * prettier
@@ -37,8 +36,3 @@ rollup-plugin-visualizer
 * jest:https://jestjs.io/blog/2022/04/25/jest-28
   * browser:https://jestjs.io/docs/next/getting-started
   * snapshot:https://jestjs.io/docs/next/snapshot-testing
-#### e2e
-* cypress:https://www.cypress.io/
-
-### size
-* filesize
