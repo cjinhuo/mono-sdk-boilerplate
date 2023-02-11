@@ -12,9 +12,7 @@
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
     "esm:watch": "tsc -b -w ./tsconfig.json",
@@ -24,7 +22,10 @@
   "dependencies": {
     "@mono/core": "workspace:*",
     "@mono/rollup": "workspace:*",
-    "@mono/shared": "workspace:*",
+    "@mono/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@mono/eslint-config": "workspace:*",
     "@mono/tsconfig": "workspace:*"
   }
 }

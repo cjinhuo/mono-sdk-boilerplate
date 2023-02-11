@@ -27,7 +27,10 @@
   },
   "dependencies": {
     "@mono/rollup": "workspace:*",
-    "@mono/shared": "workspace:*",
-    "@mono/tsconfig": "workspace:*"
+    "@mono/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@mono/tsconfig": "workspace:*",
+    "@mono/eslint-config": "workspace:*"
   }
 }

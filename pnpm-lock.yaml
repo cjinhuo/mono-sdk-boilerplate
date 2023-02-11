@@ -76,12 +76,15 @@ importers:
 
   packages/core:
     specifiers:
+      '@mono/eslint-config': workspace:*
       '@mono/rollup': workspace:*
       '@mono/shared': workspace:*
       '@mono/tsconfig': workspace:*
     dependencies:
       '@mono/rollup': link:../../utils/rollup
       '@mono/shared': link:../shared
+    devDependencies:
+      '@mono/eslint-config': link:../../utils/eslint-config
       '@mono/tsconfig': link:../../utils/tsconfig
 
   packages/react:
@@ -96,13 +99,16 @@ importers:
 
   packages/shared:
     specifiers:
+      '@mono/eslint-config': workspace:*
       '@mono/tsconfig': workspace:*
-    dependencies:
+    devDependencies:
+      '@mono/eslint-config': link:../../utils/eslint-config
       '@mono/tsconfig': link:../../utils/tsconfig
 
   packages/web:
     specifiers:
       '@mono/core': workspace:*
+      '@mono/eslint-config': workspace:*
       '@mono/rollup': workspace:*
       '@mono/shared': workspace:*
       '@mono/tsconfig': workspace:*
@@ -110,6 +116,8 @@ importers:
       '@mono/core': link:../core
       '@mono/rollup': link:../../utils/rollup
       '@mono/shared': link:../shared
+    devDependencies:
+      '@mono/eslint-config': link:../../utils/eslint-config
       '@mono/tsconfig': link:../../utils/tsconfig
 
   utils/eslint-config:

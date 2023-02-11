@@ -1,3 +1,4 @@
+# 优化点：去掉该文件后，esm 下文件不会爆红
 /node_modules
 /dist
 /doc
