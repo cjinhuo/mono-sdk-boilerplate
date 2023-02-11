@@ -1,7 +1,7 @@
 {
-  "name": "react-18",
+  "name": "@mono/react-18",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",

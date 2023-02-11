@@ -28,7 +28,6 @@ importers:
       jest: ^29.2.2
       lint-staged: ^13.0.3
       npm-run-all: ^4.1.5
-      pkgs-graph: ^8.0.0
       prettier: ^2.6.2
       rollup: ^3.15.0
       rollup-plugin-cleanup: ^3.2.1
@@ -66,7 +65,6 @@ importers:
       jest: 29.2.2_6llz3imlg24hiqj7rrwntziuoi
       lint-staged: 13.0.3
       npm-run-all: 4.1.5
-      pkgs-graph: 8.0.0
       prettier: 2.6.2
       rollup: 3.15.0
       rollup-plugin-cleanup: 3.2.1_rollup@3.15.0
@@ -1901,35 +1899,6 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@pnpm/npm-package-arg/1.0.0:
-    resolution:
-      {
-        integrity: sha512-oQYP08exi6mOPdAZZWcNIGS+KKPsnNwUBzSuAEGWuCcqwMAt3k/WVCqVIXzBxhO5sP2b43og69VHmPj6IroKqw==,
-      }
-    engines: { node: '>=14.6' }
-    dependencies:
-      hosted-git-info: 4.1.0
-      semver: 7.3.7
-      validate-npm-package-name: 4.0.0
-    dev: true
-
-  /@pnpm/ramda/0.28.1:
-    resolution:
-      {
-        integrity: sha512-zcAG+lvU0fMziNeGXpPyCyCJYp5ZVrPElEE4t14jAmViaihohocZ+dDkcRIyAomox8pQsuZnv1EyHR+pOhmUWw==,
-      }
-    dev: true
-
-  /@pnpm/resolve-workspace-range/4.0.0:
-    resolution:
-      {
-        integrity: sha512-MrXdfTe7CA76zvivatQHJz7Ui02nziKz7Fpht+npsKfOvAyVUcERks2mxPi1IlSFhKDeDLfe/K0v5qqMFcb54A==,
-      }
-    engines: { node: '>=14.6' }
-    dependencies:
-      semver: 7.3.8
-    dev: true
-
   /@rollup/plugin-alias/4.0.3_rollup@3.15.0:
     resolution:
       {
@@ -2949,15 +2918,6 @@ packages:
         integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==,
       }
     engines: { node: '>=6' }
-    dev: true
-
-  /builtins/5.0.1:
-    resolution:
-      {
-        integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==,
-      }
-    dependencies:
-      semver: 7.3.8
     dev: true
 
   /cac/6.7.14:
@@ -4617,16 +4577,6 @@ packages:
       {
         integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==,
       }
-    dev: true
-
-  /hosted-git-info/4.1.0:
-    resolution:
-      {
-        integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==,
-      }
-    engines: { node: '>=10' }
-    dependencies:
-      lru-cache: 6.0.0
     dev: true
 
   /html-escaper/2.0.2:
@@ -6614,18 +6564,6 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /pkgs-graph/8.0.0:
-    resolution:
-      {
-        integrity: sha512-ezW/9X8Cy04gecWQor4881oF700glYXhwimpf1z5aCMD+AEWqYGSF+q+KIh0WPl0tT0HZf0XHW4cInNUgNW0Iw==,
-      }
-    engines: { node: '>=14.6' }
-    dependencies:
-      '@pnpm/npm-package-arg': 1.0.0
-      '@pnpm/resolve-workspace-range': 4.0.0
-      ramda: /@pnpm/ramda/0.28.1
-    dev: true
-
   /postcss/8.4.21:
     resolution:
       {
@@ -7167,17 +7105,6 @@ packages:
         integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==,
       }
     hasBin: true
-    dev: true
-
-  /semver/7.3.7:
-    resolution:
-      {
-        integrity: sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==,
-      }
-    engines: { node: '>=10' }
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
     dev: true
 
   /semver/7.3.8:
@@ -8020,16 +7947,6 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
-    dev: true
-
-  /validate-npm-package-name/4.0.0:
-    resolution:
-      {
-        integrity: sha512-mzR0L8ZDktZjpX4OB46KT+56MAhl4EIazWP/+G/HPGuvfdaqg4YsCdtOm6U9+LOFyYDoh4dpnpxZRB9MQQns5Q==,
-      }
-    engines: { node: ^12.13.0 || ^14.15.0 || >=16.0.0 }
-    dependencies:
-      builtins: 5.0.1
     dev: true
 
   /vite/4.1.1:
