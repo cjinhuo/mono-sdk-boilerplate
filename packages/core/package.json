@@ -13,14 +13,12 @@
   "type": "module",
   "files": ["dist"],
   "scripts": {
-    "dev": "run-s esm:watch build:watch",
     "esm": "tsc -b ./tsconfig.json",
-    "build": "batch-rollup -d ./rollups",
-    "esm:watch": "tsc -b -w ./tsconfig.json",
-    "build:watch": "batch-rollup -d ./rollups -f cjs",
+    "rollup": "batch-rollup -d ./rollups",
+    "build": "run-s esm rollup",
+    "build:cjs": "batch-rollup -d ./rollups -f cjs",
     "lint": "eslint ./src/**",
-    "test": "jest --config jest.config.cjs",
-    "help": "rollup -h"
+    "test": "jest --config jest.config.cjs"
   },
   "dependencies": {
     "@mono/rollup": "workspace:*",

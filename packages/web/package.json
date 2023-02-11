@@ -15,8 +15,10 @@
   "files": ["dist"],
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
-    "esm:watch": "tsc -b -w ./tsconfig.json",
-    "batch-rollup": "batch-rollup -d ./rollups",
+    "rollup": "batch-rollup -d ./rollups",
+    "build": "run-s esm rollup",
+    "build:cjs": "batch-rollup -d ./rollups -f cjs",
+    "lint": "eslint ./src/**",
     "test": "jest --config jest.config.cjs"
   },
   "dependencies": {
