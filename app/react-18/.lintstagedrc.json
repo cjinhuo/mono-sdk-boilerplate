@@ -1,5 +1,0 @@
-// lint-staged 会自动寻找最近的配置
-// 为空时 lint-staged 会报错
-{
-  "*.json": ["prettier --parser json --write"]
-}
