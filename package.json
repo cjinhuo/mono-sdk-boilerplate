@@ -10,7 +10,7 @@
     "build": "pnpm --parallel build",
     "test": "pnpm --parallel test",
     "web:dev": "pnpm --filter @mono/react-18 dev",
-    "clean": "shx rm -rf packages/**/*.tsbuildinfo && shx rm -rf ./packages/*/{esm,dist}",
+    "clean": "shx rm -rf packages/**/*.tsbuildinfo && shx rm -rf ./{packages,app}/*/{esm,dist}",
     "postinstall": "husky install",
     "preinstall": "npx only-allow pnpm"
   },

@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "pnpm --filter @mono/react esm && vite",
+    "build": "pnpm --filter @mono/react esm && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

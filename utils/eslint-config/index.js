@@ -2,7 +2,10 @@ const config = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
+    // 相对于 tsconfigRootDir 的路径
     project: './tsconfig.lint.json',
+    // 由于 tsconfigRootDir 无法通过 .eslintrc.cjs 来识别当前动态路径，只能在引用时再添加该属性
+    // tsconfigRootDir: __dirname,
   },
   reportUnusedDisableDirectives: true,
   env: {

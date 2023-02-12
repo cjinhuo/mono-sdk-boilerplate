@@ -1,17 +1,20 @@
 # overview
-requires at least Node 16.18.0 and Pnpm 7 to run
+based on Pnpm + workspace,example for monorepo and the dependence graph as follows:
+![dependence-draw](./docs/dependence-draw.png)
+
 ## install
+requires at least Node 16.18.0 and Pnpm 7 to run
 `pnpm i`
 
 ## build
-### esm
-`pnpm esm`
+build all of sub projects in parallel
+`pnpm build`
 
-### rollup
-`pnpm batch-rollup`
+## run web
+`pnpm run web:dev`
 
-### expectation
-**local**: 
+## graph
+run `nx graph`,you'll see graph like as follows:
+![dependence-draw](./docs/dependence-graph.jpg)
 
-sdk -> node -> web
 
