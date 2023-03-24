@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "the best monorepo",
-  "workspaces": ["packages/*", "utils/*", "app/*"],
+  "workspaces": ["packages/*", "utils/*", "app/*", "e2e", "e2e/demos/*"],
   "scripts": {
     "commit": "git add . && git cz",
     "esm": "pnpm --parallel esm",
@@ -11,6 +11,7 @@
     "test": "pnpm --parallel test",
     "web:dev": "pnpm --filter @mono/react-18 dev",
     "clean": "shx rm -rf packages/**/*.tsbuildinfo && shx rm -rf ./{packages,app}/*/{esm,dist}",
+    "clean:node_module": "rm -rf ./node_modules && rm -rf ./{packages,app,e2e}/**/node_modules",
     "postinstall": "husky install",
     "preinstall": "npx only-allow pnpm"
   },
