@@ -6,6 +6,7 @@ import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import { join, resolve, dirname } from 'path'
 import url from 'url'
+import { babel } from '@rollup/plugin-babel'
 
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -21,6 +22,10 @@ const aliasConfig = alias({
 
 export function getBasicPlugins(aliasPlguin = aliasConfig) {
   return [
+    babel({
+      babelHelpers: 'bundled',
+      plugins: ['babel-plugin-istanbul'],
+    }),
     aliasPlguin,
     nodeResolve(),
     size(),

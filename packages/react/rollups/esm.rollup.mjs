@@ -1,4 +1,4 @@
-import { getBasicPlugins, getBasicOutput, getDirName } from '@mono/rollup'
+import { getBasicPlugins, getBasicOutput, getDirName, getDtsConfig } from '@mono/rollup'
 import { resolve } from 'path'
 import { createRequire } from 'node:module'
 const currentPackageDir = getDirName()
@@ -19,4 +19,4 @@ const config = {
   plugins: getBasicPlugins(),
 }
 
-export default config
+export default [config, getDtsConfig()]
