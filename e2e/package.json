@@ -11,8 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.8.1",
+    "@cypress/code-coverage": "^3.10.0",
+    "@mono/eslint-config": "workspace:*",
     "@mono/tsconfig": "workspace:*",
-    "@mono/eslint-config": "workspace:*"
+    "cypress": "^12.8.1"
   }
 }
