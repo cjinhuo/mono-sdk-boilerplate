@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module'
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { getBasicOutput, getBasicPlugins, getDirName } from '@mono/rollup'
 
 const currentPackageDir = getDirName()
