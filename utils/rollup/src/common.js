@@ -1,10 +1,10 @@
-import { dirname, join, resolve } from 'node:path'
-import url from 'node:url'
 import alias from '@rollup/plugin-alias'
 import { babel } from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { dirname, join, resolve } from 'node:path'
+import url from 'node:url'
 import cleanup from 'rollup-plugin-cleanup'
 import size from 'rollup-plugin-sizes'
 

@@ -1,6 +1,6 @@
-import { createRequire } from 'node:module'
-import { resolve } from 'path'
 import { getBasicOutput, getBasicPlugins, getDirName, getDtsConfig } from '@mono/rollup'
+import { createRequire } from 'node:module'
+import { resolve } from 'node:path'
 const currentPackageDir = getDirName()
 const input = resolve(currentPackageDir, 'esm/index.js')
 const packageDirDist = `${currentPackageDir}/dist`
