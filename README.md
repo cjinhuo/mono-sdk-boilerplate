@@ -4,9 +4,9 @@ based on Pnpm + nx + biome,example for monorepo and the dependence graph as foll
 ![dependence-draw](./docs/dependence-draw.png)
 
 ## install
-1. install [vscode biome extension](vscode:extension/biomejs.biome)
+1. install [**vscode biome extension**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
 2. requires at least `Node 18.18.0` and `Pnpm 8`
-4. run `pnpm i` to install dependencies
+3. run `pnpm i` to install dependencies
 
 ## build
 build all of sub projects in parallel.
