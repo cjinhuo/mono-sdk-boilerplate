@@ -37,7 +37,9 @@ function main() {
 }
 
 function getAllRollupEntries(rootDir) {
-	return fg.sync(`${rootDir}/**/*${getGlobFilter(filter)}rollup.mjs`, { onlyFiles: true })
+	return fg.sync(`${rootDir}/**/*${getGlobFilter(filter)}rollup.mjs`, {
+		onlyFiles: true,
+	})
 }
 
 async function build(rollupEntry) {

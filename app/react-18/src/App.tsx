@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
 import { reactAdd } from '@mono/react'
+import { useState } from 'react'
+import './App.css'
+import reactLogo from './assets/react.svg'
 function App() {
 	const [count, setCount] = useState(0)
 	console.log('1', 1)
@@ -16,7 +16,9 @@ function App() {
 				</a>
 			</div>
 			<div className='card'>
-				<button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+				<button type='button' onClick={() => setCount((count) => count + 1)}>
+					count is {count}
+				</button>
 			</div>
 			<div>reactAdd from @mono/react,以下展示 1 + 2 = reactAdd(1, 2)</div>
 			<div>1 + 2 = {reactAdd(1, 2)}</div>

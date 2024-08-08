@@ -16,7 +16,10 @@ const aliasConfig = alias({
 		{ find: /^@mono\/core$/, replacement: join(packagesRoot, 'core', 'esm') },
 		{ find: /^@mono\/web$/, replacement: join(packagesRoot, 'web', 'esm') },
 		{ find: /^@mono\/react$/, replacement: join(packagesRoot, 'react', 'esm') },
-		{ find: /^@mono\/shared$/, replacement: join(packagesRoot, 'shared', 'esm') },
+		{
+			find: /^@mono\/shared$/,
+			replacement: join(packagesRoot, 'shared', 'esm'),
+		},
 	],
 })
 
