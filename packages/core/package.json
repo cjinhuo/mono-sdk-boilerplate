@@ -27,7 +27,6 @@
 		"@mono/shared": "workspace:*"
 	},
 	"devDependencies": {
-		"@mono/tsconfig": "workspace:*",
-		"@mono/eslint-config": "workspace:*"
+		"@mono/tsconfig": "workspace:*"
 	}
 }
