@@ -1,10 +1,9 @@
 
 ## toolkit
-### code style
-* typescript-eslint
-* prettier
-* eslint-plugin-import
-* eslint-plugin-sonarjs
+### biome
+
+### changeset
+
 
 ### git&changelog
 git cz:https://github.com/commitizen/cz-cli#making-your-repo-commitizen-friendly
