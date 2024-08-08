@@ -4,15 +4,15 @@ import babel from 'vite-plugin-babel'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    babel({
-      babelConfig: {
-        // plugins: ['istanbul'],
-      },
-    }),
-  ],
-  server: {
-    port: 6060,
-  },
+	plugins: [
+		react(),
+		babel({
+			babelConfig: {
+				// plugins: ['istanbul'],
+			},
+		}),
+	],
+	server: {
+		port: 6060,
+	},
 })

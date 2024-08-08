@@ -1,11 +1,9 @@
 {
-  "extends": "@mono/tsconfig",
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "esm",
-  },
-  "include": [
-    "src/**/*.ts",
-  ],
-  "references": []
+	"extends": "@mono/tsconfig",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "esm"
+	},
+	"include": ["src/**/*.ts"],
+	"references": []
 }

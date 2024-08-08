@@ -1,6 +1,6 @@
-import { join, resolve } from 'path'
+import { join, resolve } from 'node:path'
 
 export function getDirName() {
-  const __dirname = resolve()
-  return join(__dirname)
+	const __dirname = resolve()
+	return join(__dirname)
 }

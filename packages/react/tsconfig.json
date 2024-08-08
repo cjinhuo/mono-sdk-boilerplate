@@ -1,15 +1,13 @@
 {
-  "extends": "@mono/tsconfig",
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "esm",
-  },
-  "include": [
-    "src/**/*.ts",
-  ],
-  "references": [
-    {
-      "path": "../web"
-    }
-  ]
+	"extends": "@mono/tsconfig",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "esm"
+	},
+	"include": ["src/**/*.ts"],
+	"references": [
+		{
+			"path": "../web"
+		}
+	]
 }

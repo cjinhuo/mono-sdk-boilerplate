@@ -1,4 +1,4 @@
 {
-  "extends": "./tsconfig.json",
-  "include": ["./cypress/**/**.ts", "cypress.config.ts", ".eslintrc.cjs"]
+	"extends": "./tsconfig.json",
+	"include": ["./cypress/**/**.ts", "cypress.config.ts", ".eslintrc.cjs"]
 }

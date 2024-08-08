@@ -1,3 +1,3 @@
 export default {
-  '*.json': ['prettier --parser json --write'],
+	'*.json': ['prettier --parser json --write'],
 }
