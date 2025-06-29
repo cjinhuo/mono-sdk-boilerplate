@@ -17,6 +17,7 @@
 	],
 	"scripts": {
 		"esm": "tsc -b ./tsconfig.json",
+		"watch:esm": "tsc -b ./tsconfig.json --watch",
 		"rollup": "batch-rollup -d ./rollups",
 		"build": "run-s esm rollup",
 		"build:cjs": "batch-rollup -d ./rollups -f cjs",

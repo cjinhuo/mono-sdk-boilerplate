@@ -28,7 +28,6 @@ rollup-plugin-visualizer
 * clipanion:https://github.com/arcanis/clipanion
 * inquirer:https://github.com/SBoudrias/Inquirer.js
 * debug:https://github.com/debug-js/debug
-* ts-node:https://typestrong.org/ts-node/
 
 ### test
 #### unit test
