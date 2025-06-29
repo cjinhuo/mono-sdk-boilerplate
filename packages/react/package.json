@@ -13,7 +13,9 @@
 		"types": "dist/index.d.ts"
 	},
 	"type": "module",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"esm": "tsc -b ./tsconfig.json",
 		"rollup": "batch-rollup -d ./rollups",

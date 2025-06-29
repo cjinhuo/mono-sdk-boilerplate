@@ -10,6 +10,7 @@ import minimist from 'minimist'
 
 import help from './common/help.js'
 import { getGlobFilter } from './common/index.js'
+
 const info = Consola.info
 const argv = minimist(process.argv.slice(2))
 const folder = argv.d || argv.dir

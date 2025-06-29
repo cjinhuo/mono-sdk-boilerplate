@@ -2,6 +2,7 @@ import { reactAdd } from '@mono/react'
 import { useState } from 'react'
 import './App.css'
 import reactLogo from './assets/react.svg'
+
 function App() {
 	const [count, setCount] = useState(0)
 	console.log('1', 1)
