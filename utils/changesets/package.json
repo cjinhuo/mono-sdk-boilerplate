@@ -1,0 +1,25 @@
+{
+	"name": "@mono/changesets",
+	"description": "changesets cli for architecture",
+	"version": "0.0.1",
+	"private": true,
+	"author": {
+		"name": "Shanks"
+	},
+	"license": "MIT",
+	"bin": {
+		"add_changeset": "bin/add_changeset.js",
+		"changeset_version": "bin/changeset_version.js",
+		"changeset_publish": "bin/changeset_publish.js",
+		"set_private": "bin/set_private.js"
+	},
+	"devDependencies": {
+		"consola": "^3.2.3",
+		"fast-glob": "^3.3.3",
+		"micromatch": "^4.0.8"
+	},
+	"dependencies": {
+		"dayjs": "^1.11.13",
+		"execa": "^6.1.0"
+	}
+}
