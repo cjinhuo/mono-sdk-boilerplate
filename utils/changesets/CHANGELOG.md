@@ -1,5 +1,14 @@
 # @mono/changesets
 
+## 0.0.7
+
+### Patch Changes
+
+Performance Improvements ⚡
+perf:this is en @cjinhuo · 2025-07-11 · [#8c418d77](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/8c418d77f10349b77587844014f2e65a3caa16f4)
+性能优化 ⚡
+perf:这是中文 @cjinhuo · 2025-07-11 · [#8c418d77](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/8c418d77f10349b77587844014f2e65a3caa16f4)
+
 ## 0.0.6
 
 ### Patch Changes
