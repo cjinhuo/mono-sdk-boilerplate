@@ -25,7 +25,7 @@ export async function getGitRemoteUrl() {
 		// 移除.git后缀
 		url = url.replace(/\.git$/, '')
 		return url
-	} catch (error) {
+	} catch (_error) {
 		return 'https://github.com/unknown/repo' // 默认值
 	}
 }
