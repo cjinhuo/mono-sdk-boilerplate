@@ -37,6 +37,7 @@ export async function getInfoByCommitId(commitId) {
 	if (!match) {
 		throw new Error(`commitId ${commitId} not found`)
 	}
+	console.log(match[1])
 	const [email, date, intactHash] = match[1].split(splitChar)
 	return { email, date: dayjs(date).format('YYYY-MM-DD'), intactHash }
 }

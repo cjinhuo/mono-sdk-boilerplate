@@ -7,7 +7,6 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 	}
 	const { email, date, intactHash } = await getInfoByCommitId(newChangesetWithCommit.commit)
 	const remoteUrl = await getGitRemoteUrl()
-	// - [c0b7864a4] @chenjinhuo - 2023.03.12:新增某某字段
 	return `- [${formatGitCommitId(newChangesetWithCommit.commit)}](${remoteUrl}/commit/${intactHash}) @${email} - ${date} => ${newChangesetWithCommit.summary}`
 }
 
