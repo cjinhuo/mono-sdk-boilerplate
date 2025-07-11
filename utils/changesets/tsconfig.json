@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"rootDir": "src",
-		"outDir": "esm",
+		"outDir": "dist",
 		"jsx": "react-jsx",
 		"allowUnreachableCode": false, // throw error when has unreachable code
 		"allowUnusedLabels": false, // throw error reporting for unused labels.
@@ -33,7 +33,7 @@
 		//   "node_modules/@types"
 		// ],
 		"target": "es2015",
-		"module": "esnext",
+		"module": "commonjs",
 		"allowJs": false,
 		"lib": ["es6", "dom"],
 		"sourceMap": false,

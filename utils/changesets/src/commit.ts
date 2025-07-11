@@ -38,7 +38,7 @@ const MESSAGE_PREFIX = `chore(changeset): 🦋`
  * // 返回: "chore(changeset): 🦋 @mono/parser-view:patch"
  * ```
  */
-async function getAddMessage(
+export async function getAddMessage(
 	changeset: Changeset & {
 		confirmed: boolean
 	}
@@ -90,7 +90,7 @@ async function getAddMessage(
  * // 返回: "chore(changeset): 🦋 @mono/shared:1.1.0->1.2.0"
  * ```
  */
-async function getVersionMessage(releasePlan: ReleasePlan) {
+export async function getVersionMessage(releasePlan: ReleasePlan) {
 	console.log('------------getVersionMessage----------', releasePlan)
 
 	// 如果没有发布信息，返回空发布消息
@@ -105,8 +105,4 @@ async function getVersionMessage(releasePlan: ReleasePlan) {
 
 	// 格式化消息长度并返回
 	return formatGitMessage(gitMessage)
-}
-module.exports = {
-	getAddMessage,
-	getVersionMessage,
 }
