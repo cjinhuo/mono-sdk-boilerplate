@@ -242,6 +242,9 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0
     devDependencies:
+      '@changesets/types':
+        specifier: ^6.1.0
+        version: 6.1.0
       consola:
         specifier: ^3.2.3
         version: 3.2.3

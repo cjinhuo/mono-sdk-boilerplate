@@ -3,7 +3,7 @@ const path = require('node:path')
 const fg = require('fast-glob')
 
 const packageJson = require('./package.json')
-
+const MAX_GIT_MESSAGE_LENGTH = 120
 const scopes = fg
 	.sync(packageJson.workspaces, { onlyDirectories: true })
 	.map((filePath) => path.basename(filePath))
@@ -13,7 +13,7 @@ module.exports = {
 	extends: ['@commitlint/config-conventional'],
 	rules: {
 		'scope-enum': [2, 'always', scopes],
-		'header-max-length': [2, 'always', 160],
+		'header-max-length': [2, 'always', MAX_GIT_MESSAGE_LENGTH],
 	},
 	prompt: {
 		messages: {

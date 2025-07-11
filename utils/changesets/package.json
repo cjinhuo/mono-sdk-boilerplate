@@ -13,7 +13,12 @@
 		"changeset_publish": "bin/changeset_publish.js",
 		"set_private": "bin/set_private.js"
 	},
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc"
+	},
 	"devDependencies": {
+		"@changesets/types": "^6.1.0",
 		"consola": "^3.2.3",
 		"fast-glob": "^3.3.3",
 		"micromatch": "^4.0.8"
