@@ -1,26 +1,26 @@
+# env
 .DS_Store
+.tmp
+.nx
+.idea
+
+# npm 
 node_modules
+
+# ts
+tsconfig.tsbuildinfo
 
 # test
 coverage
-.idea
+
 # analyzer
 analyzer.html
 
-packages/*/dist
-packages/*/node_modules
-packages/*/esm
-
 # Coverage directory used by tools like istanbul
 coverage
-
-.tmp
-_docpress
-
-tsconfig.tsbuildinfo
 
 # output dir
 temp
 dist
 lib
-.nx
+esm
