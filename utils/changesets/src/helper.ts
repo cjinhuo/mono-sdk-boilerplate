@@ -1,3 +1,4 @@
+import axios from 'axios'
 import dayjs from 'dayjs'
 import { execa } from 'execa'
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
@@ -28,8 +29,25 @@ export async function getGitRemoteUrl() {
 		return 'https://github.com/unknown/repo' // 默认值
 	}
 }
+async function getAuthorInfo(email: string, intactHash: string): Promise<string> {
+	try {
+		const remoteUrl = await getGitRemoteUrl()
+		const repoMatch = remoteUrl.match(/github\.com\/([^/]+\/[^/]+)$/)
+		const token = process.env.GITHUB_CHANGESET_TOKEN
+		if (repoMatch && token) {
+			const repo = repoMatch[1]
+			const githubAuthor = await getGithubAuthor(repo, intactHash, token)
+			if (githubAuthor) {
+				return githubAuthor
+			}
+		}
+	} catch (error) {
+		console.warn('Failed to get GitHub author, using email fallback:', error)
+	}
+	return email
+}
 
-export async function getInfoByCommitId(commitId) {
+export async function getInfoByCommitId(commitId: string) {
 	const splitChar = '__'
 	const res = await execa('git', ['show', `--pretty=%ae${splitChar}%cd${splitChar}%H`, commitId], { stdio: 'pipe' })
 	const match = res.stdout.match(/^(.*?)\n/m)
@@ -38,5 +56,29 @@ export async function getInfoByCommitId(commitId) {
 	}
 	console.log(match[1])
 	const [email, date, intactHash] = match[1].split(splitChar)
-	return { email, date: dayjs(date).format('YYYY-MM-DD'), intactHash }
+
+	// 获取作者信息（GitHub作者或email兜底）
+	const author = await getAuthorInfo(email, intactHash)
+
+	return { email, author, date: dayjs(date).format('YYYY-MM-DD'), intactHash }
+}
+
+export async function getGithubAuthor(repo: string, commitId: string, token: string): Promise<string> {
+	try {
+		const res = await axios.get(`https://api.github.com/repos/${repo}/commits/${commitId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: token,
+			},
+		})
+		return res.data?.author?.login || res.data?.commit?.author?.name || ''
+	} catch (error) {
+		console.warn('Failed to fetch GitHub author:', error)
+		return ''
+	}
+}
+
+export function isContainsChinese(text: string): boolean {
+	return /[\u4e00-\u9fff]/.test(text)
 }

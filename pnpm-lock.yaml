@@ -235,6 +235,9 @@ importers:
 
   utils/changesets:
     dependencies:
+      axios:
+        specifier: ^1.10.0
+        version: 1.10.0(debug@4.3.6)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13

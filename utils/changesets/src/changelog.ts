@@ -1,11 +1,6 @@
 import type { ModCompWithPackage, NewChangesetWithCommit } from '@changesets/types'
 import { CommitType, CommitTypeTitle, CommitTypeZhTitle } from './constants'
-import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId } from './helper'
-
-// 检测文本是否包含中文字符
-function containsChinese(text: string): boolean {
-	return /[\u4e00-\u9fff]/.test(text)
-}
+import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, isContainsChinese } from './helper'
 
 // 解析commit类型
 function parseCommitType(summary: string): CommitType | null {
@@ -20,7 +15,7 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 	if (!newChangesetWithCommit.commit) {
 		throw new Error('CommitId Not Found From Changeset')
 	}
-	const { email, date, intactHash } = await getInfoByCommitId(newChangesetWithCommit.commit)
+	const { email, author, date, intactHash } = await getInfoByCommitId(newChangesetWithCommit.commit)
 	const remoteUrl = await getGitRemoteUrl()
 	const commitId = formatGitCommitId(newChangesetWithCommit.commit)
 
@@ -32,7 +27,7 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 	const chineseLines: string[] = []
 
 	for (const line of summaryLines) {
-		if (containsChinese(line)) {
+		if (isContainsChinese(line)) {
 			chineseLines.push(line)
 		} else {
 			englishLines.push(line)
@@ -58,7 +53,7 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 		for (const [title, lines] of Object.entries(groupedByType)) {
 			result.push(title)
 			for (const line of lines) {
-				result.push(`${line} @${email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`)
+				result.push(`${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`)
 			}
 		}
 	}
@@ -80,7 +75,7 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 		for (const [title, lines] of Object.entries(groupedByType)) {
 			result.push(title)
 			for (const line of lines) {
-				result.push(`${line} @${email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`)
+				result.push(`${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`)
 			}
 		}
 	}
