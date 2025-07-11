@@ -1,7 +1,7 @@
 {
 	"name": "@mono/changesets",
 	"description": "changesets cli for architecture",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": true,
 	"author": {
 		"name": "Shanks"
