@@ -48,6 +48,7 @@ export async function getAddMessage(
 	// 如果变更未确认，返回空字符串
 	if (!changeset.confirmed) return ''
 
+	// todo 对用户输入的 summary 做 中英文 检测
 	// 构建 git commit 消息
 	const gitMessage = `${MESSAGE_PREFIX} ${changeset.releases.map((release) => `${release.name}:${release.type}`).join(',')}`
 
