@@ -2,4 +2,5 @@
 "@mono/core": patch
 ---
 
-feat: test for changeset \n feat: 测试 changeset 功能
+feat: test for changeset
+feat: 测试 changeset 功能
