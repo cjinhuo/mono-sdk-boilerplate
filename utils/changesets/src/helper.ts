@@ -1,8 +1,7 @@
 import dayjs from 'dayjs'
 import { execa } from 'execa'
+import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
 
-const MAX_GIT_MESSAGE_LENGTH = 120
-const MAX_GIT_COMMIT_ID_LENGTH = 8
 export function formatGitMessage(message: string) {
 	if (message.length > MAX_GIT_MESSAGE_LENGTH) {
 		return `${message.slice(0, MAX_GIT_MESSAGE_LENGTH - 4)}...`
