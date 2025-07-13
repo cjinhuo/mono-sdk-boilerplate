@@ -1,3 +1,5 @@
+import * as fs from 'node:fs'
+import * as path from 'node:path'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import { execa } from 'execa'
@@ -115,4 +117,24 @@ export async function getGithubAuthor(repo: string, commitId: string, token: str
 
 export function isContainsChinese(text: string): boolean {
 	return /[\u4e00-\u9fff]/.test(text)
+}
+
+/**
+ * 检测当前项目使用的包管理器
+ */
+export function detectPackageManager(): string {
+	const rootDir = process.cwd()
+
+	// 检查锁文件来确定包管理器
+	if (fs.existsSync(path.join(rootDir, 'pnpm-lock.yaml'))) {
+		return 'pnpm'
+	}
+	if (fs.existsSync(path.join(rootDir, 'yarn.lock'))) {
+		return 'yarn'
+	}
+	if (fs.existsSync(path.join(rootDir, 'package-lock.json'))) {
+		return 'npm'
+	}
+	// 默认使用 npm
+	return 'npx'
 }

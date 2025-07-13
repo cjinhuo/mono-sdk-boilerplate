@@ -244,6 +244,9 @@ importers:
       execa:
         specifier: ^6.1.0
         version: 6.1.0
+      minimist:
+        specifier: ^1.2.7
+        version: 1.2.8
     devDependencies:
       '@changesets/types':
         specifier: ^6.1.0
@@ -8219,7 +8222,7 @@ snapshots:
       listr2: 3.14.0(enquirer@2.3.6)
       lodash: 4.17.21
       log-symbols: 4.1.0
-      minimist: 1.2.7
+      minimist: 1.2.8
       ospath: 1.2.2
       pretty-bytes: 5.6.0
       proxy-from-env: 1.0.0
