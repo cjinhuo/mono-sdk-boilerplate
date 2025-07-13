@@ -9,7 +9,7 @@
  */
 
 import type { Changeset, ReleasePlan } from '@changesets/types'
-import { formatGitMessage } from './helper'
+import { formatGitMessage, splitSummary } from './helper'
 
 /** Git commit message 前缀 */
 const MESSAGE_PREFIX = `chore(changeset): 🦋`
@@ -43,12 +43,12 @@ export async function getAddMessage(
 		confirmed: boolean
 	}
 ) {
-	console.log('------------getAddMessage----------', changeset)
-
 	// 如果变更未确认，返回空字符串
 	if (!changeset.confirmed) return ''
 
-	// todo 对用户输入的 summary 做 中英文 检测
+	// 检测是否符合格式
+	splitSummary(changeset.summary)
+
 	// 构建 git commit 消息
 	const gitMessage = `${MESSAGE_PREFIX} ${changeset.releases.map((release) => `${release.name}:${release.type}`).join(',')}`
 
@@ -88,12 +88,10 @@ export async function getAddMessage(
  *     newVersion: '1.2.0'
  *   }]
  * }
- * // 返回: "chore(changeset): 🦋 @mono/shared:1.1.0->1.2.0"
+ * 返回: "chore(changeset): 🦋 @mono/shared:1.1.0->1.2.0"
  * ```
  */
 export async function getVersionMessage(releasePlan: ReleasePlan) {
-	console.log('------------getVersionMessage----------', releasePlan)
-
 	// 如果没有发布信息，返回空发布消息
 	if (!Array.isArray(releasePlan.releases) || !releasePlan.releases.length) {
 		return 'chore(changeset): empty release'

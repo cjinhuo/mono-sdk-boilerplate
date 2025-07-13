@@ -1,6 +1,6 @@
 import type { ModCompWithPackage, NewChangesetWithCommit } from '@changesets/types'
 import { CommitType, CommitTypeTitle, CommitTypeZhTitle } from './constants'
-import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, isContainsChinese } from './helper'
+import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, splitSummary } from './helper'
 
 // 解析commit类型
 function parseCommitType(summary: string): CommitType | null {
@@ -19,20 +19,7 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 	const remoteUrl = await getGitRemoteUrl()
 	const commitId = formatGitCommitId(newChangesetWithCommit.commit)
 
-	// 分割summary为多行
-	const summaryLines = newChangesetWithCommit.summary.split('\n').filter((line) => line.trim())
-
-	// 按中英文分组
-	const englishLines: string[] = []
-	const chineseLines: string[] = []
-
-	for (const line of summaryLines) {
-		if (isContainsChinese(line)) {
-			chineseLines.push(line)
-		} else {
-			englishLines.push(line)
-		}
-	}
+	const { englishLines, chineseLines } = splitSummary(newChangesetWithCommit.summary)
 
 	const result: string[] = []
 

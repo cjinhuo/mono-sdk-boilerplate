@@ -3,6 +3,40 @@ import dayjs from 'dayjs'
 import { execa } from 'execa'
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
 
+/**
+ * 返回拆分后的中英文内容，不符合格式时 throw error
+ * @param changesetSummary changeset summary 内容
+ * @returns
+ */
+export function splitSummary(changesetSummary: string) {
+	const summaryLines = changesetSummary.split('\n').filter((line) => line.trim())
+	if (summaryLines.length !== 2) {
+		throw new Error('summary 有且仅包含一个 \n 换行符分隔')
+	}
+	// 按中英文分组
+	const englishLines: string[] = []
+	const chineseLines: string[] = []
+
+	for (const line of summaryLines) {
+		if (isContainsChinese(line)) {
+			chineseLines.push(line)
+		} else {
+			englishLines.push(line)
+		}
+	}
+	if (englishLines.length === 0) {
+		throw new Error('summary 必须包含英文摘要')
+	}
+	if (chineseLines.length === 0) {
+		throw new Error('summary 必须包含中文摘要')
+	}
+
+	return {
+		englishLines,
+		chineseLines,
+	}
+}
+
 export function formatGitMessage(message: string) {
 	if (message.length > MAX_GIT_MESSAGE_LENGTH) {
 		return `${message.slice(0, MAX_GIT_MESSAGE_LENGTH - 4)}...`
