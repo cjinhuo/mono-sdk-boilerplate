@@ -9,7 +9,7 @@
 ```
 
 ## github token 
-如果想获取 changeset 提交人的用户名需要配置 github token 到 `GITHUB_CHANGESET_TOKEN` 到环境变量中，如果没有配置则默认使用 changeset 提交人邮箱。
+如果想获取 changeset 提交人的用户名需要配置 github token 到 `CHANGESET_READ_REPO_TOKEN` 到环境变量中，如果没有配置则默认使用 changeset 提交人邮箱。
 
 获取 token 方法：
 1. 登录 github，进入 `Settings` -> `Developer settings` -> `Personal access tokens` -> `Tokens (classic)`

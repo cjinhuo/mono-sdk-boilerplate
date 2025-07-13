@@ -74,9 +74,9 @@ export async function getGitRemoteUrl() {
  */
 async function getAuthorInfo(email: string, intactHash: string): Promise<string> {
 	try {
-		const token = process.env.GITHUB_CHANGESET_TOKEN
+		const token = process.env.CHANGESET_READ_REPO_TOKEN
 		if (!token) {
-			throw new Error('GITHUB_CHANGESET_TOKEN is undefined')
+			throw new Error('CHANGESET_READ_REPO_TOKEN is undefined')
 		}
 		const remoteUrl = await getGitRemoteUrl()
 		const repoMatch = remoteUrl.match(/github\.com\/([^/]+\/[^/]+)$/)
