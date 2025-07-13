@@ -1,11 +1,14 @@
 {
-	"$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
-	"changelog": "@changesets/cli/changelog",
-	"commit": false,
+	"$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+	"changelog": ["@mono/changesets/dist/changelog.js", {}],
+	"commit": ["@mono/changesets/dist/commit.js", {}],
+	"updateInternalDependencies": "patch",
 	"fixed": [],
 	"linked": [],
-	"access": "restricted",
+	"access": "public",
 	"baseBranch": "master",
-	"updateInternalDependencies": "patch",
+	"___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+		"updateInternalDependents": "always"
+	},
 	"ignore": []
 }
