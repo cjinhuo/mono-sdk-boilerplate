@@ -1,5 +1,15 @@
 # @mono/web
 
+## 0.0.3-beta.0
+
+### Patch Changes
+
+- Updated By @mono/core: 0.0.2->0.0.3-beta.0
+  Other Changes
+  chore: test @cjinhuo@qq.com · 2025-07-13 · [#33fc8c40](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/33fc8c40006df7435f86619868468800abb3e513)
+  其他变更
+  chore: 测试 @cjinhuo@qq.com · 2025-07-13 · [#33fc8c40](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/33fc8c40006df7435f86619868468800abb3e513)
+
 ## 0.0.2
 
 ### Patch Changes
