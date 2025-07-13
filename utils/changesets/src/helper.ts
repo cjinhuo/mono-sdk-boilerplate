@@ -120,7 +120,7 @@ export async function getGithubAuthor(repo: string, commitId: string, token: str
 		})
 		return res.data?.author?.login || res.data?.commit?.author?.name || ''
 	} catch (error) {
-		console.warn('Failed to fetch GitHub author:', error)
+		consola.warn('Failed to fetch GitHub author:', error)
 		return ''
 	}
 }

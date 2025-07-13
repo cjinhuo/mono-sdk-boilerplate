@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"private": true,
 	"scripts": {
 		"demos": "pnpm --filter @mono/react-e2e-demo run dev",
 		"e2e": "pnpm cypress open"

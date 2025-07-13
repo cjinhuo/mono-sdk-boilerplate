@@ -1,31 +1,32 @@
 {
-	"name": "@mono/changesets",
+	"name": "changesets",
 	"description": "changesets cli for architecture",
 	"version": "0.0.1",
-	"private": true,
 	"author": {
-		"name": "Shanks"
+		"name": "cjinhuo",
+		"email": "cjinhuo@qq.com",
+		"url": "https://cjinhuo.netlify.com/"
 	},
 	"license": "MIT",
 	"bin": {
 		"changeset_version": "./dist/bin/changeset_version.js",
-		"changeset_publish": "./dist/bin/changeset_publish.js",
-		"set_private": "dist/bin/set_private.js"
+		"changeset_publish": "./dist/bin/changeset_publish.js"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"README.md"
 	],
 	"scripts": {
 		"dev": "tsc --watch",
 		"build": "tsc"
 	},
 	"devDependencies": {
-		"@changesets/types": "^6.1.0",
-		"consola": "^3.2.3",
-		"fast-glob": "^3.3.3",
-		"micromatch": "^4.0.8"
+		"@changesets/types": "^6.1.0"
 	},
 	"dependencies": {
+		"consola": "^3.2.3",
+		"fast-glob": "^3.3.3",
+		"micromatch": "^4.0.8",
 		"axios": "^1.10.0",
 		"dayjs": "^1.11.13",
 		"execa": "^6.1.0",
