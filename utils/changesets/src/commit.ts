@@ -45,7 +45,6 @@ export async function getAddMessage(
 ) {
 	// 如果变更未确认，返回空字符串
 	if (!changeset.confirmed) return ''
-
 	// 检测是否符合格式
 	splitSummary(changeset.summary)
 

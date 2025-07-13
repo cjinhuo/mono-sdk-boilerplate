@@ -1,7 +1,7 @@
 {
-	"name": "changesets",
-	"description": "changesets cli for architecture",
-	"version": "0.0.1",
+	"name": "changesets-toolkit",
+	"description": "toolkit for changesets which make commit message more automatic and changelogs more readable",
+	"version": "0.0.0",
 	"author": {
 		"name": "cjinhuo",
 		"email": "cjinhuo@qq.com",

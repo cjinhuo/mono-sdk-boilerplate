@@ -17,9 +17,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.2.2
         version: 19.2.2
-      '@mono/changesets':
-        specifier: workspace:*
-        version: link:utils/changesets
       '@mono/tsconfig':
         specifier: workspace:^
         version: link:utils/tsconfig
@@ -56,6 +53,9 @@ importers:
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
+      changesets-toolkit:
+        specifier: workspace:*
+        version: link:utils/changesets
       consola:
         specifier: ^3.2.3
         version: 3.2.3
@@ -241,12 +241,21 @@ importers:
       axios:
         specifier: ^1.10.0
         version: 1.10.0(debug@4.3.6)
+      consola:
+        specifier: ^3.2.3
+        version: 3.2.3
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
       execa:
         specifier: ^6.1.0
         version: 6.1.0
+      fast-glob:
+        specifier: ^3.3.3
+        version: 3.3.3
+      micromatch:
+        specifier: ^4.0.8
+        version: 4.0.8
       minimist:
         specifier: ^1.2.7
         version: 1.2.8
@@ -254,15 +263,6 @@ importers:
       '@changesets/types':
         specifier: ^6.1.0
         version: 6.1.0
-      consola:
-        specifier: ^3.2.3
-        version: 3.2.3
-      fast-glob:
-        specifier: ^3.3.3
-        version: 3.3.3
-      micromatch:
-        specifier: ^4.0.8
-        version: 4.0.8
 
   utils/rollup:
     devDependencies:

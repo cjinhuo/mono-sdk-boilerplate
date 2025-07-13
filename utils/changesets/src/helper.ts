@@ -1,10 +1,28 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import axios from 'axios'
-import consola from 'consola'
+import { createConsola } from 'consola'
 import dayjs from 'dayjs'
 import { execa } from 'execa'
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
+
+/**
+ * 创建带有标签前缀的 consola 实例
+ * @param tag 日志标签
+ * @returns consola 实例
+ */
+function createLogger(tag: string = '') {
+	const consola = createConsola({
+		fancy: true,
+		formatOptions: {
+			date: true,
+		},
+	})
+	return tag ? consola.withTag(tag) : consola
+}
+
+// 默认的 logger 实例
+export const logger = createLogger('changeset')
 
 /**
  * 返回拆分后的中英文内容，不符合格式时 throw error
@@ -14,7 +32,7 @@ import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
 export function splitSummary(changesetSummary: string) {
 	const summaryLines = changesetSummary.split('\n').filter((line) => line.trim())
 	if (summaryLines.length !== 2) {
-		throw new Error('summary 有且仅包含一个 \n 换行符分隔')
+		throw new Error('summary 有且仅包含一个 /\n 换行符')
 	}
 	// 按中英文分组
 	const englishLines: string[] = []
@@ -89,7 +107,7 @@ async function getAuthorInfo(email: string, intactHash: string): Promise<string>
 			return githubAuthor
 		}
 	} catch (error) {
-		consola.warn('Failed to get GitHub author, using email fallback:', (error as Error).message)
+		logger.warn('Failed to get GitHub author, using email fallback:', (error as Error).message)
 	}
 	return email
 }
@@ -120,7 +138,7 @@ export async function getGithubAuthor(repo: string, commitId: string, token: str
 		})
 		return res.data?.author?.login || res.data?.commit?.author?.name || ''
 	} catch (error) {
-		consola.warn('Failed to fetch GitHub author:', error)
+		logger.warn('Failed to fetch GitHub author:', error)
 		return ''
 	}
 }
