@@ -6,7 +6,10 @@ import consola from 'consola'
 import { execa } from 'execa'
 import * as fg from 'fast-glob'
 import * as micromatch from 'micromatch'
-import * as minimist from 'minimist'
+
+// minimist 仅支持 require
+const minimist = require('minimist')
+
 import { detectPackageManager } from '../helper'
 
 interface Args {
