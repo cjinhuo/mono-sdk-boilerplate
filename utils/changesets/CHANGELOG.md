@@ -1,5 +1,14 @@
 # @mono/changesets
 
+## 0.0.8
+
+### Patch Changes
+
+New Features 🎉
+feat:change changeset bin from js to ts @cjinhuo@qq.com · 2025-07-13 · [#99f1f9c2](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/99f1f9c2fe1266f52d323e217fbbcb226bbbbf7d)
+新特性 🎉
+feat:更改 changeset bin 目录下的 js 到 ts @cjinhuo@qq.com · 2025-07-13 · [#99f1f9c2](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/99f1f9c2fe1266f52d323e217fbbcb226bbbbf7d)
+
 ## 0.0.7
 
 ### Patch Changes
