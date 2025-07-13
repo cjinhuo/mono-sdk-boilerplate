@@ -8,10 +8,9 @@
 	},
 	"license": "MIT",
 	"bin": {
-		"add_changeset": "bin/add_changeset.js",
-		"changeset_version": "bin/changeset_version.js",
-		"changeset_publish": "bin/changeset_publish.js",
-		"set_private": "bin/set_private.js"
+		"changeset_version": "./dist/bin/changeset_version.js",
+		"changeset_publish": "./dist/bin/changeset_publish.js",
+		"set_private": "dist/bin/set_private.js"
 	},
 	"files": [
 		"dist"
