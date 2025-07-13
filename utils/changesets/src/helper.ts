@@ -89,7 +89,7 @@ async function getAuthorInfo(email: string, intactHash: string): Promise<string>
 			return githubAuthor
 		}
 	} catch (error) {
-		consola.warn('Failed to get GitHub author, using email fallback:', error)
+		consola.warn('Failed to get GitHub author, using email fallback:', (error as Error).message)
 	}
 	return email
 }
