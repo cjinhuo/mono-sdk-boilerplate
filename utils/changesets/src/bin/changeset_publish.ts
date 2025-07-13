@@ -2,7 +2,10 @@
 
 import consola from 'consola'
 import { execa } from 'execa'
-import minimist from 'minimist'
+
+// minimist 仅支持 require
+const minimist = require('minimist')
+
 import { detectPackageManager } from 'src/helper'
 
 interface Args {

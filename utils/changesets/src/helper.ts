@@ -1,6 +1,7 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import axios from 'axios'
+import consola from 'consola'
 import dayjs from 'dayjs'
 import { execa } from 'execa'
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
@@ -65,20 +66,30 @@ export async function getGitRemoteUrl() {
 		return 'https://github.com/unknown/repo' // 默认值
 	}
 }
+/**
+ * 获取 commitId 对应的 GitHub 用户名
+ * @param email 用户邮箱
+ * @param intactHash 完整的 commitId
+ * @returns 邮箱对应的 GitHub 用户名，没有 token 时用邮箱兜底
+ */
 async function getAuthorInfo(email: string, intactHash: string): Promise<string> {
 	try {
+		const token = process.env.GITHUB_CHANGESET_TOKEN
+		if (!token) {
+			throw new Error('GITHUB_CHANGESET_TOKEN is undefined')
+		}
 		const remoteUrl = await getGitRemoteUrl()
 		const repoMatch = remoteUrl.match(/github\.com\/([^/]+\/[^/]+)$/)
-		const token = process.env.GITHUB_CHANGESET_TOKEN
-		if (repoMatch && token) {
-			const repo = repoMatch[1]
-			const githubAuthor = await getGithubAuthor(repo, intactHash, token)
-			if (githubAuthor) {
-				return githubAuthor
-			}
+		if (!repoMatch) {
+			throw new Error('Failed to get GitHub repo')
+		}
+		const repo = repoMatch[1]
+		const githubAuthor = await getGithubAuthor(repo, intactHash, token)
+		if (githubAuthor) {
+			return githubAuthor
 		}
 	} catch (error) {
-		console.warn('Failed to get GitHub author, using email fallback:', error)
+		consola.warn('Failed to get GitHub author, using email fallback:', error)
 	}
 	return email
 }
@@ -90,7 +101,6 @@ export async function getInfoByCommitId(commitId: string) {
 	if (!match) {
 		throw new Error(`commitId ${commitId} not found`)
 	}
-	console.log(match[1])
 	const [email, date, intactHash] = match[1].split(splitChar)
 
 	// 获取作者信息（GitHub作者或email兜底）

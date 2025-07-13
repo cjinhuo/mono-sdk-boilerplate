@@ -68,7 +68,7 @@ async function bumpVersionForRelease(fn: RestoreFunction): Promise<void> {
 		await execa('git', ['add', '.'], { stdio: 'inherit' })
 		await execa('git', ['commit', '-m', 'chore(changeset): 🦋 bump version for release'], { stdio: 'inherit' })
 	} catch (error) {
-		consola.info('there is nothing to commit')
+		consola.info('there is nothing to commit', (error as Error).message)
 	}
 
 	if (argv['git-push'] === undefined || argv['git-push'] === true) {
