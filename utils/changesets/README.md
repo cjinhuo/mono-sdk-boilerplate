@@ -50,12 +50,17 @@ export const CommitTypeTitle = {
 1. 解析 `.changeset/config.json` 下的文件内容，并按照一定格式写入 changelog，格式如下
 ```md
 New Features 🎉
-feat:xxx @xxx · 2025-xx-xx · [#xxx](https://xxx)
+feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
 新特性 🎉
-feat:xx @xxx · 2025-xx-xx · [#xxx](https://xxx)
+feat: 这是测试 @xxx · 2025-xx-xx · [#xxx](https://xxx)
 ```
 2. 当子包更新时，父包的 changelog 也会更新，格式如下
 ```md
+- Updated By @mono/core: 0.0.1->0.0.2
+  New Features 🎉
+  feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
+  新特性 🎉
+  feat: 这是测试 @xxx · 2025-xx-xx · [#xxx](https://xxx)
 ```
 
 ## changeset_version
