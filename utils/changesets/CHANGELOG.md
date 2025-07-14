@@ -1,5 +1,18 @@
 # @mono/changesets
 
+## 0.0.2
+
+### Patch Changes
+
+Bug Fixes 🐞
+fix: set execa 5.1.1 to support 'require' syntax @cjinhuo · 2025-07-14 · [#be4ec4e1](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/be4ec4e16ea897e1034e7449a4617fe475262551)
+Bug 修复 🐞
+fix: 将 execa 设置到 5.1.1 来支持 'require' 语法 @cjinhuo · 2025-07-14 · [#be4ec4e1](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/be4ec4e16ea897e1034e7449a4617fe475262551)
+Bug Fixes 🐞
+fix: set execa 5.1.1 to support 'require' syntax @cjinhuo · 2025-07-14 · [#be4ec4e1](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/be4ec4e16ea897e1034e7449a4617fe475262551)
+Bug 修复 🐞
+fix: 将 execa 设置到 5.1.1 来支持 'require' 语法 @cjinhuo · 2025-07-14 · [#be4ec4e1](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/be4ec4e16ea897e1034e7449a4617fe475262551)
+
 ## 0.0.1
 
 ### Patch Changes
