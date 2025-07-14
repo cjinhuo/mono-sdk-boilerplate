@@ -1,0 +1,17 @@
+{
+	"mode": "pre",
+	"tag": "beta",
+	"initialVersions": {
+		"@mono/react-19": "0.0.1",
+		"@mono/e2e": "1.0.0",
+		"@mono/react-e2e-demo": "0.0.2-beta.0",
+		"@mono/core": "0.0.1",
+		"@mono/react": "0.0.1",
+		"@mono/shared": "0.0.1",
+		"@mono/web": "0.0.1",
+		"changesets-toolkit": "0.0.0",
+		"@mono/rollup": "0.0.1",
+		"@mono/tsconfig": "0.0.1"
+	},
+	"changesets": ["spotty-tools-throw"]
+}
