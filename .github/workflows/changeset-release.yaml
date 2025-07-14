@@ -2,7 +2,7 @@ name: Release NPM Package
 
 env:
   CHANGESET_READ_REPO_TOKEN: ${{ secrets.CHANGESET_READ_REPO_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 on:
