@@ -1,5 +1,10 @@
 name: Release NPM Package
 
+env:
+  CHANGESET_READ_REPO_TOKEN: ${{ secrets.CHANGESET_READ_REPO_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 on:
   workflow_dispatch:
 
@@ -25,14 +30,9 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Bump version
         run: pnpm changeset_version
-        env:
-          CHANGESET_READ_REPO_TOKEN: ${{ secrets.CHANGESET_READ_REPO_TOKEN }}
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: pnpm changeset_publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
