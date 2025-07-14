@@ -2,12 +2,12 @@
 
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import { execa } from 'execa'
 import * as fg from 'fast-glob'
 import * as micromatch from 'micromatch'
 
 // minimist 仅支持 require
 const minimist = require('minimist')
+const execa = require('execa')
 
 import { detectPackageManager, logger } from '../helper'
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-import { execa } from 'execa'
-
 // minimist 仅支持 require
 const minimist = require('minimist')
+const execa = require('execa')
 
 import { detectPackageManager, logger } from '../helper'
 

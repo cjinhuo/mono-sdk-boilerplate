@@ -3,7 +3,9 @@ import * as path from 'node:path'
 import axios from 'axios'
 import { createConsola } from 'consola'
 import dayjs from 'dayjs'
-import { execa } from 'execa'
+
+const execa = require('execa')
+
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
 
 /**
