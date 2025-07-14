@@ -28,6 +28,10 @@ jobs:
         # 先build 完再 install 是为了让 changeset_version 的 bin 能正常使用
       - name: Build Changeset-toolkit bin
         run: pnpm install --no-frozen-lockfile
+      - name: Configure Git
+        run: |
+          git config --global user.name "Shanks"
+          git config --global user.email "cjinhuo@qq.com"
       - name: Bump version
         run: pnpm changeset_version
       - name: Create Release Pull Request or Publish to npm
