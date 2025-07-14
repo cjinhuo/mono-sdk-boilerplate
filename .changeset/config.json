@@ -1,7 +1,7 @@
 {
 	"$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
-	"changelog": ["@mono/changesets/dist/changelog.js", {}],
-	"commit": ["@mono/changesets/dist/commit.js", {}],
+	"changelog": ["changesets-toolkit/dist/changelog.js", {}],
+	"commit": ["changesets-toolkit/dist/commit.js", {}],
 	"updateInternalDependencies": "patch",
 	"fixed": [],
 	"linked": [],

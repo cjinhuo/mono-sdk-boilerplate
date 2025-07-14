@@ -32,7 +32,7 @@ export const logger = createLogger('changeset')
 export function splitSummary(changesetSummary: string) {
 	const summaryLines = changesetSummary.split('\n').filter((line) => line.trim())
 	if (summaryLines.length !== 2) {
-		throw new Error('summary 有且仅包含一个 /\n 换行符')
+		throw new Error('summary 有且仅包含一个 \\n 换行符')
 	}
 	// 按中英文分组
 	const englishLines: string[] = []

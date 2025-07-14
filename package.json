@@ -19,7 +19,6 @@
 		"web:dev": "pnpm --filter @mono/react-19 dev",
 		"clean": "shx rm -rf packages/**/*.tsbuildinfo && shx rm -rf ./{packages,app}/*/{esm,dist}",
 		"clean:node_module": "rm -rf ./node_modules && rm -rf ./{packages,app,e2e}/**/node_modules",
-		"postinstall": "husky install",
 		"preinstall": "npx only-allow pnpm"
 	},
 	"engines": {

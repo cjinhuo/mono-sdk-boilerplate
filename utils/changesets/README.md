@@ -3,8 +3,8 @@
 ## 配置
 在 `.changeset/config.json` 中配置
 ```json
-"changelog": ["@mono/changesets/dist/changelog.js", {}],
-"commit": ["@mono/changesets/dist/commit.js", {}],
+"changelog": ["changesets-toolkit/dist/changelog.js", {}],
+"commit": ["changesets-toolkit/dist/commit.js", {}],
 "updateInternalDependencies": "patch",
 ```
 
@@ -19,8 +19,31 @@
 
 ## commit
 在运行 `npx changeset` 时，做如下步骤：
-1. 校验 commit message 格式是否符合要求：包含两行字符串，一行包括中文，一行包括英文
-2. 构建 commit message 信息
+1. 校验 commit message 格式是否符合要求：**包含两行字符串，一行包括中文，一行包括英文**
+2. 格式如下：
+```md
+feat: this is en
+feat: 这是中文
+```
+所有类型前缀如下：
+```ts
+export enum CommitType {
+	Performance = 'perf',
+	Features = 'feat',
+	BugFix = 'fix',
+	Doc = 'doc',
+	Build = 'build',
+	Other = 'other',
+}
+export const CommitTypeTitle = {
+	[CommitType.Performance]: 'Performance Improvements ⚡',
+	[CommitType.Features]: 'New Features 🎉',
+	[CommitType.BugFix]: 'Bug Fixes 🐞',
+	[CommitType.Doc]: 'Docs update 📄',
+	[CommitType.Build]: 'Build System update 📦️',
+	[CommitType.Other]: 'Other Changes',
+}
+```
 
 ## changelog
 在运行 `npx changeset version` 时，做如下步骤：
@@ -30,7 +53,9 @@ New Features 🎉
 feat:xxx @xxx · 2025-xx-xx · [#xxx](https://xxx)
 新特性 🎉
 feat:xx @xxx · 2025-xx-xx · [#xxx](https://xxx)
-
+```
+2. 当子包更新时，父包的 changelog 也会更新，格式如下
+```md
 ```
 
 ## changeset_version
