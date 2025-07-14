@@ -5,7 +5,7 @@ import { execa } from 'execa'
 // minimist 仅支持 require
 const minimist = require('minimist')
 
-import { detectPackageManager, logger } from 'src/helper'
+import { detectPackageManager, logger } from '../helper'
 
 interface Args {
 	'git-tag'?: boolean
