@@ -9,7 +9,7 @@
     "@mono/react": "0.0.1",
     "@mono/shared": "0.0.1",
     "@mono/web": "0.0.1",
-    "changesets-toolkit": "0.0.1-beta.1",
+    "changesets-toolkit": "0.0.1-beta.2",
     "@mono/rollup": "0.0.1",
     "@mono/tsconfig": "0.0.1"
   },
