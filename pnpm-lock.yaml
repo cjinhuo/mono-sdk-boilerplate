@@ -248,8 +248,8 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
       execa:
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
@@ -8527,7 +8527,7 @@ snapshots:
 
   execa@5.1.1:
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       get-stream: 6.0.1
       human-signals: 2.1.0
       is-stream: 2.0.1
