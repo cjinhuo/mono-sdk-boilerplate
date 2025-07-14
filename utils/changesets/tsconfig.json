@@ -21,13 +21,7 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports.
-		"paths": {
-			// like alias. associated with baseUrl
-			// "@mono/*": [
-			//   "../../packages/*/src"
-			// ],
-			"@/test/*": ["test/*"]
-		},
+		"paths": {},
 		"types": ["node", "jest"],
 		// "typeRoots": [
 		//   "node_modules/@types"
@@ -37,7 +31,7 @@
 		"allowJs": false,
 		"lib": ["es6", "dom"],
 		"sourceMap": false,
-		"composite": true
+		"declaration": false // 移除 TypeScript 声明文件生成
 	},
 	"include": ["src/**/*.ts"]
 }
