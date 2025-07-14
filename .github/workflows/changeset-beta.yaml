@@ -19,8 +19,10 @@ jobs:
       - name: Run Pnpm
         run: pnpm install --no-frozen-lockfile
       - name: Build
-      # 先build 完再 install 是为了让 changeset_version 的 bin 能正常使用
-        run: pnpm build & pnpm install --no-frozen-lockfile
+        run: pnpm build
+        # 先build 完再 install 是为了让 changeset_version 的 bin 能正常使用
+      - name: Build Changeset-toolkit bin
+        run: pnpm install --no-frozen-lockfile
       - name: Bump version
         run: pnpm changeset_version --beta
         env:
