@@ -11,7 +11,13 @@ function parseCommitType(summary: string): CommitType | null {
 	return Object.values(CommitType).includes(type) ? type : CommitType.Other
 }
 
-export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCommit) {
+/**
+ * 获取变更集的 changelog
+ * @param newChangesetWithCommit 变更集
+ * @param isNestedFormat 是否使用嵌套格式，默认 false，为 true 时会添加前置空格，方便在 Updated By 下展示
+ * @returns
+ */
+export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCommit, isNestedFormat = false) {
 	if (!newChangesetWithCommit.commit) {
 		throw new Error('CommitId Not Found From Changeset')
 	}
@@ -23,49 +29,37 @@ export async function getReleaseLine(newChangesetWithCommit: NewChangesetWithCom
 
 	const result: string[] = []
 
-	// 处理英文内容
-	if (englishLines.length > 0) {
-		const groupedByType: Record<string, string[]> = {}
+	// 处理提交信息的通用函数
+	const processLines = (lines: string[], titleMap: Record<CommitType, string>) => {
+		if (lines.length === 0) return
 
-		for (const line of englishLines) {
-			const commitType = parseCommitType(line) || CommitType.Other
-			const title = CommitTypeTitle[commitType]
+		const groupedByType = lines.reduce(
+			(acc, line) => {
+				const commitType = parseCommitType(line) || CommitType.Other
+				const title = titleMap[commitType]
 
-			if (!groupedByType[title]) {
-				groupedByType[title] = []
-			}
-			groupedByType[title].push(line)
-		}
+				if (!acc[title]) {
+					acc[title] = []
+				}
+				acc[title].push(line)
+				return acc
+			},
+			{} as Record<string, string[]>
+		)
 
-		for (const [title, lines] of Object.entries(groupedByType)) {
-			result.push(title)
-			for (const line of lines) {
-				result.push(`${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`)
-			}
-		}
+		Object.entries(groupedByType).forEach(([title, lines]) => {
+			result.push(`${isNestedFormat ? title : `#### ${title}`}`)
+			lines.forEach((line) => {
+				result.push(
+					`${isNestedFormat ? ' ' : ''}* ${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`
+				)
+			})
+		})
 	}
 
-	// 处理中文内容
-	if (chineseLines.length > 0) {
-		const groupedByType: Record<string, string[]> = {}
-
-		for (const line of chineseLines) {
-			const commitType = parseCommitType(line) || CommitType.Other
-			const title = CommitTypeZhTitle[commitType]
-
-			if (!groupedByType[title]) {
-				groupedByType[title] = []
-			}
-			groupedByType[title].push(line)
-		}
-
-		for (const [title, lines] of Object.entries(groupedByType)) {
-			result.push(title)
-			for (const line of lines) {
-				result.push(`${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`)
-			}
-		}
-	}
+	// 处理英文和中文内容
+	processLines(englishLines, CommitTypeTitle)
+	processLines(chineseLines, CommitTypeZhTitle)
 
 	return result.join('\n')
 }
@@ -78,7 +72,7 @@ export async function getDependencyReleaseLine(
 
 	const releaseLines: string[] = []
 	for (const changeset of newChangesetWithCommits) {
-		const releaseLine = await getReleaseLine(changeset)
+		const releaseLine = await getReleaseLine(changeset, true)
 		releaseLines.push(releaseLine)
 	}
 	const dependenciesUpdated = _dependenciesUpdated[0]
