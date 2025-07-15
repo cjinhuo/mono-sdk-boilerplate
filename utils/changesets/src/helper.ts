@@ -37,26 +37,26 @@ export function splitSummary(changesetSummary: string) {
 		throw new Error('summary 有且仅包含一个 \\n 换行符')
 	}
 	// 按中英文分组
-	const englishLines: string[] = []
-	const chineseLines: string[] = []
+	let englishLine = ''
+	let chineseLine = ''
 
 	for (const line of summaryLines) {
 		if (isContainsChinese(line)) {
-			chineseLines.push(line)
+			chineseLine = line
 		} else {
-			englishLines.push(line)
+			englishLine = line
 		}
 	}
-	if (englishLines.length === 0) {
+	if (!englishLine) {
 		throw new Error('summary 必须包含英文摘要')
 	}
-	if (chineseLines.length === 0) {
+	if (!chineseLine) {
 		throw new Error('summary 必须包含中文摘要')
 	}
 
 	return {
-		englishLines,
-		chineseLines,
+		englishLine,
+		chineseLine,
 	}
 }
 
