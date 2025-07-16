@@ -19,20 +19,12 @@ export async function getReleaseLine(
 	const { email, author, date, intactHash } = await getInfoByCommitId(newChangesetWithCommit.commit)
 	const remoteUrl = await getGitRemoteUrl()
 	const commitId = formatGitCommitId(newChangesetWithCommit.commit)
+	const lines = splitSummary(newChangesetWithCommit.summary)
 
-	const { englishLine, chineseLine } = splitSummary(newChangesetWithCommit.summary)
+	const result: string[] = lines.map((line) => {
+		return `${isNestedFormat ? '  ' : ''}- ${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`
+	})
 
-	const result: string[] = []
-
-	// 处理提交信息的通用函数
-	const processLine = (line: string) => {
-		if (!line) return
-		result.push(
-			`${isNestedFormat ? '  ' : ''}- ${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`
-		)
-	}
-	processLine(englishLine)
-	processLine(chineseLine)
 	return result.join('\n')
 }
 

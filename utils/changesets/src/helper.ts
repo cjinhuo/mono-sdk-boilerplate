@@ -26,12 +26,17 @@ function createLogger(tag: string = '') {
 // 默认的 logger 实例
 export const logger = createLogger('changeset')
 
+export function splitSummary(changesetSummary: string) {
+	return changesetSummary.split('\n').filter((line) => line.trim())
+}
+
 /**
  * 返回拆分后的中英文内容，不符合格式时 throw error
  * @param changesetSummary changeset summary 内容
+ * @deprecated 已废弃，changeset 官方的 hook 不太好格式化中英文
  * @returns
  */
-export function splitSummary(changesetSummary: string) {
+export function splitSummaryForCh(changesetSummary: string) {
 	const summaryLines = changesetSummary.split('\n').filter((line) => line.trim())
 	if (summaryLines.length !== 2) {
 		throw new Error('summary 有且仅包含一个 \\n 换行符')
