@@ -9,7 +9,7 @@ import * as micromatch from 'micromatch'
 const minimist = require('minimist')
 const execa = require('execa')
 
-import { detectPackageManager, logger } from '../helper'
+import { gitPush, logger } from '../helper'
 
 interface Args {
 	beta?: boolean
@@ -24,28 +24,30 @@ const rootDir: string = process.cwd()
 const rootChangesetPre: string = path.join(rootDir, '.changeset', 'pre.json')
 
 const BETA_PREFIX = 'beta'
+const isPush = argv['git-push'] === true
+
+/**
+ * Delete pre.json file if it exists
+ */
+async function deletePreJsonIfExists(): Promise<void> {
+	if (fs.existsSync(rootChangesetPre)) {
+		await execa('rm', ['.changeset/pre.json'], { stdio: 'inherit' })
+		logger.info('deleted pre.json')
+	}
+}
 
 /**
  * Bump version for beta release
  * @param fn - Function to run after changeset version
  */
 async function bumpVersionForBeta(fn: RestoreFunction): Promise<void> {
-	const packageManager = detectPackageManager()
 	logger.info('start bumping beta version...')
 	// if already has entered pre mode, delete and re-enter
-	if (fs.existsSync(rootChangesetPre)) {
-		await execa('rm', ['.changeset/pre.json'], { stdio: 'inherit' })
-		logger.info('deleted pre.json')
-	}
-	await execa(packageManager, ['changeset', 'pre', 'enter', BETA_PREFIX], { stdio: 'inherit' })
-	await execa(packageManager, ['changeset', 'version'], { stdio: 'inherit' })
+	await deletePreJsonIfExists()
+	await execa('npx', ['changeset', 'pre', 'enter', BETA_PREFIX], { stdio: 'inherit' })
+	await execa('npx', ['changeset', 'version'], { stdio: 'inherit' })
 	fn()
-	// git add && push
-	await execa('git', ['add', '.'], { stdio: 'inherit' })
-	await execa('git', ['commit', '-m', 'chore(changeset): 🦋 bump version for beta'], { stdio: 'inherit' })
-	if (argv['git-push'] === undefined || argv['git-push'] === true) {
-		await execa('git', ['push'], { stdio: 'inherit' })
-	}
+	isPush && (await gitPush())
 	logger.success('bump version successfully')
 }
 
@@ -55,24 +57,12 @@ async function bumpVersionForBeta(fn: RestoreFunction): Promise<void> {
  */
 async function bumpVersionForRelease(fn: RestoreFunction): Promise<void> {
 	logger.info('start bumping release version...')
-	if (fs.existsSync(rootChangesetPre)) {
-		// 删除 pre.json 后，在 bump version for release 时不会将所有的 beta 都转成 release
-		await execa('rm', ['.changeset/pre.json'], { stdio: 'inherit' })
-		logger.info('deleted pre.json')
-	}
-	await execa(detectPackageManager(), ['changeset', 'version'], { stdio: 'inherit' })
+	// 删除 pre.json 后，在 bump version for release 时会将所有的 beta 都转成 release
+	await deletePreJsonIfExists()
+	await execa('npx', ['changeset', 'version'], { stdio: 'inherit' })
 	fn()
 	// git add && push
-	try {
-		await execa('git', ['add', '.'], { stdio: 'inherit' })
-		await execa('git', ['commit', '-m', 'chore(changeset): 🦋 bump version for release'], { stdio: 'inherit' })
-	} catch (error) {
-		logger.info('there is nothing to commit', (error as Error).message)
-	}
-
-	if (argv['git-push'] === undefined || argv['git-push'] === true) {
-		await execa('git', ['push'], { stdio: 'inherit' })
-	}
+	isPush && (await gitPush())
 	logger.success('bump version successfully')
 }
 
@@ -111,11 +101,8 @@ function hiddenChangesets(): RestoreFunction {
 
 async function main(): Promise<void> {
 	const restore: RestoreFunction = hiddenChangesets()
-	if (argv.beta) {
-		await bumpVersionForBeta(restore)
-	} else {
-		await bumpVersionForRelease(restore)
-	}
+	const bumpVersionFn = argv.beta ? bumpVersionForBeta.bind(null, restore) : bumpVersionForRelease.bind(null, restore)
+	await bumpVersionFn()
 }
 
 main().catch((error: Error) => {

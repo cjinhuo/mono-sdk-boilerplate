@@ -26,37 +26,42 @@ function createLogger(tag: string = '') {
 // 默认的 logger 实例
 export const logger = createLogger('changeset')
 
+export function splitSummary(changesetSummary: string) {
+	return changesetSummary.split('\n').filter((line) => line.trim())
+}
+
 /**
  * 返回拆分后的中英文内容，不符合格式时 throw error
  * @param changesetSummary changeset summary 内容
+ * @deprecated 已废弃，changeset 官方的 hook 不太好格式化中英文
  * @returns
  */
-export function splitSummary(changesetSummary: string) {
+export function splitSummaryForCh(changesetSummary: string) {
 	const summaryLines = changesetSummary.split('\n').filter((line) => line.trim())
 	if (summaryLines.length !== 2) {
 		throw new Error('summary 有且仅包含一个 \\n 换行符')
 	}
 	// 按中英文分组
-	const englishLines: string[] = []
-	const chineseLines: string[] = []
+	let englishLine = ''
+	let chineseLine = ''
 
 	for (const line of summaryLines) {
 		if (isContainsChinese(line)) {
-			chineseLines.push(line)
+			chineseLine = line
 		} else {
-			englishLines.push(line)
+			englishLine = line
 		}
 	}
-	if (englishLines.length === 0) {
+	if (!englishLine) {
 		throw new Error('summary 必须包含英文摘要')
 	}
-	if (chineseLines.length === 0) {
+	if (!chineseLine) {
 		throw new Error('summary 必须包含中文摘要')
 	}
 
 	return {
-		englishLines,
-		chineseLines,
+		englishLine,
+		chineseLine,
 	}
 }
 
@@ -165,6 +170,27 @@ export function detectPackageManager(): string {
 	if (fs.existsSync(path.join(rootDir, 'package-lock.json'))) {
 		return 'npm'
 	}
-	// 默认使用 npm
+	// 默认使用 npx
 	return 'npx'
+}
+
+/**
+ * Git add, commit and push changes
+ * @param commitMessage - The commit message to use
+ */
+export async function gitPush(): Promise<void> {
+	try {
+		await execa('git', ['push'], { stdio: 'inherit' })
+	} catch (error) {
+		logger.error('git push error', (error as Error).message)
+	}
+}
+
+export async function gitAddAndCommit(commitMessage: string) {
+	try {
+		await execa('git', ['add', '.'], { stdio: 'inherit' })
+		await execa('git', ['commit', '-m', commitMessage], { stdio: 'inherit' })
+	} catch (error) {
+		logger.error('there is nothing to commit', (error as Error).message)
+	}
 }

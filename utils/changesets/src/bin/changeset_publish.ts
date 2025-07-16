@@ -4,7 +4,7 @@
 const minimist = require('minimist')
 const execa = require('execa')
 
-import { detectPackageManager, logger } from '../helper'
+import { logger } from '../helper'
 
 interface Args {
 	'git-tag'?: boolean
@@ -13,13 +13,12 @@ interface Args {
 const argv: Args = minimist(process.argv.slice(2))
 
 async function main(): Promise<void> {
-	const packageManager = detectPackageManager()
-	logger.info(`start publishing with ${packageManager}...`)
+	logger.info('start publishing...')
 
 	if (argv['git-tag'] === false) {
-		await execa(packageManager, ['changeset', 'publish', '--no-git-tag'], { stdio: 'inherit' })
+		await execa('npx', ['changeset', 'publish', '--no-git-tag'], { stdio: 'inherit' })
 	} else {
-		await execa(packageManager, ['changeset', 'publish'], { stdio: 'inherit' })
+		await execa('npx', ['changeset', 'publish'], { stdio: 'inherit' })
 		logger.info('git push --follow-tags...')
 		await execa('git', ['push', '--follow-tags'], { stdio: 'inherit' })
 	}

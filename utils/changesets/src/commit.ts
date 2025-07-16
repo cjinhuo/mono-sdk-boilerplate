@@ -9,7 +9,7 @@
  */
 
 import type { Changeset, ReleasePlan } from '@changesets/types'
-import { formatGitMessage, splitSummary } from './helper'
+import { formatGitMessage } from './helper'
 
 /** Git commit message 前缀 */
 const MESSAGE_PREFIX = `chore(changeset): 🦋`
@@ -35,7 +35,6 @@ const MESSAGE_PREFIX = `chore(changeset): 🦋`
  *   summary: 'Add new feature',
  *   releases: [{ name: '@mono/parser-view', type: 'patch' }]
  * }
- * // 返回: "chore(changeset): 🦋 @mono/parser-view:patch"
  * ```
  */
 export async function getAddMessage(
@@ -45,8 +44,6 @@ export async function getAddMessage(
 ) {
 	// 如果变更未确认，返回空字符串
 	if (!changeset.confirmed) return ''
-	// 检测是否符合格式
-	splitSummary(changeset.summary)
 
 	// 构建 git commit 消息
 	const gitMessage = `${MESSAGE_PREFIX} ${changeset.releases.map((release) => `${release.name}:${release.type}`).join(',')}`
@@ -87,7 +84,6 @@ export async function getAddMessage(
  *     newVersion: '1.2.0'
  *   }]
  * }
- * 返回: "chore(changeset): 🦋 @mono/shared:1.1.0->1.2.0"
  * ```
  */
 export async function getVersionMessage(releasePlan: ReleasePlan) {
