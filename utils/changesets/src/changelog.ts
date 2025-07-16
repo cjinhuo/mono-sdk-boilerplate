@@ -1,15 +1,6 @@
 import type { ModCompWithPackage, NewChangesetWithCommit } from '@changesets/types'
-import { CommitType, CommitTypeTitle, CommitTypeZhTitle } from './constants'
-import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, logger, splitSummary } from './helper'
-
-// 解析commit类型
-function parseCommitType(summary: string): CommitType | null {
-	const match = summary.match(/^(\w+):/)
-	if (!match) return null
-
-	const type = match[1] as CommitType
-	return Object.values(CommitType).includes(type) ? type : CommitType.Other
-}
+import { type CommitType, CommitTypeTitle, CommitTypeZhTitle, SUB_CHANGELOG_PREFIX } from './constants'
+import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, splitSummary } from './helper'
 
 /**
  * 获取变更集的 changelog
@@ -20,7 +11,7 @@ function parseCommitType(summary: string): CommitType | null {
 export async function getReleaseLine(
 	newChangesetWithCommit: NewChangesetWithCommit,
 	_bumpType: string,
-	_option: any,
+	_option: string,
 	isNestedFormat = false
 ) {
 	if (!newChangesetWithCommit.commit) {
@@ -65,6 +56,6 @@ export async function getDependencyReleaseLine(
 		releaseLines.push(releaseLine)
 	}
 	const dependenciesUpdated = _dependenciesUpdated[0]
-	const updatedBy = `- Updated By ${dependenciesUpdated.name}: ${dependenciesUpdated.oldVersion}->${dependenciesUpdated.newVersion}`
+	const updatedBy = `${SUB_CHANGELOG_PREFIX} ${dependenciesUpdated.name}: ${dependenciesUpdated.oldVersion}->${dependenciesUpdated.newVersion}`
 	return `${updatedBy}\n${releaseLines.join('\n')}`
 }

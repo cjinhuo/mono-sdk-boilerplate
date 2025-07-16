@@ -6,7 +6,28 @@ import dayjs from 'dayjs'
 
 const execa = require('execa')
 
-import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
+import {
+	COMMIT_TYPES,
+	CommitType,
+	CommitTypeTitle,
+	CommitTypeZhTitle,
+	MAX_GIT_COMMIT_ID_LENGTH,
+	MAX_GIT_MESSAGE_LENGTH,
+	REGULAR_COMMIT_TYPES,
+	SUB_CHANGELOG_PREFIX,
+} from './constants'
+
+interface IEntry {
+	/**
+	 * 变更类型
+	 */
+	commitType: CommitType
+	/**
+	 * 变更摘要
+	 */
+	summary: string
+	isEnglish: boolean
+}
 
 /**
  * 创建带有标签前缀的 consola 实例
@@ -188,4 +209,174 @@ export async function gitAddAndCommit(commitMessage: string) {
 	} catch (error) {
 		logger.error('there is nothing to commit', (error as Error).message)
 	}
+}
+
+/**
+ * 获取上一个 commit 中变更的所有 CHANGELOG.md 文件路径
+ * @returns 变更的 CHANGELOG.md 文件路径数组
+ */
+export async function getChangedChangelogFiles(): Promise<string[]> {
+	try {
+		// 获取上一个 commit 中变更的文件
+		const res = await execa('git', ['diff', '--name-only', 'HEAD~1', 'HEAD'], { stdio: 'pipe' })
+		const changedFiles = res.stdout.split('\n').filter((file) => file.trim())
+
+		// 筛选出 CHANGELOG.md 文件
+		const changelogFiles = changedFiles.filter(
+			(file) => file.endsWith('CHANGELOG.md') && !file.includes('node_modules')
+		)
+
+		logger.info('Found changed CHANGELOG.md files:', changelogFiles)
+		return changelogFiles
+	} catch (error) {
+		logger.warn('Failed to get changed changelog files:', (error as Error).message)
+		return []
+	}
+}
+/**
+ * 获取指定文件在当前 commit 中的新增内容
+ * @param filePath 文件路径
+ * @returns 新增的内容行数组
+ */
+export async function getFileAddedContent(filePath: string): Promise<string> {
+	try {
+		// 获取文件的 diff，只显示新增的行
+		const res = await execa('git', ['diff', 'HEAD~1', 'HEAD', filePath], {
+			stdio: 'pipe',
+			reject: false, // git diff 在有差异时会返回非零退出码，这是正常的
+		})
+
+		const diffLines = res.stdout.split('\n')
+		const addedLines: string[] = []
+
+		// 解析 diff 输出，提取以 '+' 开头的行（新增内容）
+		for (const line of diffLines) {
+			if (line.startsWith('+') && !line.startsWith('+++')) {
+				// 移除开头的 '+' 符号
+				addedLines.push(line.substring(1))
+			}
+		}
+
+		logger.info(`Found ${addedLines.length} added lines in ${filePath}`)
+		return addedLines.join('\n')
+	} catch (error) {
+		logger.warn(`Failed to get added content for ${filePath}:`, (error as Error).message)
+		return ''
+	}
+}
+
+/**
+ * 解析 CHANGELOG.md 中的变更条目
+ * @param content CHANGELOG.md 内容
+ * @returns 解析后的变更条目数组
+ */
+export function parseChangelogEntries(content: string): Array<IEntry> {
+	const entries: Array<IEntry> = []
+	const lines = content.split('\n')
+	for (const line of lines) {
+		// 如果遇到子变更集前缀，直接返回已解析的条目，无需解析
+		if (!line.trim()) continue
+		if (line.trim().startsWith(SUB_CHANGELOG_PREFIX)) {
+			return entries
+		}
+		const { commitType, summary } = getCommitTypeBySummary(line)
+		const isEnglish = !isContainsChinese(line)
+		entries.push({ commitType, summary, isEnglish })
+	}
+	return entries
+}
+
+function getCommitTypeBySummary(lintSummary: string) {
+	// 格式是 - {type}: summary
+	const content = lintSummary.trim().slice(2).trim()
+	const summary = content.match(/:\s*(.+)/)?.[1] || ''
+	for (const type of REGULAR_COMMIT_TYPES) {
+		if (content.startsWith(type)) {
+			return { commitType: type, summary }
+		}
+	}
+	// 通过正则获取第一个 : 后的值
+	return { commitType: CommitType.Other, summary }
+}
+
+/**
+ * 按类型和语言分组变更条目
+ * @param entries 变更条目数组
+ * @returns 分组后的变更条目
+ */
+export function groupChangelogEntries(entries: Array<IEntry>) {
+	const groups = {
+		english: {
+			[CommitType.Features]: [] as string[],
+			[CommitType.BugFix]: [] as string[],
+			[CommitType.Performance]: [] as string[],
+			[CommitType.Doc]: [] as string[],
+			[CommitType.Build]: [] as string[],
+			[CommitType.Other]: [] as string[],
+		},
+		chinese: {
+			[CommitType.Features]: [] as string[],
+			[CommitType.BugFix]: [] as string[],
+			[CommitType.Performance]: [] as string[],
+			[CommitType.Doc]: [] as string[],
+			[CommitType.Build]: [] as string[],
+			[CommitType.Other]: [] as string[],
+		},
+	}
+
+	for (const entry of entries) {
+		const lang = entry.isEnglish ? 'english' : 'chinese'
+		groups[lang][entry.commitType].push(entry.summary)
+	}
+
+	return groups
+}
+
+/**
+ * 生成指定语言的变更条目内容
+ * @param groups 分组后的变更条目
+ * @param language 语言类型 ('english' | 'chinese')
+ * @param titleMap 标题映射表
+ * @returns 格式化后的内容字符串
+ */
+function generateLanguageSection(
+	groups: ReturnType<typeof groupChangelogEntries>,
+	language: 'english' | 'chinese',
+	titleMap: Record<CommitType, string>
+): string {
+	let content = ''
+
+	for (const type of COMMIT_TYPES) {
+		if (groups[language][type].length > 0) {
+			content += `#### ${titleMap[type]}\n`
+			for (const entry of groups[language][type]) {
+				content += `- ${entry}\n`
+			}
+			content += '\n'
+		}
+	}
+
+	return content
+}
+
+/**
+ * 生成结构化的 CHANGELOG.md 内容
+ * @param version 版本号
+ * @param changeType 变更类型 (Patch Changes, Minor Changes, Major Changes)
+ * @param groups 分组后的变更条目
+ * @returns 格式化后的 CHANGELOG.md 内容
+ */
+export function generateStructuredChangelog(
+	version: string,
+	changeType: string,
+	groups: ReturnType<typeof groupChangelogEntries>
+): string {
+	let content = `## ${version}\n\n### ${changeType}\n\n`
+
+	// 英文部分
+	content += generateLanguageSection(groups, 'english', CommitTypeTitle)
+	// 中文部分
+	content += generateLanguageSection(groups, 'chinese', CommitTypeZhTitle)
+
+	return content
 }
