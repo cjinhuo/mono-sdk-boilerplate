@@ -165,6 +165,22 @@ export function detectPackageManager(): string {
 	if (fs.existsSync(path.join(rootDir, 'package-lock.json'))) {
 		return 'npm'
 	}
-	// 默认使用 npm
+	// 默认使用 npx
 	return 'npx'
+}
+
+/**
+ * Git add, commit and push changes
+ * @param commitMessage - The commit message to use
+ */
+export async function gitCommitAndPush(commitMessage: string, isPush: boolean): Promise<void> {
+	try {
+		await execa('git', ['add', '.'], { stdio: 'inherit' })
+		await execa('git', ['commit', '-m', commitMessage], { stdio: 'inherit' })
+	} catch (error) {
+		logger.info('there is nothing to commit', (error as Error).message)
+	}
+	if (isPush) {
+		await execa('git', ['push'], { stdio: 'inherit' })
+	}
 }
