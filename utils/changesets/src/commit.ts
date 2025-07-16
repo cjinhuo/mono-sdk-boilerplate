@@ -35,7 +35,6 @@ const MESSAGE_PREFIX = `chore(changeset): 🦋`
  *   summary: 'Add new feature',
  *   releases: [{ name: '@mono/parser-view', type: 'patch' }]
  * }
- * // 返回: "chore(changeset): 🦋 @mono/parser-view:patch"
  * ```
  */
 export async function getAddMessage(
@@ -87,7 +86,6 @@ export async function getAddMessage(
  *     newVersion: '1.2.0'
  *   }]
  * }
- * 返回: "chore(changeset): 🦋 @mono/shared:1.1.0->1.2.0"
  * ```
  */
 export async function getVersionMessage(releasePlan: ReleasePlan) {

@@ -1,15 +1,5 @@
 import type { ModCompWithPackage, NewChangesetWithCommit } from '@changesets/types'
-import { CommitType, CommitTypeTitle, CommitTypeZhTitle } from './constants'
-import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, logger, splitSummary } from './helper'
-
-// 解析commit类型
-function parseCommitType(summary: string): CommitType | null {
-	const match = summary.match(/^(\w+):/)
-	if (!match) return null
-
-	const type = match[1] as CommitType
-	return Object.values(CommitType).includes(type) ? type : CommitType.Other
-}
+import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, splitSummary } from './helper'
 
 /**
  * 获取变更集的 changelog
@@ -20,7 +10,7 @@ function parseCommitType(summary: string): CommitType | null {
 export async function getReleaseLine(
 	newChangesetWithCommit: NewChangesetWithCommit,
 	_bumpType: string,
-	_option: any,
+	_option: unknown,
 	isNestedFormat = false
 ) {
 	if (!newChangesetWithCommit.commit) {
@@ -35,21 +25,14 @@ export async function getReleaseLine(
 	const result: string[] = []
 
 	// 处理提交信息的通用函数
-	const processLine = (line: string, _titleMap: Record<CommitType, string>) => {
+	const processLine = (line: string) => {
 		if (!line) return
-
-		// const commitType = parseCommitType(line) || CommitType.Other
-		// const title = titleMap[commitType]
-
-		// result.push(`${isNestedFormat ? title : `#### ${title}`}`)
 		result.push(
 			`${isNestedFormat ? '  ' : ''}- ${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`
 		)
 	}
-
-	// 处理英文和中文内容
-	processLine(englishLine, CommitTypeTitle)
-	processLine(chineseLine, CommitTypeZhTitle)
+	processLine(englishLine)
+	processLine(chineseLine)
 	return result.join('\n')
 }
 
