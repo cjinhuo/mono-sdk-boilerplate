@@ -35,15 +35,15 @@ export async function getReleaseLine(
 	const result: string[] = []
 
 	// 处理提交信息的通用函数
-	const processLine = (line: string, titleMap: Record<CommitType, string>) => {
+	const processLine = (line: string, _titleMap: Record<CommitType, string>) => {
 		if (!line) return
 
-		const commitType = parseCommitType(line) || CommitType.Other
-		const title = titleMap[commitType]
+		// const commitType = parseCommitType(line) || CommitType.Other
+		// const title = titleMap[commitType]
 
-		result.push(`${isNestedFormat ? title : `#### ${title}`}`)
+		// result.push(`${isNestedFormat ? title : `#### ${title}`}`)
 		result.push(
-			`${isNestedFormat ? ' ' : ''}* ${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`
+			`${isNestedFormat ? '  ' : ''}- ${line} @${author || email} · ${date} · [#${commitId}](${remoteUrl}/commit/${intactHash})`
 		)
 	}
 
@@ -61,10 +61,10 @@ export async function getDependencyReleaseLine(
 
 	const releaseLines: string[] = []
 	for (const changeset of newChangesetWithCommits) {
-		const releaseLine = await getReleaseLine(changeset, '', {}, true)
+		const releaseLine = await getReleaseLine(changeset, '', '', true)
 		releaseLines.push(releaseLine)
 	}
 	const dependenciesUpdated = _dependenciesUpdated[0]
 	const updatedBy = `- Updated By ${dependenciesUpdated.name}: ${dependenciesUpdated.oldVersion}->${dependenciesUpdated.newVersion}`
-	return `${updatedBy}\n${releaseLines.map((v) => `  ${v}`).join('\n')}`
+	return `${updatedBy}\n${releaseLines.join('\n')}`
 }

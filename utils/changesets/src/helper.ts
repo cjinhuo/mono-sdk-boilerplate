@@ -173,14 +173,19 @@ export function detectPackageManager(): string {
  * Git add, commit and push changes
  * @param commitMessage - The commit message to use
  */
-export async function gitCommitAndPush(commitMessage: string, isPush: boolean): Promise<void> {
+export async function gitPush(): Promise<void> {
+	try {
+		await execa('git', ['push'], { stdio: 'inherit' })
+	} catch (error) {
+		logger.error('git push error', (error as Error).message)
+	}
+}
+
+export async function gitAddAndCommit(commitMessage: string) {
 	try {
 		await execa('git', ['add', '.'], { stdio: 'inherit' })
 		await execa('git', ['commit', '-m', commitMessage], { stdio: 'inherit' })
 	} catch (error) {
-		logger.info('there is nothing to commit', (error as Error).message)
-	}
-	if (isPush) {
-		await execa('git', ['push'], { stdio: 'inherit' })
+		logger.error('there is nothing to commit', (error as Error).message)
 	}
 }

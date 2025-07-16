@@ -9,7 +9,7 @@ import * as micromatch from 'micromatch'
 const minimist = require('minimist')
 const execa = require('execa')
 
-import { gitCommitAndPush, logger } from '../helper'
+import { gitPush, logger } from '../helper'
 
 interface Args {
 	beta?: boolean
@@ -24,7 +24,7 @@ const rootDir: string = process.cwd()
 const rootChangesetPre: string = path.join(rootDir, '.changeset', 'pre.json')
 
 const BETA_PREFIX = 'beta'
-const isPush = argv['git-push'] === undefined || argv['git-push'] === true
+const isPush = argv['git-push'] === true
 
 /**
  * Delete pre.json file if it exists
@@ -48,7 +48,7 @@ async function bumpVersionForBeta(fn: RestoreFunction): Promise<void> {
 	await execa('npx', ['changeset', 'version'], { stdio: 'inherit' })
 	fn()
 	// git add && push
-	await gitCommitAndPush('chore(changeset): 🦋 bump version for beta', isPush)
+	isPush && (await gitPush())
 	logger.success('bump version successfully')
 }
 
@@ -63,7 +63,7 @@ async function bumpVersionForRelease(fn: RestoreFunction): Promise<void> {
 	await execa('npx', ['changeset', 'version'], { stdio: 'inherit' })
 	fn()
 	// git add && push
-	await gitCommitAndPush('chore(changeset): 🦋 bump version for release', isPush)
+	isPush && (await gitPush())
 	logger.success('bump version successfully')
 }
 
