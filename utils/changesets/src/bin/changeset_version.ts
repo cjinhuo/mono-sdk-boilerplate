@@ -47,7 +47,6 @@ async function bumpVersionForBeta(fn: RestoreFunction): Promise<void> {
 	await execa('npx', ['changeset', 'pre', 'enter', BETA_PREFIX], { stdio: 'inherit' })
 	await execa('npx', ['changeset', 'version'], { stdio: 'inherit' })
 	fn()
-	// git add && push
 	isPush && (await gitPush())
 	logger.success('bump version successfully')
 }
@@ -102,11 +101,8 @@ function hiddenChangesets(): RestoreFunction {
 
 async function main(): Promise<void> {
 	const restore: RestoreFunction = hiddenChangesets()
-	if (argv.beta) {
-		await bumpVersionForBeta(restore)
-	} else {
-		await bumpVersionForRelease(restore)
-	}
+	const bumpVersionFn = argv.beta ? bumpVersionForBeta.bind(null, restore) : bumpVersionForRelease.bind(null, restore)
+	await bumpVersionFn()
 }
 
 main().catch((error: Error) => {
