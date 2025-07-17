@@ -26,8 +26,9 @@ use watch with [**nx**](https://nx.dev/recipes/running-tasks/workspace-watching#
  
  eg: `nx watch --projects=@mono/react --includeDependentProjects -- nx run @mono/react:esm`
 
-## changesets-toolkit
-toolkit for changesets which make commit message more automatic and changelogs more readable. Click [here](./utils/changesets/README.md) for more detail.
+## [changesets-toolkit](https://www.npmjs.com/package/changesets-toolkit)
+toolkit for changesets which make commit message more automatic and changelogs more readable. [Click here](./utils/changesets/README.md) for more detail.
+
 
 ## graph
 run `nx graph`,you'll see graph like as follows:

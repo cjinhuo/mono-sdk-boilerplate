@@ -1,82 +1,55 @@
 # Overview
 
-## 配置
-在 `.changeset/config.json` 中配置
+[中文 README](./README_zh.md)
+## Configuration
+Configure in `.changeset/config.json`:
 ```json
 "changelog": ["changesets-toolkit/dist/changelog.js", {}],
 "commit": ["changesets-toolkit/dist/commit.js", {}],
 "updateInternalDependencies": "patch",
 ```
 
-## github token 
-如果想获取 changeset 提交人的用户名需要配置 github token 到 `CHANGESET_READ_REPO_TOKEN` 到环境变量中，如果没有配置则默认使用 changeset 提交人邮箱。
+## GitHub Token 
+To get the changeset committer's username, you need to configure a GitHub token in the `CHANGESET_READ_REPO_TOKEN` environment variable. If not configured, the changeset committer's email will be used by default.
 
-获取 token 方法：
-1. 登录 github，进入 `Settings` -> `Developer settings` -> `Personal access tokens` -> `Tokens (classic)`
-2. 点击 `Generate new token` 按钮，生成一个 token
-3. 勾选 `read repo` 权限
-4. 复制 token 到环境变量中
+How to get a token:
+1. Log in to GitHub, go to `Settings` -> `Developer settings` -> `Personal access tokens` -> `Tokens (classic)`
+2. Click the `Generate new token` button to generate a token
+3. Check the `read repo` permission
+4. Copy the token to the environment variable
 
-## commit
-在运行 `npx changeset` 时，做如下步骤：
-1. 校验 commit message 格式是否符合要求：**包含两行字符串，一行包括中文，一行包括英文**
-2. 格式如下：
+## Commit
+When running `npx changeset`, a commit message will be automatically generated in the following format:
+`chore(changeset): 🦋 @package-name:patch`
+
+## Changelog
+When running `npx changeset version`, the following steps are performed:
+1. Parse the file content under `.changeset/config.json` and write to changelog in a specific format:
 ```md
-feat: this is en
-feat: 这是中文
+- feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
+- feat: this is a test @xxx · 2025-xx-xx · [#xxx](https://xxx)
 ```
-所有类型前缀如下：
-```ts
-export enum CommitType {
-	Performance = 'perf',
-	Features = 'feat',
-	BugFix = 'fix',
-	Doc = 'doc',
-	Build = 'build',
-	Other = 'other',
-}
-export const CommitTypeTitle = {
-	[CommitType.Performance]: 'Performance Improvements ⚡',
-	[CommitType.Features]: 'New Features 🎉',
-	[CommitType.BugFix]: 'Bug Fixes 🐞',
-	[CommitType.Doc]: 'Docs update 📄',
-	[CommitType.Build]: 'Build System update 📦️',
-	[CommitType.Other]: 'Other Changes',
-}
-```
-
-## changelog
-在运行 `npx changeset version` 时，做如下步骤：
-1. 解析 `.changeset/config.json` 下的文件内容，并按照一定格式写入 changelog，格式如下
-```md
-New Features 🎉
-feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-新特性 🎉
-feat: 这是测试 @xxx · 2025-xx-xx · [#xxx](https://xxx)
-```
-2. 当子包更新时，父包的 changelog 也会更新，格式如下
+2. When child packages are updated, the parent package's changelog will also be updated in the following format:
 ```md
 - Updated By @mono/core: 0.0.1->0.0.2
-  New Features 🎉
-  feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-  新特性 🎉
-  feat: 这是测试 @xxx · 2025-xx-xx · [#xxx](https://xxx)
+  - feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
+  - feat: this is a test @xxx · 2025-xx-xx · [#xxx](https://xxx)
 ```
 
 ## changeset_version
-接收三个可选参数：
+Accepts three optional parameters:
 ###  --no-git-push
-表示 bump version 后不会自动 push
+Indicates that after bumping the version, it will not automatically push
 
 ### --beta
-无需使用 `changeset pre enter` 来进入和 `changeset pre exit` 退出 pre 模式，仅需 `changeset_version --beta` 就会在每次 bump 时 version + 1。
+No need to use `changeset pre enter` to enter and `changeset pre exit` to exit pre mode. Just use `changeset_version --beta` and it will increment version + 1 on each bump.
 
-如果没有使用 --beta 则更新至 release 版本
+If --beta is not used, it will update to the release version
 
 ### --filter
-表示只 bump 某些包的 version，支持 micromatch，例如： `--filter @mono/changesets` 或 `--filter @mono/*` 
+Indicates to only bump the version of certain packages, supports micromatch, for example: `--filter @mono/changesets` or `--filter @mono/*` 
 
 ## changeset_publish
-接收一个可选参数：
+Accepts one optional parameter:
 ### --no-git-tag
-表示 publish 后不打 tag
+Indicates that no tag will be created after publishing
