@@ -1,5 +1,12 @@
 # @mono/changesets
 
+## 0.0.3
+
+### Patch Changes
+
+- perf: optimize code style and correct the formatting of the changelog @cjinhuo · 2025-07-16 · [#383a7caa](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/383a7caa4400f9e1c1803cf83fc5ff2fc01319ff)
+- perf: 优化代码风格和矫正 changelog 格式 @cjinhuo · 2025-07-16 · [#383a7caa](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/383a7caa4400f9e1c1803cf83fc5ff2fc01319ff)
+
 ## 0.0.3-beta.0
 
 ### Patch Changes
