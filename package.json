@@ -11,7 +11,7 @@
 		"e2e/demos/*"
 	],
 	"scripts": {
-		"commit": "git add . && git cz",
+		"commit": "git add . && git czg",
 		"esm": "pnpm --parallel esm",
 		"watch:esm": "pnpm --parallel --stream watch:esm",
 		"build": "pnpm --parallel build",
@@ -31,7 +31,6 @@
 		"@changesets/cli": "^2.29.5",
 		"@commitlint/config-conventional": "^19.2.2",
 		"@mono/tsconfig": "workspace:^",
-		"changesets-toolkit": "workspace:*",
 		"@rollup/plugin-alias": "^5.1.0",
 		"@rollup/plugin-commonjs": "^26.0.1",
 		"@rollup/plugin-html": "^1.0.3",
@@ -43,8 +42,8 @@
 		"@types/jest": "^29.5.12",
 		"@types/node": "^22.1.0",
 		"chalk": "^5.3.0",
+		"changesets-toolkit": "workspace:*",
 		"consola": "^3.2.3",
-		"cz-git": "^1.9.4",
 		"debug": "^4.3.6",
 		"fast-glob": "^3.3.2",
 		"husky": "^9.1.7",
@@ -62,10 +61,5 @@
 		"ts-jest": "^29.2.4",
 		"tslib": "^2.6.3",
 		"typescript": "^5.8.3"
-	},
-	"config": {
-		"commitizen": {
-			"path": "node_modules/cz-git"
-		}
 	}
 }
