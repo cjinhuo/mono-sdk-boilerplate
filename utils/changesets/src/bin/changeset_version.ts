@@ -26,6 +26,10 @@ const rootChangesetPre: string = path.join(rootDir, '.changeset', 'pre.json')
 const BETA_PREFIX = 'beta'
 const isPush = argv['git-push'] === true
 
+function isPreJsonExist(): boolean {
+	return fs.existsSync(rootChangesetPre)
+}
+
 /**
  * Delete pre.json file if it exists
  */
@@ -48,6 +52,7 @@ async function bumpVersionForBeta(fn: RestoreFunction): Promise<void> {
 	await execa('npx', ['changeset', 'version'], { stdio: 'inherit' })
 	fn()
 	isPush && (await gitPush())
+	await deletePreJsonIfExists()
 	logger.success('bump version successfully')
 }
 
