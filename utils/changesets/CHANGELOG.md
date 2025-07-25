@@ -1,5 +1,12 @@
 # @mono/changesets
 
+## 0.0.4
+
+### Patch Changes
+
+- feat: delete pre.json after bump beta and push tag with current branch @cjinhuo · 2025-07-25 · [#0e15caab](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/0e15caab1366cdf5df392c47ae6ee6804702352b)
+- feat: 在 bump beta 版本后删除 pre.json 和携带当前分支推送 tag @cjinhuo · 2025-07-25 · [#0e15caab](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/0e15caab1366cdf5df392c47ae6ee6804702352b)
+
 ## 0.0.3
 
 ### Patch Changes
