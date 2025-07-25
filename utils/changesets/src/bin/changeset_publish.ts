@@ -19,8 +19,10 @@ async function main(): Promise<void> {
 		await execa('npx', ['changeset', 'publish', '--no-git-tag'], { stdio: 'inherit' })
 	} else {
 		await execa('npx', ['changeset', 'publish'], { stdio: 'inherit' })
-		logger.info('git push --follow-tags...')
-		await execa('git', ['push', '--follow-tags'], { stdio: 'inherit' })
+		// 获取当前分支名
+		const { stdout: currentBranch } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD'])
+		logger.info(`git push --follow-tags origin ${currentBranch}...`)
+		await execa('git', ['push', '--follow-tags', 'origin', currentBranch], { stdio: 'inherit' })
 	}
 
 	logger.info('publish successfully')
