@@ -12,7 +12,7 @@ import type { Changeset, ReleasePlan } from '@changesets/types'
 import { formatGitMessage } from './helper'
 
 /** Git commit message 前缀 */
-const MESSAGE_PREFIX = `chore(changeset): 🦋`
+const MESSAGE_PREFIX = 'chore(changeset): 🦋'
 
 /**
  * 生成 changeset 添加时的 git commit 消息

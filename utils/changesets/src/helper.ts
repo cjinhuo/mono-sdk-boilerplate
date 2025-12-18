@@ -13,7 +13,7 @@ import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
  * @param tag 日志标签
  * @returns consola 实例
  */
-function createLogger(tag: string = '') {
+function createLogger(tag = '') {
 	const consola = createConsola({
 		fancy: true,
 		formatOptions: {
