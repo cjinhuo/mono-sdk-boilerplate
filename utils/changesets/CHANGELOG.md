@@ -1,5 +1,11 @@
 # @mono/changesets
 
+## 0.1.0
+
+### Minor Changes
+
+- Upgrade to Changesets 3, fix prerelease lifecycle handling, and make filtered versioning recoverable. @cjinhuo · 2026-08-14 · [#c819e132](https://github.com/cjinhuo/mono-sdk-boilerplate/commit/c819e132dd22e13bfbd07b53300c6e798cbf3d26)
+
 ## 0.1.0-beta.0
 
 ### Minor Changes
