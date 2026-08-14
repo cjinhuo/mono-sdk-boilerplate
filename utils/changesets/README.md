@@ -1,55 +1,59 @@
-# Overview
+# changesets-toolkit
 
 [中文 README](./README_zh.md)
+
+This package supplies CommonJS commit/changelog hooks and release wrappers for Changesets 3.
+
+## Requirements
+
+- Node.js \`^22.11 || ^24 || >=26\`
+- pnpm \`>=11\`
+- \`@changesets/cli@^3.0.0\` installed by the consuming project
+
 ## Configuration
-Configure in `.changeset/config.json`:
-```json
-"changelog": ["changesets-toolkit/dist/changelog.js", {}],
-"commit": ["changesets-toolkit/dist/commit.js", {}],
-"updateInternalDependencies": "patch",
-```
 
-## GitHub Token 
-To get the changeset committer's username, you need to configure a GitHub token in the `CHANGESET_READ_REPO_TOKEN` environment variable. If not configured, the changeset committer's email will be used by default.
+Configure \`.changeset/config.json\`:
 
-How to get a token:
-1. Log in to GitHub, go to `Settings` -> `Developer settings` -> `Personal access tokens` -> `Tokens (classic)`
-2. Click the `Generate new token` button to generate a token
-3. Check the `read repo` permission
-4. Copy the token to the environment variable
+\`\`\`json
+{
+  "changelog": ["changesets-toolkit/dist/changelog.js", {}],
+  "commit": ["changesets-toolkit/dist/commit.js", {}],
+  "updateInternalDependencies": "patch"
+}
+\`\`\`
 
-## Commit
-When running `npx changeset`, a commit message will be automatically generated in the following format:
-`chore(changeset): 🦋 @package-name:patch`
+Set \`CHANGESET_READ_REPO_TOKEN\` to a GitHub token with repository read access if changelog entries should use GitHub usernames. Without it, the commit email is used.
 
-## Changelog
-When running `npx changeset version`, the following steps are performed:
-1. Parse the file content under `.changeset/config.json` and write to changelog in a specific format:
-```md
-- feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-- feat: this is a test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-```
-2. When child packages are updated, the parent package's changelog will also be updated in the following format:
-```md
-- Updated By @mono/core: 0.0.1->0.0.2
-  - feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-  - feat: this is a test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-```
+## Commit and changelog hooks
+
+\`changeset add\` creates a commit message such as:
+
+\`\`\`text
+chore(changeset): 🦋 @package-name:patch
+\`\`\`
+
+\`changeset version\` writes changelog entries such as:
+
+\`\`\`md
+- feat: this is a test @author · 2025-01-01 · [#abc1234](https://github.com/owner/repo/commit/abc1234)
+\`\`\`
 
 ## changeset_version
-Accepts three optional parameters:
-###  --no-git-push
-Indicates that after bumping the version, it will not automatically push
 
-### --beta
-No need to use `changeset pre enter` to enter and `changeset pre exit` to exit pre mode. Just use `changeset_version --beta` and it will increment version + 1 on each bump.
+\`\`\`sh
+changeset_version [--beta] [--filter <glob>] [--git-push | --no-git-push]
+\`\`\`
 
-If --beta is not used, it will update to the release version
-
-### --filter
-Indicates to only bump the version of certain packages, supports micromatch, for example: `--filter @mono/changesets` or `--filter @mono/*` 
+- The first \`--beta\` run enters the \`beta\` prerelease mode. Later runs continue that prerelease and keep \`.changeset/pre.json\` plus \`.changeset/pre/\`.
+- A stable run automatically exits an active prerelease before versioning.
+- \`--filter\` matches package names but applies to the whole changeset file. A changeset that releases multiple packages is never split. Hidden changesets are restored after success or failure, and leftovers from an interrupted run are recovered at startup.
+- Git push is disabled by default. \`--git-push\` pushes the current branch and reports detached-head, missing-target, or push errors. \`--no-git-push\` is an explicit no-push form.
+- Changesets 3 exit code 1 is preserved when there are no unreleased changesets.
 
 ## changeset_publish
-Accepts one optional parameter:
-### --no-git-tag
-Indicates that no tag will be created after publishing
+
+\`\`\`sh
+changeset_publish [--no-git-tag]
+\`\`\`
+
+The default command publishes, creates tags, and pushes them. \`--no-git-tag\` forwards the option to Changesets and skips tag pushing. CI uses \`changesets/action/publish@v2\` for npm publishing, Git tags, and GitHub Releases; this wrapper remains available for local/manual publishing.

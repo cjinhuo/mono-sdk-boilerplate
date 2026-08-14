@@ -1,54 +1,57 @@
-# Overview
+# changesets-toolkit
+
+这个包为 Changesets 3 提供 CommonJS commit/changelog hook 和版本发布封装。
+
+## 环境要求
+
+- Node.js \`^22.11 || ^24 || >=26\`
+- pnpm \`>=11\`
+- 使用方项目安装 \`@changesets/cli@^3.0.0\`
 
 ## 配置
-在 `.changeset/config.json` 中配置
-```json
-"changelog": ["changesets-toolkit/dist/changelog.js", {}],
-"commit": ["changesets-toolkit/dist/commit.js", {}],
-"updateInternalDependencies": "patch",
-```
 
-## github token 
-如果想获取 changeset 提交人的用户名需要配置 github token 到 `CHANGESET_READ_REPO_TOKEN` 到环境变量中，如果没有配置则默认使用 changeset 提交人邮箱。
+在 \`.changeset/config.json\` 中配置：
 
-获取 token 方法：
-1. 登录 github，进入 `Settings` -> `Developer settings` -> `Personal access tokens` -> `Tokens (classic)`
-2. 点击 `Generate new token` 按钮，生成一个 token
-3. 勾选 `read repo` 权限
-4. 复制 token 到环境变量中
+\`\`\`json
+{
+  "changelog": ["changesets-toolkit/dist/changelog.js", {}],
+  "commit": ["changesets-toolkit/dist/commit.js", {}],
+  "updateInternalDependencies": "patch"
+}
+\`\`\`
 
-## commit
-在运行 `npx changeset` 时，会自动生成 commit message，格式如下：
-`chore(changeset): 🦋 @package-name:patch`
+如需在 changelog 中显示 GitHub 用户名，请将具备仓库读取权限的 token 写入 \`CHANGESET_READ_REPO_TOKEN\` 环境变量；未配置时使用 commit 邮箱兜底。
 
-## changelog
-在运行 `npx changeset version` 时，做如下步骤：
-1. 解析 `.changeset/config.json` 下的文件内容，并按照一定格式写入 changelog，格式如下
-```md
-- feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-- feat: 这是测试 @xxx · 2025-xx-xx · [#xxx](https://xxx)
-```
-2. 当子包更新时，父包的 changelog 也会更新，格式如下
-```md
-- Updated By @mono/core: 0.0.1->0.0.2
-  - feat: this is test @xxx · 2025-xx-xx · [#xxx](https://xxx)
-  - feat: 这是测试 @xxx · 2025-xx-xx · [#xxx](https://xxx)
-```
+## Commit 与 changelog hook
+
+\`changeset add\` 会生成类似下面的 commit message：
+
+\`\`\`text
+chore(changeset): 🦋 @package-name:patch
+\`\`\`
+
+\`changeset version\` 会生成类似下面的 changelog：
+
+\`\`\`md
+- feat: 这是测试 @author · 2025-01-01 · [#abc1234](https://github.com/owner/repo/commit/abc1234)
+\`\`\`
 
 ## changeset_version
-接收三个可选参数：
-###  --no-git-push
-表示 bump version 后不会自动 push
 
-### --beta
-无需使用 `changeset pre enter` 来进入和 `changeset pre exit` 退出 pre 模式，仅需 `changeset_version --beta` 就会在每次 bump 时 version + 1。
+\`\`\`sh
+changeset_version [--beta] [--filter <glob>] [--git-push | --no-git-push]
+\`\`\`
 
-如果没有使用 --beta 则更新至 release 版本
-
-### --filter
-表示只 bump 某些包的 version，支持 micromatch，例如： `--filter @mono/changesets` 或 `--filter @mono/*` 
+- 首次使用 \`--beta\` 时进入 \`beta\` 预发布模式；后续执行会继续递增，并保留 \`.changeset/pre.json\` 和 \`.changeset/pre/\`。
+- Stable 执行发现当前处于预发布状态时，会先自动执行 pre exit。
+- \`--filter\` 按包名匹配，但以整个 changeset 文件为处理单位；一个包含多个包的 changeset 不会被拆分。成功或失败后都会恢复临时隐藏的 changeset，启动时也会恢复上次异常遗留。
+- 默认不 push。使用 \`--git-push\` 才会推送当前分支；detached HEAD、缺少目标分支或 push 失败都会明确报错。\`--no-git-push\` 用于显式声明不推送。
+- 没有待发布 changeset 时，保留 Changesets 3 的退出码 1。
 
 ## changeset_publish
-接收一个可选参数：
-### --no-git-tag
-表示 publish 后不打 tag
+
+\`\`\`sh
+changeset_publish [--no-git-tag]
+\`\`\`
+
+默认执行 publish、创建 Git tag 并推送 tag。\`--no-git-tag\` 会透传给 Changesets，并跳过 tag 推送。CI 使用 \`changesets/action/publish@v2\` 完成 npm 发布、Git tag 和 GitHub Release；本封装继续用于本地或手动直发。

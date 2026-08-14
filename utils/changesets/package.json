@@ -19,10 +19,18 @@
 	],
 	"scripts": {
 		"dev": "tsc --watch",
-		"build": "tsc"
+		"build": "tsc",
+		"test": "jest --config jest.config.js --runInBand"
 	},
 	"devDependencies": {
-		"@changesets/types": "^6.1.0"
+		"@changesets/types": "^7.0.0"
+	},
+	"peerDependencies": {
+		"@changesets/cli": "^3.0.0"
+	},
+	"engines": {
+		"node": "^22.11 || ^24 || >=26",
+		"pnpm": ">=11"
 	},
 	"dependencies": {
 		"consola": "^3.2.3",

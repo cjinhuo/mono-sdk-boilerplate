@@ -1,10 +1,10 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import axios from 'axios'
-import { createConsola } from 'consola'
 import dayjs from 'dayjs'
 
 const execa = require('execa')
+const { createConsola } = require('consola')
 
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
 
@@ -32,16 +32,13 @@ export function splitSummary(changesetSummary: string) {
 
 /**
  * 返回拆分后的中英文内容，不符合格式时 throw error
- * @param changesetSummary changeset summary 内容
  * @deprecated 已废弃，changeset 官方的 hook 不太好格式化中英文
- * @returns
  */
 export function splitSummaryForCh(changesetSummary: string) {
 	const summaryLines = changesetSummary.split('\n').filter((line) => line.trim())
 	if (summaryLines.length !== 2) {
 		throw new Error('summary 有且仅包含一个 \\n 换行符')
 	}
-	// 按中英文分组
 	let englishLine = ''
 	let chineseLine = ''
 
@@ -52,17 +49,10 @@ export function splitSummaryForCh(changesetSummary: string) {
 			englishLine = line
 		}
 	}
-	if (!englishLine) {
-		throw new Error('summary 必须包含英文摘要')
-	}
-	if (!chineseLine) {
-		throw new Error('summary 必须包含中文摘要')
-	}
+	if (!englishLine) throw new Error('summary 必须包含英文摘要')
+	if (!chineseLine) throw new Error('summary 必须包含中文摘要')
 
-	return {
-		englishLine,
-		chineseLine,
-	}
+	return { englishLine, chineseLine }
 }
 
 export function formatGitMessage(message: string) {
@@ -159,33 +149,32 @@ export function isContainsChinese(text: string): boolean {
  */
 export function detectPackageManager(): string {
 	const rootDir = process.cwd()
-
-	// 检查锁文件来确定包管理器
-	if (fs.existsSync(path.join(rootDir, 'pnpm-lock.yaml'))) {
-		return 'pnpm'
-	}
-	if (fs.existsSync(path.join(rootDir, 'yarn.lock'))) {
-		return 'yarn'
-	}
-	if (fs.existsSync(path.join(rootDir, 'package-lock.json'))) {
-		return 'npm'
-	}
-	// 默认使用 npx
+	if (fs.existsSync(path.join(rootDir, 'pnpm-lock.yaml'))) return 'pnpm'
+	if (fs.existsSync(path.join(rootDir, 'yarn.lock'))) return 'yarn'
+	if (fs.existsSync(path.join(rootDir, 'package-lock.json'))) return 'npm'
 	return 'npx'
+}
+
+export async function gitPush(options: { followTags?: boolean } = {}): Promise<void> {
+	const { stdout } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { stdio: 'pipe' })
+	const currentBranch = stdout.trim()
+	if (currentBranch === 'HEAD') {
+		throw new Error('Cannot push from detached HEAD')
+	}
+
+	try {
+		await execa('git', ['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}'], { stdio: 'pipe' })
+	} catch (_error) {
+		throw new Error('No upstream configured for branch ' + currentBranch)
+	}
+
+	const args = ['push', ...(options.followTags ? ['--follow-tags'] : [])]
+	await execa('git', args, { stdio: 'inherit' })
 }
 
 /**
  * Git add, commit and push changes
- * @param commitMessage - The commit message to use
  */
-export async function gitPush(): Promise<void> {
-	try {
-		await execa('git', ['push'], { stdio: 'inherit' })
-	} catch (error) {
-		logger.error('git push error', (error as Error).message)
-	}
-}
-
 export async function gitAddAndCommit(commitMessage: string) {
 	try {
 		await execa('git', ['add', '.'], { stdio: 'inherit' })

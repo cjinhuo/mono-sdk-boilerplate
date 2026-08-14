@@ -8,7 +8,7 @@
  * 所有生成的消息都会通过 formatGitMessage 进行长度限制处理
  */
 
-import type { Changeset, ReleasePlan } from '@changesets/types'
+import type { GetAddMessage, GetVersionMessage } from '@changesets/types' with { 'resolution-mode': 'import' }
 import { formatGitMessage } from './helper'
 
 /** Git commit message 前缀 */
@@ -20,7 +20,6 @@ const MESSAGE_PREFIX = 'chore(changeset): 🦋'
  * 当开发者运行 `pnpm changeset` 创建变更集时，会自动生成并提交 git commit
  *
  * @param changeset - 变更集对象
- * @param changeset.confirmed - 是否已确认变更
  * @param changeset.summary - 变更摘要
  * @param changeset.releases - 发布信息数组
  * @param changeset.releases[].name - 包名
@@ -31,20 +30,12 @@ const MESSAGE_PREFIX = 'chore(changeset): 🦋'
  * @example
  * ```typescript
  * const changeset = {
- *   confirmed: true,
  *   summary: 'Add new feature',
  *   releases: [{ name: '@mono/parser-view', type: 'patch' }]
  * }
  * ```
  */
-export async function getAddMessage(
-	changeset: Changeset & {
-		confirmed: boolean
-	}
-) {
-	// 如果变更未确认，返回空字符串
-	if (!changeset.confirmed) return ''
-
+export const getAddMessage: GetAddMessage = async (changeset, _commitOptions) => {
 	// 构建 git commit 消息
 	const gitMessage = `${MESSAGE_PREFIX} ${changeset.releases.map((release) => `${release.name}:${release.type}`).join(',')}`
 
@@ -86,7 +77,7 @@ export async function getAddMessage(
  * }
  * ```
  */
-export async function getVersionMessage(releasePlan: ReleasePlan) {
+export const getVersionMessage: GetVersionMessage = async (releasePlan, _commitOptions) => {
 	// 如果没有发布信息，返回空发布消息
 	if (!Array.isArray(releasePlan.releases) || !releasePlan.releases.length) {
 		return 'chore(changeset): empty release'
