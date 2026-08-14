@@ -1,7 +1,7 @@
 {
 	"name": "changesets-toolkit",
 	"description": "toolkit for changesets which make commit message more automatic and changelogs more readable",
-	"version": "0.0.4",
+	"version": "0.1.0-beta.0",
 	"author": {
 		"name": "cjinhuo",
 		"email": "cjinhuo@qq.com",
@@ -19,10 +19,18 @@
 	],
 	"scripts": {
 		"dev": "tsc --watch",
-		"build": "tsc"
+		"build": "tsc",
+		"test": "jest --config jest.config.js --runInBand"
 	},
 	"devDependencies": {
-		"@changesets/types": "^6.1.0"
+		"@changesets/types": "^7.0.0"
+	},
+	"peerDependencies": {
+		"@changesets/cli": "^3.0.0"
+	},
+	"engines": {
+		"node": "^22.11 || ^24 || >=26",
+		"pnpm": ">=11"
 	},
 	"dependencies": {
 		"consola": "^3.2.3",

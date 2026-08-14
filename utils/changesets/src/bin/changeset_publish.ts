@@ -1,34 +1,41 @@
 #!/usr/bin/env node
 
-// minimist 仅支持 require
-const minimist = require('minimist')
 const execa = require('execa')
 
-import { logger } from '../helper'
+import { gitPush, logger } from '../helper'
 
-interface Args {
-	'git-tag'?: boolean
+export interface PublishArgs {
+	gitTag: boolean
 }
 
-const argv: Args = minimist(process.argv.slice(2))
+export type PublishCommandRunner = (args: string[]) => Promise<void>
+
+const defaultCommandRunner: PublishCommandRunner = async (args) => {
+	await execa('changeset', args, { stdio: 'inherit' })
+}
+
+export function parsePublishArgs(rawArgs: string[]): PublishArgs {
+	return { gitTag: !rawArgs.includes('--no-git-tag') }
+}
+
+export async function executePublish(
+	args: PublishArgs,
+	runCommand: PublishCommandRunner = defaultCommandRunner,
+	pushTags: () => Promise<void> = () => gitPush({ followTags: true })
+): Promise<void> {
+	logger.info('start publishing...')
+	await runCommand(['publish', ...(args.gitTag ? [] : ['--no-git-tag'])])
+	if (args.gitTag) await pushTags()
+	logger.success('publish successfully')
+}
 
 async function main(): Promise<void> {
-	logger.info('start publishing...')
-
-	if (argv['git-tag'] === false) {
-		await execa('npx', ['changeset', 'publish', '--no-git-tag'], { stdio: 'inherit' })
-	} else {
-		await execa('npx', ['changeset', 'publish'], { stdio: 'inherit' })
-		// 获取当前分支名
-		const { stdout: currentBranch } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD'])
-		logger.info(`git push --follow-tags origin ${currentBranch}...`)
-		await execa('git', ['push', '--follow-tags', 'origin', currentBranch], { stdio: 'inherit' })
-	}
-
-	logger.info('publish successfully')
+	await executePublish(parsePublishArgs(process.argv.slice(2)))
 }
 
-main().catch((error: Error) => {
-	logger.error('Failed to publish:', error)
-	process.exit(1)
-})
+if (require.main === module) {
+	main().catch((error: Error) => {
+		logger.error('Failed to publish:', error)
+		process.exitCode = 1
+	})
+}

@@ -5,3 +5,7 @@ packages:
   - 'app/*'
   - 'e2e'
   - 'e2e/demos/*'
+allowBuilds:
+  cypress: false
+  esbuild: true
+  nx: true

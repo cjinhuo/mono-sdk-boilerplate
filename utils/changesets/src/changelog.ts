@@ -1,4 +1,4 @@
-import type { ModCompWithPackage, NewChangesetWithCommit } from '@changesets/types'
+import type { ModCompWithPackage, NewChangesetWithCommit } from '@changesets/types' with { 'resolution-mode': 'import' }
 import { formatGitCommitId, getGitRemoteUrl, getInfoByCommitId, splitSummary } from './helper'
 
 /**

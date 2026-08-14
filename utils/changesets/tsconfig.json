@@ -11,7 +11,7 @@
 		"preserveConstEnums": false, // default value is true.even not import also generate code when use const enum
 		"isolatedModules": false,
 		"experimentalDecorators": true,
-		"moduleResolution": "Node",
+		"moduleResolution": "Node16",
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"pretty": true,
@@ -27,11 +27,12 @@
 		//   "node_modules/@types"
 		// ],
 		"target": "es2015",
-		"module": "commonjs",
+		"module": "Node16",
 		"allowJs": false,
 		"lib": ["es6", "dom"],
 		"sourceMap": false,
 		"declaration": false // 移除 TypeScript 声明文件生成
 	},
-	"include": ["src/**/*.ts"]
+	"include": ["src/**/*.ts"],
+	"exclude": ["src/**/*.spec.ts"]
 }
