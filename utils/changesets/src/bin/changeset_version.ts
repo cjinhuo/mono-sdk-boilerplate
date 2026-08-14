@@ -20,6 +20,7 @@ export interface VersionArgs {
 }
 
 export type CommandRunner = (command: string, args: string[]) => Promise<void>
+export type PreStatePersister = (rootDir: string) => Promise<void>
 
 type PreState = {
 	mode: 'pre' | 'exit'
@@ -30,6 +31,19 @@ type RestoreFunction = () => void
 
 const defaultCommandRunner: CommandRunner = async (command, args) => {
 	await execa(command, args, { stdio: 'inherit' })
+}
+
+export const persistPrereleaseState: PreStatePersister = async (rootDir) => {
+	const preJsonPath = path.join(rootDir, '.changeset', 'pre.json')
+	if (!fs.existsSync(preJsonPath)) {
+		throw new Error('Changesets did not create ' + preJsonPath)
+	}
+
+	await execa('git', ['add', '--', '.changeset/pre.json'], { cwd: rootDir, stdio: 'inherit' })
+	await execa('git', ['commit', '-m', 'chore(changeset): enter beta prerelease'], {
+		cwd: rootDir,
+		stdio: 'inherit',
+	})
 }
 
 export function parseVersionArgs(rawArgs: string[]): VersionArgs {
@@ -151,7 +165,8 @@ export function hideUnmatchedChangesets(rootDir: string, filter: string): Restor
 export async function bumpVersion(
 	rootDir: string,
 	beta: boolean,
-	runCommand: CommandRunner = defaultCommandRunner
+	runCommand: CommandRunner = defaultCommandRunner,
+	persistPreState: PreStatePersister = persistPrereleaseState
 ): Promise<void> {
 	const preState = readPreState(rootDir)
 
@@ -164,6 +179,7 @@ export async function bumpVersion(
 		}
 		if (!preState) {
 			await runCommand('changeset', ['pre', 'enter', BETA_TAG])
+			await persistPreState(rootDir)
 		}
 	} else if (preState?.mode === 'pre') {
 		await runCommand('changeset', ['pre', 'exit'])

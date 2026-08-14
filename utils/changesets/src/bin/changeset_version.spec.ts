@@ -38,18 +38,22 @@ describe('changeset_version', () => {
 		const rootDir = createRoot()
 		roots.push(rootDir)
 		const runCommand = jest.fn(async () => {})
+		const persistPreState = jest.fn(async () => {})
 
-		await bumpVersion(rootDir, true, runCommand)
+		await bumpVersion(rootDir, true, runCommand, persistPreState)
 		expect(runCommand.mock.calls).toEqual([
 			['changeset', ['pre', 'enter', 'beta']],
 			['changeset', ['version']],
 		])
+		expect(persistPreState).toHaveBeenCalledWith(rootDir)
 
 		fs.writeFileSync(path.join(rootDir, '.changeset', 'pre.json'), JSON.stringify({ mode: 'pre', tag: 'beta' }))
 		runCommand.mockClear()
-		await bumpVersion(rootDir, true, runCommand)
+		persistPreState.mockClear()
+		await bumpVersion(rootDir, true, runCommand, persistPreState)
 		expect(runCommand).toHaveBeenCalledTimes(1)
 		expect(runCommand).toHaveBeenCalledWith('changeset', ['version'])
+		expect(persistPreState).not.toHaveBeenCalled()
 	})
 
 	it('exits prerelease mode before a stable version', async () => {

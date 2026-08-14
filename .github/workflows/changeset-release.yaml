@@ -43,4 +43,5 @@ jobs:
       - name: Publish stable release
         uses: changesets/action/publish@v2
         with:
+          script: pnpm changeset_publish
           github-token: ${{ secrets.GITHUB_TOKEN }}
