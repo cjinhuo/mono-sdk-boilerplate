@@ -8,15 +8,21 @@
 - pnpm `>=11`
 - 使用方项目安装 `@changesets/cli@^3.0.0`
 
+## 仓库开发
+
+仓库开发使用 Node.js 24.x（24.22.2）和 pnpm 12.16.1，上述公开包使用方要求保持不变。在根目录运行 `pnpm build`、`pnpm test`、`pnpm test:packages`、`pnpm test:release`。
+
+原有 CommonJS hook 路径保持不变。Execa 通过动态 import 加载 ESM API，使用方不需要修改 hook 配置。
+
 ## 配置
 
 在 `.changeset/config.json` 中配置：
 
 ```json
 {
-  "changelog": ["changesets-toolkit/dist/changelog.js", {}],
-  "commit": ["changesets-toolkit/dist/commit.js", {}],
-  "updateInternalDependencies": "patch"
+	"changelog": ["changesets-toolkit/dist/changelog.js", {}],
+	"commit": ["changesets-toolkit/dist/commit.js", {}],
+	"updateInternalDependencies": "patch"
 }
 ```
 
@@ -55,3 +61,9 @@ changeset_publish [--no-git-tag]
 ```
 
 默认执行 publish、创建 Git tag 并推送 tag。`--no-git-tag` 会透传给 Changesets，并跳过 tag 推送。CI 通过 `changesets/action/publish@v2` 调用本封装，使 tag 指向刚生成的 version commit，同时由 Action 创建 GitHub Release；本封装也继续用于本地或手动直发。
+
+## 发布认证
+
+在发布任务配置 NPM_TOKEN / NODE_AUTH_TOKEN，使用 actions/setup-node 生成的用户级 npm 认证配置。不要在提交到仓库的项目 .npmrc 中放环境变量展开的 registry 凭据。
+
+手动发布工作流先执行完整验收，再创建版本提交、重新构建并发布。本地发布演练使用回环地址 registry 与临时 Git remote，不会发布真实 npm 包。

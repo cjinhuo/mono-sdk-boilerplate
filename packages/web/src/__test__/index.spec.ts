@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { webAdd, webIsString } from '../index'
 
 test('webAdd should work', () => {

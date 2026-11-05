@@ -1,11 +1,60 @@
 packages:
-  # all packages in direct subdirs of packages/
-  - 'packages/*'
-  - 'utils/*'
-  - 'app/*'
-  - 'e2e'
-  - 'e2e/demos/*'
+  - packages/*
+  - utils/*
+  - app/*
+  - e2e
+  - e2e/demos/*
+
+catalog:
+  "@biomejs/biome": "2.6.5"
+  "@changesets/cli": "3.0.3"
+  "@changesets/types": "7.0.0"
+  "@commitlint/cli": "21.2.4"
+  "@commitlint/config-conventional": "21.2.4"
+  "@playwright/test": "1.64.1"
+  "@types/micromatch": "4.0.10"
+  "@types/minimist": "1.2.5"
+  "@types/node": "24.19.2"
+  "@types/react": "19.3.0"
+  "@types/react-dom": "19.3.0"
+  "@vitejs/plugin-react": "6.2.1"
+  "@vitest/coverage-v8": "5.1.0"
+  "axios": "1.21.0"
+  "consola": "3.4.2"
+  "czg": "1.14.0"
+  "dayjs": "1.11.23"
+  "execa": "10.2.1"
+  "fast-glob": "3.3.3"
+  "husky": "9.1.7"
+  "lint-staged": "17.6.0"
+  "micromatch": "4.0.8"
+  "minimist": "1.2.8"
+  "nx": "24.0.4"
+  "react": "19.3.1"
+  "react-dom": "19.3.1"
+  "typescript": "7.0.2"
+  "vite": "8.3.6"
+  "vitest": "5.1.0"
+
 allowBuilds:
-  cypress: false
-  esbuild: true
   nx: true
+
+verifyDepsBeforeRun: false
+
+minimumReleaseAgeExclude:
+  - "@biomejs/biome@2.6.5"
+  - "@biomejs/cli-android-arm64@2.6.5"
+  - "@biomejs/cli-android-x64@2.6.5"
+  - "@biomejs/cli-darwin-arm64@2.6.5"
+  - "@biomejs/cli-darwin-x64@2.6.5"
+  - "@biomejs/cli-linux-arm64-musl@2.6.5"
+  - "@biomejs/cli-linux-arm64@2.6.5"
+  - "@biomejs/cli-linux-x64-musl@2.6.5"
+  - "@biomejs/cli-linux-x64@2.6.5"
+  - "@biomejs/cli-win32-arm64@2.6.5"
+  - "@biomejs/cli-win32-x64@2.6.5"
+  - vite@8.3.6
+
+# Keep Vite module augmentations on one optional-peer instance.
+overrides:
+  yaml: 2.9.1

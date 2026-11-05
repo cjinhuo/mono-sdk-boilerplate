@@ -2,7 +2,7 @@
 	"name": "@mono/tsconfig",
 	"description": "pnpm's TypeScript configuration",
 	"version": "0.0.1",
-	"private": "true",
+	"private": true,
 	"author": {
 		"name": "cjinhuo",
 		"email": "cjinhuo@qq.com",

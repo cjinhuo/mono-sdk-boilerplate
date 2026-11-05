@@ -1,37 +1,14 @@
 {
 	"compilerOptions": {
+		"target": "ES2022",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": false,
 		"rootDir": "src",
 		"outDir": "dist",
-		"jsx": "react-jsx",
-		"allowUnreachableCode": false, // throw error when has unreachable code
-		"allowUnusedLabels": false, // throw error reporting for unused labels.
-		"alwaysStrict": false, // will add 'use strict' in the beginning of the file
-		"strictNullChecks": true,
-		"baseUrl": ".",
-		"preserveConstEnums": false, // default value is true.even not import also generate code when use const enum
-		"isolatedModules": false,
-		"experimentalDecorators": true,
-		"moduleResolution": "Node16",
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"pretty": true,
-		"noImplicitAny": false,
-		"removeComments": true,
-		"stripInternal": true,
-		"strict": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true, // Ensure that casing is correct in imports.
-		"paths": {},
-		"types": ["node", "jest"],
-		// "typeRoots": [
-		//   "node_modules/@types"
-		// ],
-		"target": "es2015",
-		"module": "Node16",
-		"allowJs": false,
-		"lib": ["es6", "dom"],
-		"sourceMap": false,
-		"declaration": false // 移除 TypeScript 声明文件生成
+		"types": ["node"]
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["src/**/*.spec.ts"]

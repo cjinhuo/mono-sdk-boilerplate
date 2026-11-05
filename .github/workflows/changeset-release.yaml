@@ -11,26 +11,32 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7.1.0
         with:
-          node-version: 22.x
+          node-version-file: .node-version
           registry-url: https://registry.npmjs.org
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6.1.1
         with:
-          version: 11
+          version: 12.16.1
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build
-        run: pnpm build
+      - name: Install browser runtimes
+        run: pnpm --filter @mono/e2e exec playwright install --with-deps chromium firefox webkit
+      - name: Verify workspace
+        run: pnpm verify
       - name: Verify npm access
         run: npm whoami
       - name: Configure Git
@@ -40,6 +46,8 @@ jobs:
           git branch --set-upstream-to="origin/$GITHUB_REF_NAME" "$GITHUB_REF_NAME"
       - name: Bump stable version
         run: pnpm changeset_version --git-push
+      - name: Rebuild versioned packages
+        run: pnpm build
       - name: Publish stable release
         uses: changesets/action/publish@v2
         with:

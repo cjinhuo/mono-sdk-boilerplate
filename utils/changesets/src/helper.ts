@@ -2,11 +2,10 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import axios from 'axios'
 import dayjs from 'dayjs'
-
-const execa = require('execa')
-const { createConsola } = require('consola')
-
 import { MAX_GIT_COMMIT_ID_LENGTH, MAX_GIT_MESSAGE_LENGTH } from './constants'
+import { runProcess } from './process'
+
+const { createConsola }: typeof import('consola', { with: { 'resolution-mode': 'import' }}) = require('consola')
 
 /**
  * 创建带有标签前缀的 consola 实例
@@ -68,7 +67,7 @@ export function formatGitCommitId(commitId: string) {
 
 export async function getGitRemoteUrl() {
 	try {
-		const res = await execa('git', ['config', '--get', 'remote.origin.url'], { stdio: 'pipe' })
+		const res = await runProcess('git', ['config', '--get', 'remote.origin.url'], { stdio: 'pipe' })
 		let url = res.stdout.trim()
 		// 转换SSH URL为HTTPS URL
 		if (url.startsWith('git@')) {
@@ -111,7 +110,9 @@ async function getAuthorInfo(email: string, intactHash: string): Promise<string>
 
 export async function getInfoByCommitId(commitId: string) {
 	const splitChar = '__'
-	const res = await execa('git', ['show', `--pretty=%ae${splitChar}%cd${splitChar}%H`, commitId], { stdio: 'pipe' })
+	const res = await runProcess('git', ['show', `--pretty=%ae${splitChar}%cd${splitChar}%H`, commitId], {
+		stdio: 'pipe',
+	})
 	const match = res.stdout.match(/^(.*?)\n/m)
 	if (!match) {
 		throw new Error(`commitId ${commitId} not found`)
@@ -156,20 +157,20 @@ export function detectPackageManager(): string {
 }
 
 export async function gitPush(options: { followTags?: boolean } = {}): Promise<void> {
-	const { stdout } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { stdio: 'pipe' })
+	const { stdout } = await runProcess('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { stdio: 'pipe' })
 	const currentBranch = stdout.trim()
 	if (currentBranch === 'HEAD') {
 		throw new Error('Cannot push from detached HEAD')
 	}
 
 	try {
-		await execa('git', ['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}'], { stdio: 'pipe' })
+		await runProcess('git', ['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}'], { stdio: 'pipe' })
 	} catch (_error) {
-		throw new Error('No upstream configured for branch ' + currentBranch)
+		throw new Error(`No upstream configured for branch ${currentBranch}`)
 	}
 
 	const args = ['push', ...(options.followTags ? ['--follow-tags'] : [])]
-	await execa('git', args, { stdio: 'inherit' })
+	await runProcess('git', args, { stdio: 'inherit' })
 }
 
 /**
@@ -177,8 +178,8 @@ export async function gitPush(options: { followTags?: boolean } = {}): Promise<v
  */
 export async function gitAddAndCommit(commitMessage: string) {
 	try {
-		await execa('git', ['add', '.'], { stdio: 'inherit' })
-		await execa('git', ['commit', '-m', commitMessage], { stdio: 'inherit' })
+		await runProcess('git', ['add', '.'], { stdio: 'inherit' })
+		await runProcess('git', ['commit', '-m', commitMessage], { stdio: 'inherit' })
 	} catch (error) {
 		logger.error('there is nothing to commit', (error as Error).message)
 	}

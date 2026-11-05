@@ -1,9 +1,10 @@
+import { describe, expect, it, vi } from 'vitest'
 import { executePublish, parsePublishArgs } from './changeset_publish'
 
 describe('changeset_publish', () => {
 	it('publishes and pushes tags by default', async () => {
-		const runCommand = jest.fn(async () => {})
-		const pushTags = jest.fn(async () => {})
+		const runCommand = vi.fn(async () => {})
+		const pushTags = vi.fn(async () => {})
 
 		await executePublish(parsePublishArgs([]), runCommand, pushTags)
 
@@ -12,8 +13,8 @@ describe('changeset_publish', () => {
 	})
 
 	it('forwards --no-git-tag and skips tag pushing', async () => {
-		const runCommand = jest.fn(async () => {})
-		const pushTags = jest.fn(async () => {})
+		const runCommand = vi.fn(async () => {})
+		const pushTags = vi.fn(async () => {})
 
 		await executePublish(parsePublishArgs(['--no-git-tag']), runCommand, pushTags)
 
