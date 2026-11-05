@@ -1,10 +1,10 @@
+import { describe, expect, it } from 'vitest'
 import { getAddMessage, getVersionMessage } from './commit'
 
 describe('commit hooks', () => {
 	it('creates a non-empty add commit for the Changesets 3 payload', async () => {
-		const message = await (getAddMessage as any)(
+		const message = await getAddMessage(
 			{
-				id: 'brave-butterflies-upgrade',
 				summary: 'Upgrade Changesets',
 				releases: [
 					{ name: 'changesets-toolkit', type: 'minor' },
@@ -18,9 +18,10 @@ describe('commit hooks', () => {
 	})
 
 	it('creates a version commit message', async () => {
-		const message = await (getVersionMessage as any)(
+		const message = await getVersionMessage(
 			{
 				changesets: [],
+				preState: undefined,
 				releases: [
 					{
 						name: 'changesets-toolkit',

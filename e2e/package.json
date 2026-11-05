@@ -1,19 +1,15 @@
 {
 	"name": "@mono/e2e",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
 	"private": true,
+	"type": "module",
 	"scripts": {
-		"demos": "pnpm --filter @mono/react-e2e-demo run dev",
-		"e2e": "pnpm cypress open"
+		"demos": "pnpm --filter @mono/react-e2e-demo dev",
+		"e2e": "playwright test",
+		"typecheck": "tsc --noEmit"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
 	"devDependencies": {
-		"@cypress/code-coverage": "^3.10.0",
-		"@mono/tsconfig": "workspace:*",
-		"cypress": "^12.8.1"
+		"@playwright/test": "catalog:",
+		"@types/node": "catalog:"
 	}
 }

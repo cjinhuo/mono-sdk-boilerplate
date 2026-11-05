@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-const execa = require('execa')
-
 import { gitPush, logger } from '../helper'
+import { runProcess } from '../process'
 
 export interface PublishArgs {
 	gitTag: boolean
@@ -11,7 +10,7 @@ export interface PublishArgs {
 export type PublishCommandRunner = (args: string[]) => Promise<void>
 
 const defaultCommandRunner: PublishCommandRunner = async (args) => {
-	await execa('changeset', args, { stdio: 'inherit' })
+	await runProcess('changeset', args, { stdio: 'inherit' })
 }
 
 export function parsePublishArgs(rawArgs: string[]): PublishArgs {

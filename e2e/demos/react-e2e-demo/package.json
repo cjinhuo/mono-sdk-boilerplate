@@ -6,20 +6,19 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@mono/core": "workspace:*",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "catalog:",
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
-		"@types/react": "^18.0.28",
-		"@types/react-dom": "^18.0.11",
-		"@vitejs/plugin-react": "^3.1.0",
-		"babel-plugin-istanbul": "^6.1.1",
-		"typescript": "^4.9.3",
-		"vite": "^4.2.0",
-		"vite-plugin-babel": "^1.1.3"
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"typescript": "catalog:",
+		"vite": "catalog:"
 	}
 }

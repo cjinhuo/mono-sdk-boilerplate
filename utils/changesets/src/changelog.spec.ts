@@ -1,13 +1,16 @@
-jest.mock('./helper', () => ({
-	formatGitCommitId: jest.fn(() => 'abcdef1'),
-	getGitRemoteUrl: jest.fn(async () => 'https://github.com/example/repo'),
-	getInfoByCommitId: jest.fn(async () => ({
+import type { NewChangesetWithCommit } from '@changesets/types' with { 'resolution-mode': 'import' }
+import { describe, expect, it, vi } from 'vitest'
+
+vi.mock('./helper', () => ({
+	formatGitCommitId: vi.fn(() => 'abcdef1'),
+	getGitRemoteUrl: vi.fn(async () => 'https://github.com/example/repo'),
+	getInfoByCommitId: vi.fn(async () => ({
 		email: 'author@example.com',
 		author: 'author',
 		date: '2026-08-14',
 		intactHash: 'abcdef1234567890',
 	})),
-	splitSummary: jest.fn((summary: string) => summary.split('\n').filter(Boolean)),
+	splitSummary: vi.fn((summary: string) => summary.split('\n').filter(Boolean)),
 }))
 
 import { getDependencyReleaseLine, getReleaseLine } from './changelog'
@@ -17,7 +20,7 @@ const changeset = {
 	commit: 'abcdef1234567890',
 	summary: 'feat: first line\nfix: second line',
 	releases: [{ name: 'changesets-toolkit', type: 'minor' }],
-} as any
+} satisfies NewChangesetWithCommit
 
 describe('changelog hooks', () => {
 	it('formats release lines', async () => {
@@ -32,7 +35,17 @@ describe('changelog hooks', () => {
 	it('formats nested dependency release lines', async () => {
 		const result = await getDependencyReleaseLine(
 			[changeset],
-			[{ name: '@mono/core', oldVersion: '1.0.0', newVersion: '1.0.1' }] as any
+			[
+				{
+					name: '@mono/core',
+					type: 'patch',
+					changesets: ['brave-butterflies-upgrade'],
+					oldVersion: '1.0.0',
+					newVersion: '1.0.1',
+					packageJson: { name: '@mono/core', version: '1.0.0' },
+					dir: '/fixture/core',
+				},
+			]
 		)
 
 		expect(result).toContain('- Updated By @mono/core: 1.0.0->1.0.1')

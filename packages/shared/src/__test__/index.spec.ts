@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import { isString } from '../index'
 
 test('isString should work', () => {

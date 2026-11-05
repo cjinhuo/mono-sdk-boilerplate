@@ -25,3 +25,7 @@ temp
 dist
 lib
 esm
+
+# Browser test reports
+playwright-report/
+test-results/

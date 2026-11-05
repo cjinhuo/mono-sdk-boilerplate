@@ -1,16 +1,12 @@
 {
-	"extends": "@mono/tsconfig",
 	"compilerOptions": {
-		"composite": true,
-		"rootDir": ".",
-		"outDir": "./dist",
-		"target": "es5",
-		"module": "ESNext",
-		"jsx": "react-jsx",
-		"types": ["cypress", "node"],
-		"preserveConstEnums": true
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"strict": true,
+		"noEmit": true,
+		"types": ["node"]
 	},
-	"include": ["./cypress/**/**.ts", "cypress.config.ts", ".eslintrc.cjs"],
-	"exclude": ["node_modules", "dist"],
-	"references": []
+	"include": ["playwright.config.ts", "tests/**/*.ts"]
 }

@@ -1,25 +1,31 @@
 {
-	"workspaceLayout": {
-		"libsDir": "packages"
-	},
-	"tasksRunnerOptions": {
-		"default": {
-			"runner": "nx/tasks-runners/default",
-			"options": {
-				"parallel": 6
-			}
-		}
-	},
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"targetDefaults": {
-		"rollup": {
-			"dependsOn": ["esm"]
+		"build": {
+			"dependsOn": ["^build"],
+			"cache": true,
+			"outputs": ["{projectRoot}/dist"],
+			"inputs": ["default", "^default"]
 		},
-		"esm": {
-			"dependsOn": []
-		},
-		"test": {
-			"dependsOn": [],
-			"outputs": []
+		"typecheck": {
+			"dependsOn": ["^build"],
+			"cache": true
 		}
+	},
+	"namedInputs": {
+		"default": [
+			"{projectRoot}/**/*",
+			"!{projectRoot}/dist/**/*",
+			"!{projectRoot}/esm/**/*",
+			"!{projectRoot}/node_modules/**/*",
+			"sharedGlobals"
+		],
+		"sharedGlobals": [
+			"{workspaceRoot}/pnpm-lock.yaml",
+			"{workspaceRoot}/utils/tsconfig/**/*",
+			"{workspaceRoot}/utils/vite/**/*",
+			"{workspaceRoot}/scripts/finalize-library.mjs",
+			"{workspaceRoot}/.node-version"
+		]
 	}
 }

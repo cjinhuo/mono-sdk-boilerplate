@@ -1,17 +1,11 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import babel from 'vite-plugin-babel'
+import { workspaceAliases } from '../../../utils/vite/library.ts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		react(),
-		babel({
-			babelConfig: {
-				// plugins: ['istanbul'],
-			},
-		}),
-	],
+	plugins: [react()],
+	resolve: { alias: workspaceAliases },
 	server: {
 		port: 6060,
 	},

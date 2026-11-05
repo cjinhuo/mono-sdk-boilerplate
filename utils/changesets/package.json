@@ -20,10 +20,13 @@
 	"scripts": {
 		"dev": "tsc --watch",
 		"build": "tsc",
-		"test": "jest --config jest.config.js --runInBand"
+		"typecheck": "tsc --noEmit",
+		"test": "pnpm --workspace-root exec vitest run --project changesets"
 	},
 	"devDependencies": {
-		"@changesets/types": "^7.0.0"
+		"@changesets/types": "catalog:",
+		"@types/minimist": "catalog:",
+		"@types/micromatch": "catalog:"
 	},
 	"peerDependencies": {
 		"@changesets/cli": "^3.0.0"
@@ -33,12 +36,13 @@
 		"pnpm": ">=11"
 	},
 	"dependencies": {
-		"consola": "^3.2.3",
-		"fast-glob": "^3.3.3",
-		"micromatch": "^4.0.8",
-		"axios": "^1.10.0",
-		"dayjs": "^1.11.13",
-		"execa": "^5.1.1",
-		"minimist": "^1.2.7"
-	}
+		"consola": "catalog:",
+		"fast-glob": "catalog:",
+		"micromatch": "catalog:",
+		"axios": "catalog:",
+		"dayjs": "catalog:",
+		"execa": "catalog:",
+		"minimist": "catalog:"
+	},
+	"type": "commonjs"
 }

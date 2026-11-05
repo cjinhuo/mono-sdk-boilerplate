@@ -1,6 +1,7 @@
 import * as fs from 'node:fs'
 import * as os from 'node:os'
 import * as path from 'node:path'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
 	bumpVersion,
 	executeVersion,
@@ -17,8 +18,8 @@ function createRoot(): string {
 }
 
 function writeChangeset(rootDir: string, filename: string, packages: string[]): void {
-	const releases = packages.map((name) => '"' + name + '": patch').join('\n')
-	fs.writeFileSync(path.join(rootDir, '.changeset', filename), '---\n' + releases + '\n---\n\nsummary\n')
+	const releases = packages.map((name) => `"${name}": patch`).join('\n')
+	fs.writeFileSync(path.join(rootDir, '.changeset', filename), `---\n${releases}\n---\n\nsummary\n`)
 }
 
 describe('changeset_version', () => {
@@ -37,8 +38,8 @@ describe('changeset_version', () => {
 	it('enters beta mode only on the first prerelease', async () => {
 		const rootDir = createRoot()
 		roots.push(rootDir)
-		const runCommand = jest.fn(async () => {})
-		const persistPreState = jest.fn(async () => {})
+		const runCommand = vi.fn(async () => {})
+		const persistPreState = vi.fn(async () => {})
 
 		await bumpVersion(rootDir, true, runCommand, persistPreState)
 		expect(runCommand.mock.calls).toEqual([
@@ -60,7 +61,7 @@ describe('changeset_version', () => {
 		const rootDir = createRoot()
 		roots.push(rootDir)
 		fs.writeFileSync(path.join(rootDir, '.changeset', 'pre.json'), JSON.stringify({ mode: 'pre', tag: 'beta' }))
-		const runCommand = jest.fn(async () => {})
+		const runCommand = vi.fn(async () => {})
 
 		await bumpVersion(rootDir, false, runCommand)
 		expect(runCommand.mock.calls).toEqual([
@@ -101,7 +102,7 @@ describe('changeset_version', () => {
 		writeChangeset(rootDir, 'core.md', ['@mono/core'])
 		writeChangeset(rootDir, 'web.md', ['@mono/web'])
 
-		const runCommand = jest.fn(async () => {
+		const runCommand = vi.fn(async () => {
 			throw new Error('version failed')
 		})
 

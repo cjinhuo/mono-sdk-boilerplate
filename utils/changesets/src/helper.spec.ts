@@ -1,6 +1,10 @@
-jest.mock('execa')
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const execa = require('execa') as jest.Mock
+vi.mock('./process')
+
+import { runProcess } from './process'
+
+const execa = vi.mocked(runProcess)
 
 import { gitPush } from './helper'
 
